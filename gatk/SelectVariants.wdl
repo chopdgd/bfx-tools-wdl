@@ -7,13 +7,13 @@ version 1.0
 # Example: https://software.broadinstitute.org/wdl/documentation/article?id=7615
 # -------------------------------------------------------------------------------------------------
 
-import "https://raw.githubusercontent.com/genomics-geek/bfx-tools-wdl/master/structs/Resources.wdl"
-
 task SelectVariants {
   input {
     File ? java
     File gatk
-    ReferenceFasta reference
+    File reference
+    File reference_idx
+    File reference_dict
 
     Array[File] intervals
     File input_file
@@ -36,7 +36,7 @@ task SelectVariants {
       -Xmx${default=4 memory}g \
       -jar ${gatk} \
       -T SelectVariants ${userString} \
-      -R ${reference.reference} \
+      -R ${reference} \
       -nt ${default=1 cpu} \
       --variant ${input_file} \
       ${sep=" " prefix("--intervals ", intervals)} \
@@ -59,7 +59,9 @@ task SelectVariants {
   parameter_meta {
     java: "Path to Java."
     gatk: "GATK jar file."
-    reference: "ReferenceFasta struct that contains Reference sequence file, index (.fai), and dict (.dict)."
+    reference: "Reference sequence file."
+    reference_idx: "Reference sequence index (.fai)."
+    reference_dict: "Reference sequence dict (.dict)."
     intervals: "One or more genomic intervals over which to operate."
     input_file: "One VCF file."
     input_idx_file: "VCF index file (.tbi)."

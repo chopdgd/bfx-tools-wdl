@@ -6,13 +6,12 @@ version 1.0
 # Documentation: http://broadinstitute.github.io/picard/command-line-overview.html#CollectHsMetrics
 # -------------------------------------------------------------------------------------------------
 
-import "https://raw.githubusercontent.com/genomics-geek/bfx-tools-wdl/master/structs/Resources.wdl"
-
 task CollectHsMetrics {
   input {
     File ? java
     File picard
-    ReferenceFasta reference
+    File reference
+    File reference_idx
 
     String sample_id
     File input_file
@@ -35,7 +34,7 @@ task CollectHsMetrics {
       -Xmx${default=4 memory}g \
       -jar ${picard} CollectHsMetrics \
       VALIDATION_STRINGENCY=${default="LENIENT" validation_stringency} \
-      REFERENCE_SEQUENCE=${reference.reference} \
+      REFERENCE_SEQUENCE=${reference} \
       INPUT=${input_file} \
       BAIT_INTERVALS=${bait_intervals} \
       TARGET_INTERVALS=${target_intervals} \
@@ -57,7 +56,8 @@ task CollectHsMetrics {
   parameter_meta {
     java: "Path to Java."
     picard: "Picard jar file."
-    reference: "ReferenceFasta struct that contains Reference sequence file, index (.fai), and dict (.dict)."
+    reference: "Reference sequence file."
+    reference_idx: "Reference sequence index (.fai)."
     sample_id: "prefix for output files."
     input_file: "Sorted BAM file."
     input_idx_file: "Sorted BAM index file."

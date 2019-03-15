@@ -6,13 +6,11 @@ version 1.0
 # Documentation: https://broadinstitute.github.io/picard/command-line-overview.html#BedToIntervalList
 # -------------------------------------------------------------------------------------------------
 
-import "https://raw.githubusercontent.com/genomics-geek/bfx-tools-wdl/master/structs/Resources.wdl"
-
 task BedToIntervalList {
   input {
     File ? java
     File picard
-    ReferenceFasta reference
+    File reference_dict
 
     File bed_file
 
@@ -31,7 +29,7 @@ task BedToIntervalList {
       -Xmx${default=4 memory}g \
       -jar ${picard} BedToIntervalList \
       ${default="VALIDATION_STRINGENCY=LENIENT" "VALIDATION_STRINGENCY=" + validation_stringency} \
-      SEQUENCE_DICTIONARY=${reference.reference_dict} \
+      SEQUENCE_DICTIONARY=${reference_dict} \
       ${default="UNIQUE=true" true="UNIQUE=true" false="" unique} \
       INPUT=${bed_file} \
       OUTPUT=${output_filename} \
@@ -50,7 +48,7 @@ task BedToIntervalList {
   parameter_meta {
     java: "Path to Java."
     picard: "Picard jar file."
-    reference: "ReferenceFasta struct that contains Reference sequence file, index (.fai), and dict (.dict)."
+    reference_dict: "Reference sequence dict (.dict)."
     bed_file: "BED file to convert."
     validation_stringency: "Validation stringency for all SAM files read by this program. Setting stringency to SILENT can improve performance when processing a BAM file in which variable-length data (read, qualities, tags) do not otherwise need to be decoded."
     unique: "Unique the output interval list by merging overlapping regions."
