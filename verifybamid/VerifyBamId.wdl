@@ -31,7 +31,7 @@ task VerifyBamId {
   }
 
   output {
-    File output_file = "${sample_id}" + ".selfSM"
+    File freemix_file = "${sample_id}" + ".selfSM"
   }
 
   runtime {

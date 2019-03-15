@@ -40,8 +40,8 @@ task ExtractMappedReads {
   }
 
   output {
-    File output_file = "${output_filename}"
-    File output_idx_file = "${output_filename}" + ".bai"
+    File bam_file = "${output_filename}"
+    File bam_idx_file = "${output_filename}" + ".bai"
   }
 
   runtime {

@@ -24,7 +24,7 @@ task DecomposeBlockSubstitutions {
   }
 
   output {
-    File output_file = "${output_filename}"
+    File vcf_file = "${output_filename}"
   }
 
   runtime {
