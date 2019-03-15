@@ -12,3 +12,4 @@ trim_trailing_whitespace = false
 line_length=100
 indent_style = space
 indent_size = 2
+trim_trailing_whitespace = true
