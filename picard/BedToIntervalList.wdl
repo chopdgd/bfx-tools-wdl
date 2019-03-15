@@ -1,0 +1,68 @@
+version 1.0
+# -------------------------------------------------------------------------------------------------
+# Package Name: https://broadinstitute.github.io/picard/
+# Task Summary: Converts a BED file to a Picard Interval List.
+# Tool Name: Picard BedToIntervalList
+# Documentation: https://broadinstitute.github.io/picard/command-line-overview.html#BedToIntervalList
+# -------------------------------------------------------------------------------------------------
+
+import "https://raw.githubusercontent.com/genomics-geek/bfx-tools-wdl/master/structs/Resources.wdl"
+
+task BedToIntervalList {
+  input {
+    File ? java
+    File picard
+    ReferenceFasta reference
+
+    File bed_file
+
+    String ? validation_stringency
+    Boolean ? unique
+    String ? userString
+
+    Int ? memory
+    Int ? cpu
+  }
+
+  String output_filename = basename(bed_file) + ".interval_list"
+
+  command {
+    ${default="java" java} \
+      -Xmx${default=4 memory}g \
+      -jar ${picard} BedToIntervalList \
+      ${default="VALIDATION_STRINGENCY=LENIENT" "VALIDATION_STRINGENCY=" + validation_stringency} \
+      SEQUENCE_DICTIONARY=${reference.reference_dict} \
+      ${default="UNIQUE=true" true="UNIQUE=true" false="" unique} \
+      INPUT=${bed_file} \
+      OUTPUT=${output_filename} \
+      ${userString}
+  }
+
+  output {
+    File interval_list_file = "${output_filename}"
+  }
+
+  runtime {
+    memory: select_first([memory, 4]) * 1.5 + " GB"
+    cpu: select_first([cpu, 1])
+  }
+
+  parameter_meta {
+    java: "Path to Java."
+    picard: "Picard jar file."
+    reference: "ReferenceFasta struct that contains Reference sequence file, index (.fai), and dict (.dict)."
+    bed_file: "BED file to convert."
+    validation_stringency: "Validation stringency for all SAM files read by this program. Setting stringency to SILENT can improve performance when processing a BAM file in which variable-length data (read, qualities, tags) do not otherwise need to be decoded."
+    unique: "Unique the output interval list by merging overlapping regions."
+    userString: "An optional parameter which allows the user to specify additions to the command line at run time."
+    memory: "GB of RAM to use at runtime."
+    cpu: "Number of CPUs to use at runtime."
+  }
+
+  meta {
+    author: "Michael A. Gonzalez"
+    email: "GonzalezMA@email.chop.edu"
+    picard_version: "2.17.8"
+    version: "0.1.0"
+  }
+}
