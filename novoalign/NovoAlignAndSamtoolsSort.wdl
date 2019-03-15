@@ -26,7 +26,6 @@ task NovoAlignAndSamtoolsSort {
 
     Int ? memory
     Int ? cpu
-    String ? backend
     Boolean ? debug
   }
 
@@ -76,7 +75,6 @@ task NovoAlignAndSamtoolsSort {
     userString: "An optional parameter which allows the user to specify additions to the command line at run time."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
-    backend: "Cromwell backend to use. Defaults to SGE."
     debug: "Should only map 50000 reads to test."
   }
 
