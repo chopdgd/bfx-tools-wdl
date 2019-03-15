@@ -10,13 +10,13 @@ version 1.0
 #  * Naming your output file using the .g.vcf extension will automatically set the appropriate values  for --variant_index_type and --variant_index_parameter
 # -------------------------------------------------------------------------------------------------
 
-import "https://raw.githubusercontent.com/genomics-geek/bfx-tools-wdl/master/structs/Resources.wdl"
-
 task HaplotypeCallerERC {
   input {
     File ? java
     File gatk
-    ReferenceFasta reference
+    File reference
+    File reference_idx
+    File reference_dict
 
     File ? dbsnp
     File ? dbsnp_idx
@@ -43,7 +43,7 @@ task HaplotypeCallerERC {
       ${userString} \
       -nct ${default=1 cpu} \
       ${"--dbsnp " + dbsnp} \
-      -R ${reference.reference} \
+      -R ${reference} \
       -I ${bam_file} \
       ${sep=" " prefix("--intervals ", intervals)} \
       -o ${gvcf_filename}
@@ -62,7 +62,9 @@ task HaplotypeCallerERC {
   parameter_meta {
     java: "Path to Java."
     gatk: "GATK jar file."
-    reference: "ReferenceFasta struct that contains Reference sequence file, index (.fai), and dict (.dict)."
+    reference: "Reference sequence file."
+    reference_idx: "Reference sequence index (.fai)."
+    reference_dict: "Reference sequence dict (.dict)."
     dbsnp: "dbSNP VCF file."
     dbsnp_idx: "dbSNP VCF index file (.tbi)."
     intervals: "One or more genomic intervals over which to operate."

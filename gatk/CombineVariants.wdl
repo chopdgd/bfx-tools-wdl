@@ -7,13 +7,13 @@ version 1.0
 # Example: https://software.broadinstitute.org/wdl/documentation/article?id=7615
 # -------------------------------------------------------------------------------------------------
 
-import "https://raw.githubusercontent.com/genomics-geek/bfx-tools-wdl/master/structs/Resources.wdl"
-
 task CombineVariants {
   input {
     File ? java
     File gatk
-    ReferenceFasta reference
+    File reference
+    File reference_idx
+    File reference_dict
 
     String filename_prefix
     Array[String] input_files # NOTE: This allows us to add tagging. That's why its a string
@@ -55,7 +55,9 @@ task CombineVariants {
   parameter_meta {
     java: "Path to Java."
     gatk: "GATK jar file."
-    reference: "ReferenceFasta struct that contains Reference sequence file, index (.fai), and dict (.dict)."
+    reference: "Reference sequence file."
+    reference_idx: "Reference sequence index (.fai)."
+    reference_dict: "Reference sequence dict (.dict)."
     filename_prefix: "Prefix of the output VCF filename."
     input_files: "Two or more VCF files."
     input_idx_files: "VCF index files (.tbi)."

@@ -7,13 +7,13 @@ version 1.0
 # Example: https://software.broadinstitute.org/wdl/documentation/article?id=7615
 # -------------------------------------------------------------------------------------------------
 
-import "https://raw.githubusercontent.com/genomics-geek/bfx-tools-wdl/master/structs/Resources.wdl"
-
 task VariantFiltration {
   input {
     File ? java
     File gatk
-    ReferenceFasta reference
+    File reference
+    File reference_idx
+    File reference_dict
 
     File input_file
     File input_idx_file
@@ -36,7 +36,7 @@ task VariantFiltration {
       -jar ${gatk} \
       -T VariantFiltration \
       ${userString} \
-      -R ${reference.reference} \
+      -R ${reference} \
       --variant ${input_file} \
       --clusterWindowSize ${default=10 clusterWindowSize} \
       ${default="" "--filterExpression " + filterExpression} \
@@ -57,7 +57,9 @@ task VariantFiltration {
   parameter_meta {
     java: "Path to Java."
     gatk: "GATK jar file."
-    reference: "ReferenceFasta struct that contains Reference sequence file, index (.fai), and dict (.dict)."
+    reference: "Reference sequence file."
+    reference_idx: "Reference sequence index (.fai)."
+    reference_dict: "Reference sequence dict (.dict)."
     input_file: "Two or more VCF files."
     input_idx_file: "VCF index files (.tbi)."
     clusterWindowSize: "The window size (in bases) in which to evaluate clustered SNPs."

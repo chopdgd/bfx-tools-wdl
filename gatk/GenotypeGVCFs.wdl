@@ -7,13 +7,13 @@ version 1.0
 # Example: https://software.broadinstitute.org/wdl/documentation/article?id=7615
 # -------------------------------------------------------------------------------------------------
 
-import "https://raw.githubusercontent.com/genomics-geek/bfx-tools-wdl/master/structs/Resources.wdl"
-
 task GenotypeGVCFs {
   input {
     File ? java
     File gatk
-    ReferenceFasta reference
+    File reference
+    File reference_idx
+    File reference_dict
 
     File ? dbsnp
     File ? dbsnp_idx
@@ -42,7 +42,7 @@ task GenotypeGVCFs {
       -stand_call_conf ${default="10.0" stand_call_conf} \
       ${"--dbsnp " + dbsnp} \
       -nt ${default=1 cpu} \
-      -R ${reference.reference} \
+      -R ${reference} \
       ${sep=" " prefix("--variant ", gvcf_files)} \
       ${sep=" " prefix("--intervals ", intervals)} \
       -o ${vcf_filename}
@@ -61,7 +61,9 @@ task GenotypeGVCFs {
   parameter_meta {
     java: "Path to Java."
     gatk: "GATK jar file."
-    reference: "ReferenceFasta struct that contains Reference sequence file, index (.fai), and dict (.dict)."
+    reference: "Reference sequence file."
+    reference_idx: "Reference sequence index (.fai)."
+    reference_dict: "Reference sequence dict (.dict)."
     intervals: "One or more genomic intervals over which to operate."
     cohort_id: "Prefix of the output VCF filename."
     gvcf_files: "One or more gVCF files."

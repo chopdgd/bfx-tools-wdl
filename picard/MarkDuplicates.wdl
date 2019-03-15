@@ -6,13 +6,12 @@ version 1.0
 # Documentation: https://broadinstitute.github.io/picard/command-line-overview.html#MarkDuplicates
 # -------------------------------------------------------------------------------------------------
 
-import "https://raw.githubusercontent.com/genomics-geek/bfx-tools-wdl/master/structs/Resources.wdl"
-
 task MarkDuplicates {
   input {
     File ? java
     File picard
-    ReferenceFasta reference
+    File reference
+    File reference_idx
 
     String sample_id
     File input_file
@@ -37,7 +36,7 @@ task MarkDuplicates {
       -Xmx${default=4 memory}g \
       -jar ${picard} MarkDuplicates \
       VALIDATION_STRINGENCY=${default="LENIENT" validation_stringency} \
-      REFERENCE_SEQUENCE=${reference.reference} \
+      REFERENCE_SEQUENCE=${reference} \
       INPUT=${input_file} \
       REMOVE_DUPLICATES=${default=false remove_duplicates} \
       ${"ASSUME_SORT_ORDER=" + sort_order} \
@@ -61,7 +60,8 @@ task MarkDuplicates {
   parameter_meta {
     java: "Path to Java."
     picard: "Picard jar file."
-    reference: "ReferenceFasta struct that contains Reference sequence file, index (.fai), and dict (.dict)."
+    reference: "Reference sequence file."
+    reference_idx: "Reference sequence index (.fai)."
     sample_id: "prefix for output files."
     input_file: "SAM or BAM file."
     validation_stringency: "Validation stringency for all SAM files read by this program. Setting stringency to SILENT can improve performance when processing a BAM file in which variable-length data (read, qualities, tags) do not otherwise need to be decoded."

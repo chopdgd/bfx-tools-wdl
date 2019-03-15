@@ -7,13 +7,13 @@ version 1.0
 # Example: https://software.broadinstitute.org/wdl/documentation/article?id=7615
 # -------------------------------------------------------------------------------------------------
 
-import "https://raw.githubusercontent.com/genomics-geek/bfx-tools-wdl/master/structs/Resources.wdl"
-
 task DepthOfCoverage {
   input {
     File ? java
     File gatk
-    ReferenceFasta reference
+    File reference
+    File reference_idx
+    File reference_dict
 
     Array[File] intervals
     File ? gene_list
@@ -37,7 +37,7 @@ task DepthOfCoverage {
       -jar ${gatk} \
       -T DepthOfCoverage \
       ${default="-omitBaseOutput -omitLocusTable" userString} \
-      -R ${reference.reference} \
+      -R ${reference} \
       ${"-geneList " + gene_list} \
       ${default="15" sep=" " prefix("-ct ", summary_coverage_threshold)} \
       ${sep=" " prefix("-I ", bam_files)} \
@@ -60,7 +60,9 @@ task DepthOfCoverage {
   parameter_meta {
     java: "Path to Java."
     gatk: "GATK jar file."
-    reference: "ReferenceFasta struct that contains Reference sequence file, index (.fai), and dict (.dict)."
+    reference: "Reference sequence file."
+    reference_idx: "Reference sequence index (.fai)."
+    reference_dict: "Reference sequence dict (.dict)."
     intervals: "One or more genomic intervals over which to operate."
     gene_list: "Calculate coverage statistics over this list of genes"
     sample_id: "prefix for output files"
