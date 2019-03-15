@@ -47,8 +47,8 @@ task SelectVariants {
   }
 
   output {
-    File output_file = "${output_filename}"
-    File output_file_idx = "${output_idx_filename}"
+    File vcf_file = "${output_filename}"
+    File vcf_idx_file = "${output_idx_filename}"
   }
 
   runtime {
