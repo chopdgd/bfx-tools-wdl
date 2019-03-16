@@ -6,6 +6,7 @@ version 1.0
 # Documentation: http://broadinstitute.github.io/picard/command-line-overview.html#CollectHsMetrics
 # -------------------------------------------------------------------------------------------------
 
+
 task CollectHsMetrics {
   input {
     File ? java

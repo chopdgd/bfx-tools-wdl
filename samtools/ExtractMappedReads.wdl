@@ -5,6 +5,7 @@ version 1.0
 # Documentation: http://www.htslib.org/doc/samtools.html
 # -------------------------------------------------------------------------------------------------
 
+
 task ExtractMappedReads {
   input {
     File samtools
@@ -12,8 +13,8 @@ task ExtractMappedReads {
     File reference
     File reference_idx
 
-    File bam_file
-    File ? bam_idx_file
+    File input_file
+    File ? input_idx_file
 
     String ? userString
 
@@ -29,7 +30,7 @@ task ExtractMappedReads {
     ${samtools} view \
       ${userString} \
       --reference ${reference} ${"-@ " + cpu} \
-      ${bam_file} | \
+      ${input_file} | \
       ${samtools} sort \
       -O BAM \
       --reference ${reference} \
@@ -53,8 +54,8 @@ task ExtractMappedReads {
     samtools: "Samtools executable."
     reference: "Reference sequence file."
     reference_idx: "Reference sequence index (.fai)."
-    bam_file: "bam file."
-    bam_idx_file: "bam index file."
+    input_file: "bam file."
+    input_idx_file: "bam index file."
     userString: "An optional parameter which allows the user to specify additions to the command line at run time."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."

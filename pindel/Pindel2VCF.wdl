@@ -6,6 +6,7 @@ version 1.0
 # Documentation: http://gmt.genome.wustl.edu/packages/pindel/user-manual.html
 # -------------------------------------------------------------------------------------------------
 
+
 task Pindel2Vcf {
   input {
     File pindel2vcf

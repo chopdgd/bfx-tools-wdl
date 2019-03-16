@@ -8,11 +8,12 @@ version 1.0
 #  * https://genome.sph.umich.edu/wiki/Vt#Normalization
 # -------------------------------------------------------------------------------------------------
 
+
 task DecomposeNormalizeVCF {
   input {
     File vt
-    File vcf_file
-    File ? vcf_idx_file
+    File input_file
+    File ? input_idx_file
 
     File reference
 
@@ -24,7 +25,7 @@ task DecomposeNormalizeVCF {
 
   command {
     set -Eeuxo pipefail;
-    ${vt} decompose -s ${vcf_file} | ${vt} normalize - -r ${reference} -o ${output_filename};
+    ${vt} decompose -s ${input_file} | ${vt} normalize - -r ${reference} -o ${output_filename};
   }
 
   output {
@@ -38,8 +39,8 @@ task DecomposeNormalizeVCF {
 
   parameter_meta {
     vt: "Vt executable."
-    vcf_file: "VCF file."
-    vcf_idx_file: "VCF file index (.tbi)."
+    input_file: "VCF file."
+    input_idx_file: "VCF file index (.tbi)."
     reference: "Reference fasta sequence."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."

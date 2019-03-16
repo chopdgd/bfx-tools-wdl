@@ -8,6 +8,7 @@ version 1.0
 #  * http://snpeff.sourceforge.net/SnpSift.html#dbNSFP
 # -------------------------------------------------------------------------------------------------
 
+
 task SnpSift {
   input {
     File ? java

@@ -6,6 +6,7 @@ version 1.0
 # Documentation: https://broadinstitute.github.io/picard/command-line-overview.html#MarkDuplicates
 # -------------------------------------------------------------------------------------------------
 
+
 task MarkDuplicates {
   input {
     File ? java
