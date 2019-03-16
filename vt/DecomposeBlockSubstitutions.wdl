@@ -18,7 +18,7 @@ task DecomposeBlockSubstitutions {
     Int ? cpu
   }
 
-  String output_filename = basename(vcf_file) + ".decomposed.blocksub.vcf"
+  String output_filename = basename(input_file) + ".decomposed.blocksub.vcf"
 
   command {
     ${default="vt" vt} decompose_blocksub ${input_file} -o ${output_filename};

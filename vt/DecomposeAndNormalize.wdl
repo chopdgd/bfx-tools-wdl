@@ -21,7 +21,7 @@ task DecomposeNormalizeVCF {
     Int ? cpu
   }
 
-  String output_filename = basename(vcf_file) + ".decomposed.normalized.vcf"
+  String output_filename = basename(input_file) + ".decomposed.normalized.vcf"
 
   command {
     set -Eeuxo pipefail;

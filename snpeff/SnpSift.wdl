@@ -23,13 +23,13 @@ task SnpSift {
     File ? database_idx
 
     String ? mode
-    String database_prefix = if mode == "dbnsfp" then "-db" else ""
     String ? userString
 
     Int ? memory
     Int ? cpu
   }
 
+  String database_prefix = if mode == "dbnsfp" then "-db" else ""
   String output_filename = filename_prefix + '.snpsift.vcf'
 
   command {
