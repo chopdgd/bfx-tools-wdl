@@ -6,6 +6,7 @@ version 1.0
 # Documentation: http://snpeff.sourceforge.net/SnpEff_manual.html
 # -------------------------------------------------------------------------------------------------
 
+
 task SnpEff {
   input {
     File ? java

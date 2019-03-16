@@ -7,6 +7,7 @@ version 1.0
 # Example: https://software.broadinstitute.org/wdl/documentation/article?id=7615
 # -------------------------------------------------------------------------------------------------
 
+
 task GenotypeGVCFs {
   input {
     File ? java

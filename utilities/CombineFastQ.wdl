@@ -1,5 +1,6 @@
 version 1.0
 
+
 task CombineFastQ {
   input {
     File fastq

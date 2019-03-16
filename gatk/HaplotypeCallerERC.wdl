@@ -10,6 +10,7 @@ version 1.0
 #  * Naming your output file using the .g.vcf extension will automatically set the appropriate values  for --variant_index_type and --variant_index_parameter
 # -------------------------------------------------------------------------------------------------
 
+
 task HaplotypeCallerERC {
   input {
     File ? java

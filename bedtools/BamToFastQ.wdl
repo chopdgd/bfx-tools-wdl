@@ -6,6 +6,7 @@ version 1.0
 # Documentation: https://bedtools.readthedocs.io/en/latest/content/tools/bamtofastq.html
 # -------------------------------------------------------------------------------------------------
 
+
 task BamToFastQ {
   input {
     File bedtools

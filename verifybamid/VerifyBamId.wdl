@@ -6,6 +6,7 @@ version 1.0
 # Documentation: https://genome.sph.umich.edu/wiki/VerifyBamID
 # -------------------------------------------------------------------------------------------------
 
+
 task VerifyBamId {
   input {
     File verifybamid

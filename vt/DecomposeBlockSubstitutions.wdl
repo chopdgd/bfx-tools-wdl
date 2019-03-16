@@ -6,12 +6,13 @@ version 1.0
 # Documentation: https://genome.sph.umich.edu/wiki/Vt#Decompose_biallelic_block_substitutions
 # -------------------------------------------------------------------------------------------------
 
+
 task DecomposeBlockSubstitutions {
   input {
     File vt
 
-    File vcf_file
-    File ? vcf_idx_file
+    File input_file
+    File ? input_idx_file
 
     Int ? memory
     Int ? cpu
@@ -20,7 +21,7 @@ task DecomposeBlockSubstitutions {
   String output_filename = basename(vcf_file) + ".decomposed.blocksub.vcf"
 
   command {
-    ${default="vt" vt} decompose_blocksub ${vcf_file} -o ${output_filename};
+    ${default="vt" vt} decompose_blocksub ${input_file} -o ${output_filename};
   }
 
   output {
@@ -34,8 +35,8 @@ task DecomposeBlockSubstitutions {
 
   parameter_meta {
     vt: "Vt executable."
-    vcf_file: "VCF file."
-    vcf_idx_file: "VCF file index (.tbi)."
+    input_file: "VCF file."
+    input_idx_file: "VCF file index (.tbi)."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
   }

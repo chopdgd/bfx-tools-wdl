@@ -6,6 +6,7 @@ version 1.0
 # Documentation: http://www.novocraft.com/documentation/novoalign-2/
 # -------------------------------------------------------------------------------------------------
 
+
 task NovoAlignAndSamtoolsSort {
   input {
     File novoalign
