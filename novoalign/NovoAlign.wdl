@@ -35,9 +35,9 @@ task NovoAlign {
       -f ${fastq_1} ${fastq_2} \
       -c ${default=16 cpu} \
       -o ${default="SAM" output_format} \
+      "@RG\\tID:${sample_id}\\tPU:${default="PU" platform_unit}\\tLB:${default="LB" library}\\tPL:${default="PL" platform}\\tSM:${sample_id}" \
       ${default="-i PE 240,150 -r All 5 -R 60 -t 15,2 -H 20 99999 --hlimit 7 --trim3HP -p 5,20 -k" userString} \
-      ${true="-# 50000" false="" debug} \
-      "@RG\\tID:${sample_id}\\tPU:${default="PU" platform_unit}\\tLB:${default="LB" library}\\tPL:${default="PL" platform}\\tSM:${sample_id}"
+      ${true="-# 50000" false="" debug}
   }
 
   output {
