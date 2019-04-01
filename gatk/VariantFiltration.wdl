@@ -11,7 +11,7 @@ version 1.0
 task VariantFiltration {
   input {
     File ? java
-    File gatk
+    File ? gatk
     File reference
     File reference_idx
     File reference_dict
@@ -19,30 +19,37 @@ task VariantFiltration {
     File input_file
     File input_idx_file
 
-    Int ? clusterWindowSize
-    String ? filterExpression
-    String ? filterName
+    Int clusterWindowSize = 10
+    String filterExpression = ""
+    String filterName = ""
     String ? userString
 
-    Int ? memory
-    Int ? cpu
+    Array[String] modules = []
+    Int memory = 4
+    Int cpu = 1
   }
 
   String output_filename = basename(input_file) + ".filtered.vcf.gz"
   String output_idx_filename = basename(input_file) + ".filtered.vcf.gz.tbi"
 
   command {
+    set -Eeuxo pipefail;
+
+    for MODULE in ${sep=' ' modules}; do
+      module load $MODULE
+    done;
+
     ${default="java" java} \
-      -Xmx${default=4 memory}g \
-      -jar ${gatk} \
+      -Xmx${memory}g \
+      -jar ${default="gatk" gatk} \
       -T VariantFiltration \
       ${userString} \
       -R ${reference} \
       --variant ${input_file} \
-      --clusterWindowSize ${default=10 clusterWindowSize} \
-      ${default="" "--filterExpression " + filterExpression} \
-      ${default="" "--filterName " + filterName} \
-      -o ${output_filename}
+      --clusterWindowSize ${clusterWindowSize} \
+      ${"--filterExpression " + filterExpression} \
+      ${"--filterName " + filterName} \
+      -o ${output_filename};
   }
 
   output {
@@ -51,8 +58,8 @@ task VariantFiltration {
   }
 
   runtime {
-    memory: select_first([memory, 4]) * 1.5 + " GB"
-    cpu: select_first([cpu, 1])
+    memory: memory * 1.5 + " GB"
+    cpu: cpu
   }
 
   parameter_meta {

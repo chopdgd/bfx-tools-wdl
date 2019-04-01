@@ -90,16 +90,33 @@ task BgZip {
     File ? bgzip
     File input_file
     String ? userString
+
+    Array[String] modules = []
+    Int memory = 1
+    Int cpu = 1
   }
 
   String output_filename = basename(input_file) + ".gz"
 
   command {
-    ${default="bgzip" bgzip} -c ${userString} ${input_file} > ${output_filename}
+    set -Eeuxo pipefail;
+
+    for MODULE in ${sep=' ' modules}; do
+      module load $MODULE
+    done;
+
+    ${default="bgzip" bgzip} \
+      -c ${userString} \
+      ${input_file} > ${output_filename};
   }
 
   output {
     File output_file = "${output_filename}"
+  }
+
+  runtime {
+    memory: memory + " GB"
+    cpu: cpu
   }
 }
 
@@ -107,17 +124,34 @@ task Tabix {
   input {
     File ? tabix
     File input_file
-    String ? userString
+    String userString = "-p vcf"
+
+    Array[String] modules = []
+    Int memory = 1
+    Int cpu = 1
   }
 
   String output_filename = input_file + ".tbi"
 
   command {
-    ${default="tabix" tabix} ${default="-p vcf" userString} ${input_file}
+    set -Eeuxo pipefail;
+
+    for MODULE in ${sep=' ' modules}; do
+      module load $MODULE
+    done;
+
+    ${default="tabix" tabix} \
+      ${userString} \
+      ${input_file};
   }
 
   output {
     File output_file = "${output_filename}"
+  }
+
+  runtime {
+    memory: memory + " GB"
+    cpu: cpu
   }
 }
 
@@ -128,7 +162,11 @@ task CompressAndIndex {
     File input_file
 
     String ? bgzipParams
-    String ? tabixParams
+    String tabixParams = "-p vcf"
+
+    Array[String] modules = []
+    Int memory = 1
+    Int cpu = 1
   }
 
   String output_filename = basename(input_file) + ".gz"
@@ -136,12 +174,27 @@ task CompressAndIndex {
 
   command {
     set -Eeuxo pipefail;
-    ${default="bgzip" bgzip} -c ${bgzipParams} ${input_file} > ${output_filename};
-    ${default="tabix" tabix} ${default="-p vcf" tabixParams} ${output_filename};
+
+    for MODULE in ${sep=' ' modules}; do
+        module load $MODULE
+    done;
+
+    ${default="bgzip" bgzip} \
+      -c ${bgzipParams} \
+      ${input_file} > ${output_filename};
+
+    ${default="tabix" tabix} \
+      ${tabixParams} \
+      ${output_filename};
   }
 
   output {
     File output_file = "${output_filename}"
     File output_idx_file = "${output_idx_filename}"
+  }
+
+  runtime {
+    memory: memory + " GB"
+    cpu: cpu
   }
 }

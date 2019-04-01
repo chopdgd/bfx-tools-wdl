@@ -9,31 +9,38 @@ version 1.0
 
 task Pindel2Vcf {
   input {
-    File pindel2vcf
+    File ? pindel2vcf
 
     File reference
     File reference_idx
-    File ? reference_version
-    String ? reference_date
+    File reference_version =  "1000GenomesPilot-NCBI37"
+    String reference_date = "20101123"
 
     File input_file
 
     String ? userString
 
-    Int ? memory
-    Int ? cpu
+    Array[String] modules = []
+    Int memory = 8
+    Int cpu = 1
   }
 
   String temp_filename = basename(input_file)
 
   command {
     set -Eeuxo pipefail;
+
+    for MODULE in ${sep=' ' modules}; do
+        module load $MODULE
+    done;
+
     cp ${input_file} ${temp_filename};
 
-    ${pindel2vcf} ${userString} \
+    ${default="pindel2vcf" pindel2vcf} \
+      ${userString} \
       -r ${reference} \
-      -R ${default="1000GenomesPilot-NCBI37" reference_version} \
-      -d ${default="20101123" reference_date} \
+      -R ${reference_version} \
+      -d ${reference_date} \
       -p ${temp_filename};
   }
 
@@ -42,8 +49,8 @@ task Pindel2Vcf {
   }
 
   runtime {
-    memory: select_first([memory, 8]) + " GB"
-    cpu: select_first([cpu, 1])
+    memory: memory + " GB"
+    cpu: cpu
   }
 
   parameter_meta {

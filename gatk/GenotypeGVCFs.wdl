@@ -11,7 +11,7 @@ version 1.0
 task GenotypeGVCFs {
   input {
     File ? java
-    File gatk
+    File ? gatk
     File reference
     File reference_idx
     File reference_dict
@@ -24,29 +24,36 @@ task GenotypeGVCFs {
     Array[File] gvcf_files
     Array[File] gvcf_idx_files
 
-    Float ? stand_call_conf
+    Float stand_call_conf = 10.0
     String ? userString
 
-    Int ? memory
-    Int ? cpu
+    Array[String] modules = []
+    Int memory = 4
+    Int cpu = 1
   }
 
   String vcf_filename = cohort_id + ".rawVariants.vcf.gz"
   String vcf_filename_idx = cohort_id + ".rawVariants.vcf.gz.tbi"
 
   command {
+    set -Eeuxo pipefail;
+
+    for MODULE in ${sep=' ' modules}; do
+      module load $MODULE
+    done;
+
     ${default="java" java} \
-      -Xmx${default=4 memory}g \
-      -jar ${gatk} \
+      -Xmx${memory}g \
+      -jar ${default="gatk" gatk} \
       -T GenotypeGVCFs \
       ${userString} \
-      -stand_call_conf ${default="10.0" stand_call_conf} \
+      -stand_call_conf ${stand_call_conf} \
       ${"--dbsnp " + dbsnp} \
-      -nt ${default=1 cpu} \
+      -nt ${cpu} \
       -R ${reference} \
       ${sep=" " prefix("--variant ", gvcf_files)} \
       ${sep=" " prefix("--intervals ", intervals)} \
-      -o ${vcf_filename}
+      -o ${vcf_filename};
   }
 
   output {
@@ -55,8 +62,8 @@ task GenotypeGVCFs {
   }
 
   runtime {
-    memory: select_first([memory, 4]) * 1.5 + " GB"
-    cpu: select_first([cpu, 1])
+    memory: memory * 1.5 + " GB"
+    cpu: cpu
   }
 
   parameter_meta {

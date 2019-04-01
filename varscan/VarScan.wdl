@@ -10,25 +10,32 @@ version 1.0
 task MPileup2CNS {
   input {
     File ? java
-    File varscan
+    File ? varscan
 
     String sample_id
     File mpileup
 
-    String ? userString
+    String userString = "--min_var-freq 0.03 --strand-filter 1"
 
-    Int ? memory
-    Int ? cpu
+    Array[String] modules = []
+    Int memory = 4
+    Int cpu = 1
   }
 
   String output_filename = sample_id + '.varscan.vcf'
 
   command {
+    set -Eeuxo pipefail;
+
+    for MODULE in ${sep=' ' modules}; do
+        module load $MODULE
+    done;
+
     ${default="java" java} \
-      -Xmx${default=4 memory}g \
-      -jar ${varscan} mpileup2cns \
+      -Xmx${memory}g \
+      -jar ${default="varscan" varscan} mpileup2cns \
       ${mpileup} \
-      ${default="--min_var-freq 0.03 --strand-filter 1" userString} \
+      ${userString} \
       --variants --output-vcf 1 > ${output_filename};
   }
 
@@ -37,8 +44,8 @@ task MPileup2CNS {
   }
 
   runtime {
-    memory: select_first([memory, 4]) * 2 + " GB"
-    cpu: select_first([cpu, 1])
+    memory: memory * 1.5 + " GB"
+    cpu: cpu
   }
 
   parameter_meta {

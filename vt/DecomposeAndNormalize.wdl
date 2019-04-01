@@ -11,21 +11,31 @@ version 1.0
 
 task DecomposeNormalizeVCF {
   input {
-    File vt
+    File ? vt
     File input_file
     File ? input_idx_file
 
     File reference
 
-    Int ? memory
-    Int ? cpu
+    Array[String] modules = []
+    Int memory = 4
+    Int cpu = 1
   }
 
   String output_filename = basename(input_file) + ".decomposed.normalized.vcf"
 
   command {
     set -Eeuxo pipefail;
-    ${vt} decompose -s ${input_file} | ${vt} normalize - -r ${reference} -o ${output_filename};
+
+    for MODULE in ${sep=' ' modules}; do
+      module load $MODULE
+    done;
+
+    ${default="vt" vt} decompose \
+      -s ${input_file} | \
+    ${default="vt" vt} normalize - \
+      -r ${reference} \
+      -o ${output_filename};
   }
 
   output {
@@ -33,8 +43,8 @@ task DecomposeNormalizeVCF {
   }
 
   runtime {
-    memory: select_first([memory, 4]) + " GB"
-    cpu: select_first([cpu, 1])
+    memory: memory + " GB"
+    cpu: cpu
   }
 
   parameter_meta {

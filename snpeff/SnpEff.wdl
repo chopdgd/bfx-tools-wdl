@@ -10,7 +10,7 @@ version 1.0
 task SnpEff {
   input {
     File ? java
-    File snpeff
+    File ? snpeff
     File config
 
     File filename_prefix
@@ -18,24 +18,31 @@ task SnpEff {
     File ? input_idx_file
 
     String dataDir
-    String ? reference_version
+    String reference_version = "hg19"
     String ? userString
 
-    Int ? memory
-    Int ? cpu
+    Array[String] modules = []
+    Int memory = 4
+    Int cpu = 1
   }
 
   String output_filename = filename_prefix + '.snpeff.vcf'
 
     command {
+      set -Eeuxo pipefail;
+
+      for MODULE in ${sep=' ' modules}; do
+          module load $MODULE
+      done;
+
       ${default="java" java} \
-        -Xmx${default=4 memory}g \
-        -jar ${snpeff} eff \
+        -Xmx${memory}g \
+        -jar ${default="snpeff" snpeff} eff \
         ${userString} \
         -c ${config} \
         -dataDir ${dataDir} \
-        ${default="hg19" reference_version} \
-        ${vcf_file} > ${output_filename}
+        ${reference_version} \
+        ${vcf_file} > ${output_filename};
   }
 
   output {
@@ -43,8 +50,8 @@ task SnpEff {
   }
 
   runtime {
-    memory: select_first([memory, 4]) * 1.5 + " GB"
-    cpu: select_first([cpu, 1])
+    memory: memory * 1.5 + " GB"
+    cpu: cpu
   }
 
   parameter_meta {

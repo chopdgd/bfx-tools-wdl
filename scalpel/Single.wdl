@@ -12,7 +12,7 @@ task Single {
   input {
     # NOTE: The reason for making this a string is because we want to avoid linking the file.
     # It required a bunch of Perl modules found alongside the script
-    String scalpel
+    String ? scalpel
 
     File reference
     File reference_idx
@@ -22,21 +22,28 @@ task Single {
     File bam_file
     File bam_idx_file
 
-    String ? userString
+    String userString = "--mapscore 15 --intarget --format vcf"
 
-    Int ? memory
-    Int ? cpu
+    Array[String] modules = []
+    Int memory = 4
+    Int cpu = 1
   }
 
   String output_filename = sample_id + "/variants.indel.vcf"
 
   command {
-    ${scalpel} --single \
+    set -Eeuxo pipefail;
+
+    for MODULE in ${sep=' ' modules}; do
+        module load $MODULE
+    done;
+
+    ${default="scalpel" scalpel} --single \
       --ref ${reference} \
       --bam ${bam_file} \
       --bed ${intervals} \
-      --numprocs ${default="4" cpu} \
-      ${default="--mapscore 15 --intarget --format vcf" userString} \
+      --numprocs ${cpu} \
+      ${userString} \
       --dir ${sample_id};
   }
 
@@ -45,8 +52,8 @@ task Single {
   }
 
   runtime {
-    memory: select_first([memory, 1]) + " GB"
-    cpu: select_first([cpu, 4])
+    memory: memory + " GB"
+    cpu: cpu
   }
 
   parameter_meta {

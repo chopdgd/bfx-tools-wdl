@@ -6,12 +6,21 @@ task CombineFastQ {
     File fastq
     Array[File] additional_fastq
 
+    Array[String] modules = []
+    Int memory = 1
+    Int cpu = 1
   }
 
   Int files = length(additional_fastq)
   String output_filename = basename(fastq)
 
   command <<<
+    set -Eeuxo pipefail;
+
+    for MODULE in ~{sep=' ' modules}; do
+      module load $MODULE
+    done;
+
     if [[ "~{files}" == "0" ]]
     then
       ln -s ~{fastq} ~{output_filename}
@@ -22,5 +31,10 @@ task CombineFastQ {
 
   output {
     File output_file = "${output_filename}"
+  }
+
+  runtime {
+    memory: memory + " GB"
+    cpu: cpu
   }
 }

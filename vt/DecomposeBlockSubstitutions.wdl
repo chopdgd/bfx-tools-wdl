@@ -9,19 +9,28 @@ version 1.0
 
 task DecomposeBlockSubstitutions {
   input {
-    File vt
+    File ? vt
 
     File input_file
     File ? input_idx_file
 
-    Int ? memory
-    Int ? cpu
+    Array[String] modules = []
+    Int memory = 4
+    Int cpu = 1
   }
 
   String output_filename = basename(input_file) + ".decomposed.blocksub.vcf"
 
   command {
-    ${default="vt" vt} decompose_blocksub ${input_file} -o ${output_filename};
+    set -Eeuxo pipefail;
+
+    for MODULE in ${sep=' ' modules}; do
+      module load $MODULE
+    done;
+
+    ${default="vt" vt} decompose_blocksub \
+      ${input_file} \
+      -o ${output_filename};
   }
 
   output {
@@ -29,8 +38,8 @@ task DecomposeBlockSubstitutions {
   }
 
   runtime {
-    memory: select_first([memory, 4]) + " GB"
-    cpu: select_first([cpu, 1])
+    memory: memory + " GB"
+    cpu: cpu
   }
 
   parameter_meta {

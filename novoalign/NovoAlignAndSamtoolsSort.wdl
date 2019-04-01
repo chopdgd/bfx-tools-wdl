@@ -9,25 +9,26 @@ version 1.0
 
 task NovoAlignAndSamtoolsSort {
   input {
-    File novoalign
+    File ? novoalign
     File novoalign_license
-    File samtools
+    File ? samtools
     File reference
 
     String sample_id
     File fastq_1
     File fastq_2
 
-    String ? output_format
-    String ? library
-    String ? platform
-    String ? platform_unit
+    String output_format = "SAM"
+    String library = "LB"
+    String platform = "PL"
+    String platform_unit = "PU"
 
-    String ? userString
+    String userString = "-i PE 240,150 -r All 5 -R 60 -t 15,2 -H 20 99999 --hlimit 7 --trim3HP -p 5,20 -k"
 
-    Int ? memory
-    Int ? cpu
-    Boolean ? debug
+    Array[String] modules = []
+    Int memory = 1
+    Int cpu = 16
+    Boolean debug = false
   }
 
   String output_filename = sample_id + ".sorted.bam"
@@ -36,18 +37,34 @@ task NovoAlignAndSamtoolsSort {
   command {
     set -Eeuxo pipefail;
 
-    ${novoalign} \
+    for MODULE in ${sep=' ' modules}; do
+        module load $MODULE
+    done;
+
+    cp ${novoalign_license} .;
+
+    ${default="novoalign" novoalign} \
       -d ${reference} \
       -f ${fastq_1} ${fastq_2} \
-      -c ${default=16 cpu} \
-      -o ${default="SAM" output_format} \
-      "@RG\\tID:${sample_id}\\tPU:${default="PU" platform_unit}\\tLB:${default="LB" library}\\tPL:${default="PL" platform}\\tSM:${sample_id}" \
-      ${default="-i PE 240,150 -r All 5 -R 60 -t 15,2 -H 20 99999 --hlimit 7 --trim3HP -p 5,20 -k" userString} \
+      -c ${cpu} \
+      -o ${output_format} \
+      "@RG\\tID:${sample_id}\\tPU:${platform_unit}\\tLB:${library}\\tPL:${platform}\\tSM:${sample_id}" \
+      ${userString} \
       ${true="-# 50000" false="" debug} | \
-      ${samtools} view -b --reference ${reference} ${"-@ " + cpu} - | \
-      ${samtools} sort -O BAM --reference ${reference} ${"-@ " + cpu} - -o ${output_filename};
+    ${default="samtools" samtools} view \
+        -b \
+        --reference ${reference} \
+        ${"-@ " + cpu} - | \
+    ${default="samtools" samtools} sort \
+      -O BAM \
+      --reference ${reference} \
+      ${"-@ " + cpu} \
+      - -o ${output_filename};
 
-      ${samtools} index ${"-@ " + cpu} ${output_filename} ${output_idx_filename};
+    ${default="samtools" samtools} index \
+      ${"-@ " + cpu} \
+      ${output_filename} \
+      ${output_idx_filename};
   }
 
   output {
@@ -57,8 +74,8 @@ task NovoAlignAndSamtoolsSort {
   }
 
   runtime {
-    memory: select_first([memory, 1]) + " GB"
-    cpu: select_first([cpu, 16])
+    memory: memory + " GB"
+    cpu: cpu
   }
 
   parameter_meta {

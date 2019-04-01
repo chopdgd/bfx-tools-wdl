@@ -9,7 +9,7 @@ version 1.0
 
 task Pindel {
   input {
-    File pindel
+    File ? pindel
 
     File reference
     File reference_idx
@@ -20,19 +20,25 @@ task Pindel {
     File bam_file
     File bam_idx_file
 
-    Int ? sliding_window
-    String ? userString
+    Int sliding_window = 300
+    String userString = "-t"
 
-    Int ? memory
-    Int ? cpu
+    Array[String] modules = []
+    Int memory = 4
+    Int cpu = 1
   }
 
   command {
     set -Eeuxo pipefail;
-    echo -e ${bam_file}"\t"${default=300 sliding_window}"\t"${sample_id} > config;
 
-    ${pindel} \
-      ${default="-t " userString} \
+    for MODULE in ${sep=' ' modules}; do
+        module load $MODULE
+    done;
+
+    echo -e ${bam_file}"\t"${sliding_window}"\t"${sample_id} > config;
+
+    ${default="pindel" pindel} \
+      ${userString} \
       ${"-j " + intervals} \
       -f ${reference} \
       -i config \
@@ -49,6 +55,11 @@ task Pindel {
     File CloseEndMapped_file = "${sample_id}" + "_CloseEndMapped"
     File INT_file = "${sample_id}" + "_INT_final"
     File RP_file = "${sample_id}" + "_RP"
+  }
+
+  runtime {
+    memory: memory + " GB"
+    cpu: cpu
   }
 
   parameter_meta {

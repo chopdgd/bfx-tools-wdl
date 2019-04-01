@@ -9,7 +9,7 @@ version 1.0
 
 task VerifyBamId {
   input {
-    File verifybamid
+    File ? verifybamid
 
     String sample_id
     File bam_file
@@ -17,18 +17,25 @@ task VerifyBamId {
 
     File omni_vcf
     File omni_vcf_idx
-    String ? userString
+    String userString = "--maxDepth 1000 --ignoreRG --verbose --precise --chip-none"
 
-    Int ? memory
-    Int ? cpu
+    Array[String] modules = []
+    Int memory = 8
+    Int cpu = 1
   }
 
   command {
+    set -Eeuxo pipefail;
+
+    for MODULE in ${sep=' ' modules}; do
+      module load $MODULE
+    done;
+
     ${default="verifybamid" verifybamid} \
       --vcf ${omni_vcf} \
       --bam ${bam_file} \
       --out ${sample_id} \
-      ${default="--maxDepth 1000 --ignoreRG --verbose --precise --chip-none" userString}
+      ${userString};
   }
 
   output {
@@ -36,8 +43,8 @@ task VerifyBamId {
   }
 
   runtime {
-    memory: select_first([memory, 8]) + " GB"
-    cpu: select_first([cpu, 1])
+    memory: memory + " GB"
+    cpu: cpu
   }
 
   parameter_meta {

@@ -10,31 +10,38 @@ version 1.0
 task BedToIntervalList {
   input {
     File ? java
-    File picard
+    File ? picard
     File reference_dict
 
     File bed_file
 
-    String ? validation_stringency
-    Boolean ? unique
+    String validation_stringency = "LENIENT"
+    Boolean unique = true
     String ? userString
 
-    Int ? memory
-    Int ? cpu
+    Array[String] modules = []
+    Int memory = 4
+    Int cpu = 1
   }
 
   String output_filename = basename(bed_file) + ".interval_list"
 
   command {
+    set -Eeuxo pipefail;
+
+    for MODULE in ${sep=' ' modules}; do
+        module load $MODULE
+    done;
+
     ${default="java" java} \
-      -Xmx${default=4 memory}g \
-      -jar ${picard} BedToIntervalList \
-      ${default="VALIDATION_STRINGENCY=LENIENT" "VALIDATION_STRINGENCY=" + validation_stringency} \
+      -Xmx${memory}g \
+      -jar ${default="picard" picard} BedToIntervalList \
+      ${userString} \
+      VALIDATION_STRINGENCY=${default="LENIENT" validation_stringency} \
       SEQUENCE_DICTIONARY=${reference_dict} \
-      ${default="UNIQUE=true" true="UNIQUE=true" false="" unique} \
+      ${true="UNIQUE=true" false="" unique} \
       INPUT=${bed_file} \
-      OUTPUT=${output_filename} \
-      ${userString}
+      OUTPUT=${output_filename};
   }
 
   output {
@@ -42,8 +49,8 @@ task BedToIntervalList {
   }
 
   runtime {
-    memory: select_first([memory, 4]) * 1.5 + " GB"
-    cpu: select_first([cpu, 1])
+    memory: memory * 1.5 + " GB"
+    cpu: cpu
   }
 
   parameter_meta {
