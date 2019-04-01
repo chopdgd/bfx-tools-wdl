@@ -11,7 +11,7 @@ version 1.0
 task CombineVariants {
   input {
     File ? java
-    File gatk
+    File ? gatk
     File reference
     File reference_idx
     File reference_dict
@@ -23,24 +23,31 @@ task CombineVariants {
     String ? genotypeMergeOptions
     String ? userString
 
-    Int ? memory
-    Int ? cpu
+    Array[String] modules = []
+    Int memory = 4
+    Int cpu = 1
   }
 
   String output_filename = filename_prefix + ".merged.vcf.gz"
   String output_idx_filename = filename_prefix + ".merged.vcf.gz.tbi"
 
   command {
+    set -Eeuxo pipefail;
+
+    for MODULE in ${sep=' ' modules}; do
+      module load $MODULE
+    done;
+
     ${default="java" java} \
-      -Xmx${default=4 memory}g \
-      -jar ${gatk} \
+      -Xmx${memory}g \
+      -jar ${default="gatk" gatk} \
       -T CombineVariants \
       ${userString} \
       -R ${reference} \
-      -nt ${default=1 cpu} \
+      -nt ${cpu} \
       ${sep=" " prefix("--variant ", input_files)} \
       ${"-genotypeMergeOptions " + genotypeMergeOptions} \
-      -o ${output_filename}
+      -o ${output_filename};
     }
 
   output {
@@ -49,8 +56,8 @@ task CombineVariants {
   }
 
   runtime {
-    memory: select_first([memory, 4]) * 1.5 + " GB"
-    cpu: select_first([cpu, 1])
+    memory: memory * 1.5 + " GB"
+    cpu: cpu
   }
 
   parameter_meta {

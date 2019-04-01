@@ -11,7 +11,7 @@ version 1.0
 task DepthOfCoverage {
   input {
     File ? java
-    File gatk
+    File ? gatk
     File reference
     File reference_idx
     File reference_dict
@@ -23,27 +23,34 @@ task DepthOfCoverage {
     Array[File] bam_files
     Array[File] bam_idx_files
 
-    Array[Int] summary_coverage_threshold
-    String ? userString
+    Array[Int] summary_coverage_threshold = [15]
+    String userString = "-omitBaseOutput -omitLocusTable"
 
-    Int ? memory
-    Int ? cpu
+    Array[String] modules = []
+    Int memory = 4
+    Int cpu = 1
   }
 
   String output_base_filename = sample_id + ".depthOfCoverage"
 
   command {
+    set -Eeuxo pipefail;
+
+    for MODULE in ${sep=' ' modules}; do
+      module load $MODULE
+    done;
+
     ${default="java" java} \
-      -Xmx${default=4 memory}g \
-      -jar ${gatk} \
+      -Xmx${memory}g \
+      -jar ${default="gatk" gatk} \
       -T DepthOfCoverage \
-      ${default="-omitBaseOutput -omitLocusTable" userString} \
+      ${userString} \
       -R ${reference} \
       ${"-geneList " + gene_list} \
-      ${default="15" sep=" " prefix("-ct ", summary_coverage_threshold)} \
+      ${sep=" " prefix("-ct ", summary_coverage_threshold)} \
       ${sep=" " prefix("-I ", bam_files)} \
       ${sep=" " prefix("--intervals ", intervals)} \
-      -o ${output_base_filename}
+      -o ${output_base_filename};
   }
 
   output {
@@ -54,8 +61,8 @@ task DepthOfCoverage {
   }
 
   runtime {
-    memory: select_first([memory, 4]) * 1.5 + " GB"
-    cpu: select_first([cpu, 1])
+    memory: memory * 1.5 + " GB"
+    cpu: cpu
   }
 
   parameter_meta {

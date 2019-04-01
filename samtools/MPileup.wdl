@@ -8,7 +8,7 @@ version 1.0
 
 task MPileup {
   input {
-    File samtools
+    File ? samtools
     File reference
     File reference_idx
 
@@ -17,16 +17,23 @@ task MPileup {
     File ? intervals
     String ? userString
 
-    Int ? memory
-    Int ? cpu
+    Array[String] modules = []
+    Int memory = 4
+    Int cpu = 1
   }
 
   command {
-    ${samtools} \
-      mpileup \
+    set -Eeuxo pipefail;
+
+    for MODULE in ${sep=' ' modules}; do
+        module load $MODULE
+    done;
+
+    ${default="samtools" samtools} mpileup \
       ${"--reference " + reference} \
+      ${"--positions" + intervals} \
       ${userString} \
-      ${sep=" " bam_files}
+      ${sep=" " bam_files};
   }
 
   output {
@@ -34,8 +41,8 @@ task MPileup {
   }
 
   runtime {
-    memory: select_first([memory, 4]) + " GB"
-    cpu: select_first([cpu, 1])
+    memory: memory + " GB"
+    cpu: cpu
   }
 
   parameter_meta {

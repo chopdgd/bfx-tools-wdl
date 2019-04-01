@@ -10,22 +10,22 @@ version 1.0
 task MarkDuplicates {
   input {
     File ? java
-    File picard
+    File ? picard
     File reference
     File reference_idx
 
     String sample_id
     File input_file
 
-    String ? validation_stringency
-    Boolean ? remove_duplicates
+    String validation_stringency = "LENIENT"
+    Boolean remove_duplicates = false
     String ? sort_order
-    Boolean ? create_index
-
+    Boolean create_index = true
     String ? userString
 
-    Int ? memory
-    Int ? cpu
+    Array[String] modules = []
+    Int memory = 4
+    Int cpu = 1
   }
 
   String metrics_filename = sample_id + ".picardmkdup.metrics"
@@ -33,18 +33,24 @@ task MarkDuplicates {
   String output_idx_filename = sample_id + ".markdups.bai"
 
   command {
+    set -Eeuxo pipefail;
+
+    for MODULE in ${sep=' ' modules}; do
+        module load $MODULE
+    done;
+
     ${default="java" java} \
-      -Xmx${default=4 memory}g \
-      -jar ${picard} MarkDuplicates \
+      -Xmx${memory}g \
+      -jar ${default="picard" picard} MarkDuplicates \
+      ${userString} \
       VALIDATION_STRINGENCY=${default="LENIENT" validation_stringency} \
       REFERENCE_SEQUENCE=${reference} \
       INPUT=${input_file} \
       REMOVE_DUPLICATES=${default=false remove_duplicates} \
       ${"ASSUME_SORT_ORDER=" + sort_order} \
-      CREATE_INDEX=${default=true create_index} \
+      CREATE_INDEX=${create_index} \
       METRICS_FILE=${metrics_filename} \
-      OUTPUT=${output_filename} \
-      ${userString}
+      OUTPUT=${output_filename};
   }
 
   output {
@@ -54,8 +60,8 @@ task MarkDuplicates {
   }
 
   runtime {
-    memory: select_first([memory, 4]) * 1.5 + " GB"
-    cpu: select_first([cpu, 1])
+    memory: memory * 1.5 + " GB"
+    cpu: cpu
   }
 
   parameter_meta {

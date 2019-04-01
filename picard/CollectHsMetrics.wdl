@@ -10,7 +10,7 @@ version 1.0
 task CollectHsMetrics {
   input {
     File ? java
-    File picard
+    File ? picard
     File reference
     File reference_idx
 
@@ -20,28 +20,35 @@ task CollectHsMetrics {
     File bait_intervals
     File target_intervals
 
-    String ? validation_stringency
+    String validation_stringency = "LENIENT"
     String ? userString
 
-    Int ? memory
-    Int ? cpu
+    Array[String] modules = []
+    Int memory = 4
+    Int cpu = 1
   }
 
   String per_target_coverage_filename = sample_id + ".HsMetrics.target"
   String output_filename = sample_id + ".HsMetrics"
 
   command {
+    set -Eeuxo pipefail;
+
+    for MODULE in ${sep=' ' modules}; do
+        module load $MODULE
+    done;
+
     ${default="java" java} \
-      -Xmx${default=4 memory}g \
-      -jar ${picard} CollectHsMetrics \
+      -Xmx${memory}g \
+      -jar ${default="picard" picard} CollectHsMetrics \
+      ${userString} \
       VALIDATION_STRINGENCY=${default="LENIENT" validation_stringency} \
       REFERENCE_SEQUENCE=${reference} \
       INPUT=${input_file} \
       BAIT_INTERVALS=${bait_intervals} \
       TARGET_INTERVALS=${target_intervals} \
       PER_TARGET_COVERAGE=${per_target_coverage_filename} \
-      OUTPUT=${output_filename} \
-      ${userString}
+      OUTPUT=${output_filename};
   }
 
   output {
@@ -50,8 +57,8 @@ task CollectHsMetrics {
   }
 
   runtime {
-    memory: select_first([memory, 4]) * 1.5 + " GB"
-    cpu: select_first([cpu, 1])
+    memory: memory * 1.5 + " GB"
+    cpu: cpu
   }
 
   parameter_meta {

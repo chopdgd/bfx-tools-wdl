@@ -9,7 +9,7 @@ version 1.0
 
 task FreeBayes {
   input {
-    File freebayes
+    File ? freebayes
 
     File reference
     File reference_idx
@@ -20,16 +20,28 @@ task FreeBayes {
     File bam_file
     File bam_idx_file
 
-    String ? userString
+    String userString = "-4 -q 15 -F 0.03"
 
-    Int ? memory
-    Int ? cpu
+    Array[String] modules = []
+    Int memory = 4
+    Int cpu = 1
   }
 
   String output_filename = sample_id + '.freebayes.vcf'
 
   command {
-    ${freebayes} -f ${reference} ${"-t " + intervals} ${bam_file} ${default="-4 -q 15 -F 0.03" userString} -v ${output_filename};
+    set -Eeuxo pipefail;
+
+    for MODULE in ${sep=' ' modules}; do
+      module load $MODULE
+    done;
+
+    ${default="freebayes" freebayes} \
+      -f ${reference} \
+      ${"-t " + intervals} \
+      ${bam_file} \
+      ${userString} \
+      -v ${output_filename};
   }
 
   output {
@@ -37,8 +49,8 @@ task FreeBayes {
   }
 
   runtime {
-    memory: select_first([memory, 1]) + " GB"
-    cpu: select_first([cpu, 1])
+    memory: memory + " GB"
+    cpu: cpu
   }
 
   parameter_meta {

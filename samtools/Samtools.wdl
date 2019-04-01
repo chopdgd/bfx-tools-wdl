@@ -8,24 +8,30 @@ version 1.0
 
 task Samtools {
   input {
-    File samtools
+    File ? samtools
     File ? reference
 
     File input_file
     String command
     String ? userString
 
-    Int ? memory
-    Int ? cpu
+    Array[String] modules = []
+    Int memory = 4
+    Int cpu = 1
   }
 
   command {
-    ${samtools} \
-      ${command} \
+    set -Eeuxo pipefail;
+
+    for MODULE in ${sep=' ' modules}; do
+        module load $MODULE
+    done;
+
+    ${default="samtools" samtools} ${command} \
       ${"--reference " + reference} \
       ${"-@ " + cpu} \
       ${userString} \
-      ${input_file}
+      ${input_file};
   }
 
   output {
@@ -33,8 +39,8 @@ task Samtools {
   }
 
   runtime {
-    memory: select_first([memory, 4]) + " GB"
-    cpu: select_first([cpu, 1])
+    memory: memory + " GB"
+    cpu: cpu
   }
 
   parameter_meta {

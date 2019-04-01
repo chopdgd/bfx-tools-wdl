@@ -11,7 +11,7 @@ version 1.0
 task SelectVariants {
   input {
     File ? java
-    File gatk
+    File ? gatk
     File reference
     File reference_idx
     File reference_dict
@@ -25,26 +25,34 @@ task SelectVariants {
     Array[String] selectExpressions
     String ? userString
 
-    Int ? memory
-    Int ? cpu
+    Array[String] modules = []
+    Int memory = 4
+    Int cpu = 1
   }
 
   String output_filename = basename(input_file) + ".filtered.vcf.gz"
   String output_idx_filename = basename(input_file) + ".filtered.vcf.gz.tbi"
 
   command {
+    set -Eeuxo pipefail;
+
+    for MODULE in ${sep=' ' modules}; do
+      module load $MODULE
+    done;
+
     ${default="java" java} \
-      -Xmx${default=4 memory}g \
-      -jar ${gatk} \
-      -T SelectVariants ${userString} \
+      -Xmx${memory}g \
+      -jar ${default="gatk" gatk} \
+      -T SelectVariants \
+      ${userString} \
       -R ${reference} \
-      -nt ${default=1 cpu} \
+      -nt ${cpu} \
       --variant ${input_file} \
       ${sep=" " prefix("--intervals ", intervals)} \
       ${sep=" " prefix("--selectTypeToInclude ", selectType)} \
       ${sep=" " prefix("--selectTypeToExclude ", selectTypeToExclude)} \
       ${sep=" " prefix("--selectexpressions ", selectExpressions)} \
-      -o ${output_filename}
+      -o ${output_filename};
   }
 
   output {
@@ -53,8 +61,8 @@ task SelectVariants {
   }
 
   runtime {
-    memory: select_first([memory, 4]) * 1.5 + " GB"
-    cpu: select_first([cpu, 1])
+    memory: memory * 1.5 + " GB"
+    cpu: cpu
   }
 
   parameter_meta {

@@ -10,7 +10,7 @@ version 1.0
 task MuTect {
   input {
     File ? java
-    File mutect
+    File ? mutect
 
     File reference
     File reference_idx
@@ -26,8 +26,9 @@ task MuTect {
 
     String ? userString
 
-    Int ? memory
-    Int ? cpu
+    Array[String] modules = []
+    Int memory = 4
+    Int cpu = 1
   }
 
   String vcf_filename = sample_id + "_MuTect.vcf"
@@ -36,8 +37,14 @@ task MuTect {
   String coverage_filename = sample_id + "_MuTect.coverage.wig.txt"
 
   command {
+    set -Eeuxo pipefail;
+
+    for MODULE in ${sep=' ' modules}; do
+      module load $MODULE
+    done;
+
     ${default="java" java} \
-      -Xmx${default=4 memory}g \
+      -Xmx${memory}g \
       -jar ${mutect} \
       -T MuTect \
       ${userString} \
@@ -47,7 +54,7 @@ task MuTect {
       --input_file:tumor ${bam_file} \
       --out ${stats_filename} \
       --vcf ${vcf_filename} \
-      --coverage_file ${coverage_filename}
+      --coverage_file ${coverage_filename};
   }
 
   output {
@@ -58,8 +65,8 @@ task MuTect {
   }
 
   runtime {
-    memory: select_first([memory, 4]) * 1.5 + " GB"
-    cpu: select_first([cpu, 1])
+    memory: memory * 1.5 + " GB"
+    cpu: cpu
   }
 
   parameter_meta {

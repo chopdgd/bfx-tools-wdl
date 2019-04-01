@@ -8,7 +8,7 @@ version 1.0
 
 task ExtractMappedReads {
   input {
-    File samtools
+    File ? samtools
 
     File reference
     File reference_idx
@@ -18,8 +18,9 @@ task ExtractMappedReads {
 
     String ? userString
 
-    Int ? memory
-    Int ? cpu
+    Array[String] modules = []
+    Int memory = 4
+    Int cpu = 1
   }
 
   String output_filename = basename(bam_file) + ".mapped.bam"
@@ -27,17 +28,25 @@ task ExtractMappedReads {
   command {
     set -Eeuxo pipefail;
 
-    ${samtools} view \
+    for MODULE in ${sep=' ' modules}; do
+        module load $MODULE
+    done;
+
+    ${default="samtools" samtools} view \
       ${userString} \
-      --reference ${reference} ${"-@ " + cpu} \
+      --reference ${reference} \
+      ${"-@ " + cpu} \
       ${input_file} | \
-      ${samtools} sort \
+    ${default="samtools" samtools} sort \
       -O BAM \
       --reference ${reference} \
       ${"-@ " + cpu} \
       - -o ${output_filename};
 
-      ${samtools} index ${"-@ " + cpu} ${output_filename} ${output_filename}.bai;
+    ${default="samtools" samtools} index \
+      ${"-@ " + cpu} \
+      ${output_filename} \
+      ${output_filename}.bai;
   }
 
   output {
@@ -46,8 +55,8 @@ task ExtractMappedReads {
   }
 
   runtime {
-    memory: select_first([memory, 4]) + " GB"
-    cpu: select_first([cpu, 1])
+    memory: memory + " GB"
+    cpu: cpu
   }
 
   parameter_meta {

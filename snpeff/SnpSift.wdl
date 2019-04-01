@@ -12,7 +12,7 @@ version 1.0
 task SnpSift {
   input {
     File ? java
-    File snpsift
+    File ? snpsift
     File config
 
     String filename_prefix
@@ -22,25 +22,32 @@ task SnpSift {
     File database
     File ? database_idx
 
-    String ? mode
+    String mode = "annotate"
     String ? userString
 
-    Int ? memory
-    Int ? cpu
+    Array[String] modules = []
+    Int memory = 4
+    Int cpu = 1
   }
 
   String database_prefix = if mode == "dbnsfp" then "-db" else ""
   String output_filename = filename_prefix + '.snpsift.vcf'
 
   command {
+    set -Eeuxo pipefail;
+
+    for MODULE in ${sep=' ' modules}; do
+        module load $MODULE
+    done;
+
     ${default="java" java} \
-      -Xmx${default=4 memory}g \
-      -jar ${snpsift} \
-      ${default="annotate" mode} \
-      ${default="" userString} \
+      -Xmx${memory}g \
+      -jar ${default="snpsift" snpsift} \
+      ${mode} \
+      ${userString} \
       -c ${config} \
       ${database_prefix} ${database} \
-      ${input_file} > ${output_filename}
+      ${input_file} > ${output_filename};
   }
 
   output {
@@ -48,8 +55,8 @@ task SnpSift {
   }
 
   runtime {
-    memory: select_first([memory, 4]) * 1.5 + " GB"
-    cpu: select_first([cpu, 1])
+    memory: memory * 1.5 + " GB"
+    cpu: cpu
   }
 
   parameter_meta {

@@ -9,22 +9,30 @@ version 1.0
 
 task BamToFastQ {
   input {
-    File bedtools
+    File ? bedtools
     File bam_file
     File bam_idx_file
 
     String fastq1
     String ? fastq2
 
-    Int ? memory
-    Int ? cpu
+    Array[String] modules = []
+    Int memory = 1
+    Int cpu = 1
   }
 
   command {
-    ${bedtools} bamtofastq \
+    set -Eeuxo pipefail;
+
+    for MODULE in ${sep=' ' modules}; do
+      module load $MODULE
+    done;
+
+    ${default="bedtools" bedtools} \
+      bamtofastq \
       -i ${bam_file} \
       -fq ${fastq1} \
-      ${"-fq2 " + fastq2} \
+      ${"-fq2 " + fastq2};
   }
 
   output {
@@ -33,8 +41,8 @@ task BamToFastQ {
   }
 
   runtime {
-    memory: select_first([memory, 1]) + " GB"
-    cpu: select_first([cpu, 1])
+    memory: memory + " GB"
+    cpu: cpu
   }
 
   parameter_meta {

@@ -14,7 +14,7 @@ version 1.0
 task HaplotypeCallerERC {
   input {
     File ? java
-    File gatk
+    File ? gatk
     File reference
     File reference_idx
     File reference_dict
@@ -29,25 +29,32 @@ task HaplotypeCallerERC {
 
     String ? userString
 
-    Int ? memory
-    Int ? cpu
+    Array[String] modules = []
+    Int memory = 4
+    Int cpu = 1
   }
 
   String gvcf_filename = sample_id + ".rawLikelihoods.g.vcf.gz"
   String gvcf_idx_filename = sample_id + ".rawLikelihoods.g.vcf.gz.tbi"
 
   command {
+    set -Eeuxo pipefail;
+
+    for MODULE in ${sep=' ' modules}; do
+      module load $MODULE
+    done;
+
     ${default="java" java} \
-      -Xmx${default=4 memory}g \
-      -jar ${gatk} \
+      -Xmx${memory}g \
+      -jar ${default="gatk" gatk} \
       -T HaplotypeCaller -ERC GVCF \
       ${userString} \
-      -nct ${default=1 cpu} \
+      -nct ${cpu} \
       ${"--dbsnp " + dbsnp} \
       -R ${reference} \
       -I ${bam_file} \
       ${sep=" " prefix("--intervals ", intervals)} \
-      -o ${gvcf_filename}
+      -o ${gvcf_filename};
   }
 
   output {
@@ -56,8 +63,8 @@ task HaplotypeCallerERC {
   }
 
   runtime {
-    memory: select_first([memory, 4]) * 1.5 + " GB"
-    cpu: select_first([cpu, 1])
+    memory: memory * 1.5 + " GB"
+    cpu: cpu
   }
 
   parameter_meta {
