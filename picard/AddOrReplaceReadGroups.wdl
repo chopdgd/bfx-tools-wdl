@@ -61,10 +61,10 @@ task AddOrReplaceReadGroups {
 	}
 
 	parameter_meta {
-		java: "Path to Java."
+    java: "Path to Java."
     picard: "Picard jar file."
-		input_bam: "Sorted BAM file."
-		sample_id: "prefix for output files."
+    input_bam: "Sorted BAM file."
+    sample_id: "prefix for output files."
     output_filename_extension: "Full BAM filename with extension change, e.g. .rg.bam"
     RGID: "Read Group ID."
     RGLB: "Read Group library."
