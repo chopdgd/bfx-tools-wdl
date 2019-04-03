@@ -12,7 +12,10 @@ task NovoAlignAndSamtoolsSort {
     File ? novoalign
     File novoalign_license
     File ? samtools
+
     File reference
+    File reference_idx
+    File reference_novoindex
 
     String sample_id
     File fastq_1
@@ -26,7 +29,7 @@ task NovoAlignAndSamtoolsSort {
     String userString = "-i PE 240,150 -r All 5 -R 60 -t 15,2 -H 20 99999 --hlimit 7 --trim3HP -p 5,20 -k"
 
     Array[String] modules = []
-    Int memory = 1
+    Float memory = 2.5
     Int cpu = 16
     Boolean debug = false
   }
@@ -44,27 +47,26 @@ task NovoAlignAndSamtoolsSort {
     cp ${novoalign_license} .;
 
     ${default="novoalign" novoalign} \
-      -d ${reference} \
+      -d ${reference_novoindex} \
+      ${true="-# 50000" false="" debug} \
       -f ${fastq_1} ${fastq_2} \
+      ${userString} \
       -c ${cpu} \
       -o ${output_format} \
-      "@RG\\tID:${sample_id}\\tPU:${platform_unit}\\tLB:${library}\\tPL:${platform}\\tSM:${sample_id}" \
-      ${userString} \
-      ${true="-# 50000" false="" debug} | \
+      "@RG\\tID:${sample_id}\\tPU:${platform_unit}\\tLB:${library}\\tPL:${platform}\\tSM:${sample_id}" | \
     ${default="samtools" samtools} view \
-        -b \
-        --reference ${reference} \
-        ${"-@ " + cpu} - | \
+      -b \
+      --reference ${reference} \
+      ${"-@ " + cpu} \
+      - | \
     ${default="samtools" samtools} sort \
       -O BAM \
       --reference ${reference} \
       ${"-@ " + cpu} \
-      - -o ${output_filename};
+      - \
+      -o ${output_filename};
 
-    ${default="samtools" samtools} index \
-      ${"-@ " + cpu} \
-      ${output_filename} \
-      ${output_idx_filename};
+    ${default="samtools" samtools} index ${"-@ " + cpu} ${output_filename} ${output_idx_filename};
   }
 
   output {

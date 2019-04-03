@@ -11,7 +11,7 @@ task NovoAlign {
   input {
     File ? novoalign
     File novoalign_license
-    File reference
+    File reference_novoindex
 
     String sample_id
     File fastq_1
@@ -40,7 +40,7 @@ task NovoAlign {
     cp ${novoalign_license} .;
 
     ${default="novoalign" novoalign} \
-      -d ${reference} \
+      -d ${reference_novoindex} \
       -f ${fastq_1} ${fastq_2} \
       -c ${cpu} \
       -o ${output_format} \
@@ -62,7 +62,7 @@ task NovoAlign {
   parameter_meta {
     novoalign: "NovoAlign executable."
     novoalign_license: "NovoAlign license."
-    reference: "Reference sequence file index with NovoIndex."
+    reference_novoindex: "Reference sequence file index with NovoIndex."
     sample_id: "Sample ID to use in SAM tag."
     fastq_1: "FASTQ Files left reads."
     fastq_2: "FASTQ Files right reads."
