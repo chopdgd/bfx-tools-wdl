@@ -42,7 +42,7 @@ task SnpEff {
         -c ${config} \
         -dataDir ${dataDir} \
         ${reference_version} \
-        ${vcf_file} > ${output_filename};
+        ${input_file} > ${output_filename};
   }
 
   output {
