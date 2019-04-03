@@ -13,7 +13,7 @@ task SnpEff {
     File ? snpeff
     File config
 
-    File filename_prefix
+    String filename_prefix
     File input_file
     File ? input_idx_file
 
