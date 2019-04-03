@@ -40,7 +40,7 @@ task AddOrReplaceReadGroups {
 
     ${default="java" java} \
       -Xmx${memory}g \
-      -jar ${default="picard" picard} AddOrRemoveReadGroups \
+      -jar ${default="picard" picard} AddOrReplaceReadGroups \
       ${userString} \
       -I=${input_bam} \
       -O=${output_filename} \
