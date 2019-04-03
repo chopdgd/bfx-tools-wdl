@@ -42,13 +42,13 @@ task AddOrReplaceReadGroups {
       -Xmx${memory}g \
       -jar ${default="picard" picard} AddOrReplaceReadGroups \
       ${userString} \
-      -I=${input_bam} \
-      -O=${output_filename} \
-      -RGID=${RGID} \
-      -RGLB=${RGLB} \
-      -RGPL=${RGPL} \
-      -RGPU=${RGPU} \
-      -RGSM=${RGSM};
+      I=${input_bam} \
+      O=${output_filename} \
+      RGID=${RGID} \
+      RGLB=${RGLB} \
+      RGPL=${RGPL} \
+      RGPU=${RGPU} \
+      RGSM=${RGSM};
   }
 
 	output {
