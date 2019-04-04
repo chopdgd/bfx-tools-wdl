@@ -14,7 +14,7 @@ task AddOrReplaceReadGroups {
 
     File input_bam
     String sample_id
-    String output_filename_extension
+    String output_filename_extension = ".rg.bam"
 
     Int RGID = 4
     String RGLB = "lib1"
@@ -65,7 +65,7 @@ task AddOrReplaceReadGroups {
     picard: "Picard jar file."
     input_bam: "Sorted BAM file."
     sample_id: "prefix for output files."
-    output_filename_extension: "Full BAM filename with extension change, e.g. .rg.bam"
+    output_filename_extension: "BAM filename extension, will default to <sample_id>.rg.bam"
     RGID: "Read Group ID."
     RGLB: "Read Group library."
     RGPL: "Read Group platform."
