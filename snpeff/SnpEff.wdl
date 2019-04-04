@@ -13,7 +13,7 @@ task SnpEff {
     File ? snpeff
     File config
 
-    File filename_prefix
+    String filename_prefix
     File input_file
     File ? input_idx_file
 
@@ -42,7 +42,7 @@ task SnpEff {
         -c ${config} \
         -dataDir ${dataDir} \
         ${reference_version} \
-        ${vcf_file} > ${output_filename};
+        ${input_file} > ${output_filename};
   }
 
   output {
