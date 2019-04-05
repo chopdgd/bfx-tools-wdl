@@ -9,28 +9,27 @@ task CreateVirtualenv {
     String name = 'pyenv'
     File requirements
 
-    Array[String] modules = []
+    Array[String] modules = ['python/2.7']
     Int memory = 1
     Int cpu = 1
   }
 
-  String python_filename = name + "/bin/python"
-  String pip_filename = name + "/bin/pip"
+  String python_binary = name + "/bin/python"
 
   command {
-    set -Eeuxo pipefail;
-
-    for MODULE in ${sep=' ' modules}; do
+    for MODULE in ~{sep=' ' modules}; do
         module load $MODULE
     done;
 
-    virtualenv --python=${version} ${name};
-    ${pip_filename} install --user -r ${requirements};
+    virtualenv --python=~{version} ~{name};
+
+    source ~{name}/bin/activate;
+
+    pip install -r ~{requirements};
   }
 
   output {
-    File python = "${python_filename}"
-    File pip = "${pip_filename}"
+    File python = "${python_binary}"
   }
 
   runtime {
