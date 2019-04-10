@@ -22,15 +22,15 @@ task Index {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ${sep=' ' modules}; do
+    for MODULE in ~{sep=' ' modules}; do
         module load $MODULE
     done;
 
-    ${default="samtools" samtools} index \
-      ${"-@ " + cpu} \
-      ${userString} \
-      ${input_file} \
-      ${output_file}
+    ~{default="samtools" samtools} index \
+      ~{"-@ " + cpu} \
+      ~{userString} \
+      ~{input_file} \
+      ~{output_file};
   }
 
   output {
@@ -46,7 +46,7 @@ task Index {
     samtools: "Samtools executable."
     userString: "An optional parameter which allows the user to specify additions to the command line at run time."
     input_file: "Input file to process."
-    output_file: "Output index filename. Either set explicity here or let Samtools determine input filetype and index type."
+    output_file: "Output index filename. Needs to be set explicitly."
     modules: "Modules to load when task is called; modules must be compatible with the platform the task runs on."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
