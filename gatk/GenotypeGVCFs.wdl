@@ -16,9 +16,9 @@ task GenotypeGVCFs {
     File reference_idx
     File reference_dict
 
+    Array[File] intervals = []
     File ? dbsnp
     File ? dbsnp_idx
-    Array[File] intervals
 
     String cohort_id
     Array[File] gvcf_files
@@ -31,6 +31,8 @@ task GenotypeGVCFs {
     Int memory = 4
     Int cpu = 1
   }
+
+  Array[String] intervalOptions = prefix("--intervals ", intervals)
 
   String vcf_filename = cohort_id + ".rawVariants.vcf.gz"
   String vcf_filename_idx = cohort_id + ".rawVariants.vcf.gz.tbi"
@@ -52,7 +54,7 @@ task GenotypeGVCFs {
       -nt ${cpu} \
       -R ${reference} \
       ${sep=" " prefix("--variant ", gvcf_files)} \
-      ${sep=" " prefix("--intervals ", intervals)} \
+      ${sep=" " intervalOptions} \
       -o ${vcf_filename};
   }
 

@@ -16,19 +16,24 @@ task SelectVariants {
     File reference_idx
     File reference_dict
 
-    Array[File] intervals
+    Array[File] intervals = []
     File input_file
     File ? input_idx_file
 
-    Array[String] selectType
-    Array[String] selectTypeToExclude
-    Array[String] selectExpressions
+    Array[String] selectType = []
+    Array[String] selectTypeToExclude = []
+    Array[String] selectExpressions = []
     String ? userString
 
     Array[String] modules = []
     Int memory = 4
     Int cpu = 1
   }
+
+  Array[String] intervalOptions = prefix("--intervals ", intervals)
+  Array[String] selectTypeIncludeOptions = prefix("--selectTypeToInclude ", selectType)
+  Array[String] selectTypeExcludeOptions = prefix("--selectTypeToExclude ", selectTypeToExclude)
+  Array[String] selectExpressionsOptions = prefix("--selectexpressions ", selectExpressions)
 
   String output_filename = basename(input_file) + ".filtered.vcf.gz"
   String output_idx_filename = basename(input_file) + ".filtered.vcf.gz.tbi"
@@ -48,10 +53,10 @@ task SelectVariants {
       -R ${reference} \
       -nt ${cpu} \
       --variant ${input_file} \
-      ${sep=" " prefix("--intervals ", intervals)} \
-      ${sep=" " prefix("--selectTypeToInclude ", selectType)} \
-      ${sep=" " prefix("--selectTypeToExclude ", selectTypeToExclude)} \
-      ${sep=" " prefix("--selectexpressions ", selectExpressions)} \
+      ${sep=" " intervalOptions} \
+      ${sep=" " selectTypeIncludeOptions} \
+      ${sep=" " selectTypeExcludeOptions} \
+      ${sep=" " selectExpressionsOptions} \
       -o ${output_filename};
   }
 

@@ -19,9 +19,9 @@ task HaplotypeCallerERC {
     File reference_idx
     File reference_dict
 
+    Array[File] intervals = []
     File ? dbsnp
     File ? dbsnp_idx
-    Array[File] intervals
 
     String sample_id
     File bam_file
@@ -33,6 +33,8 @@ task HaplotypeCallerERC {
     Int memory = 4
     Int cpu = 1
   }
+
+  Array[String] intervalOptions = prefix("--intervals ", intervals)
 
   String gvcf_filename = sample_id + ".rawLikelihoods.g.vcf.gz"
   String gvcf_idx_filename = sample_id + ".rawLikelihoods.g.vcf.gz.tbi"
@@ -53,7 +55,7 @@ task HaplotypeCallerERC {
       ${"--dbsnp " + dbsnp} \
       -R ${reference} \
       -I ${bam_file} \
-      ${sep=" " prefix("--intervals ", intervals)} \
+      ${sep=" " intervalOptions} \
       -o ${gvcf_filename};
   }
 

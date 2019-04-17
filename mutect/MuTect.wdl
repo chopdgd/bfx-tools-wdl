@@ -16,9 +16,9 @@ task MuTect {
     File reference_idx
     File reference_dict
 
+    Array[File] intervals = []
     File ? dbsnp
     File ? dbsnp_idx
-    Array[File] intervals
 
     String sample_id
     File bam_file
@@ -30,6 +30,8 @@ task MuTect {
     Int memory = 4
     Int cpu = 1
   }
+
+  Array[String] intervalOptions = prefix("--intervals ", intervals)
 
   String vcf_filename = sample_id + "_MuTect.vcf"
   String vcf_idx_filename = sample_id + "_MuTect.vcf.idx"
@@ -50,7 +52,7 @@ task MuTect {
       ${userString} \
       -R ${reference} \
       ${"--dbsnp " + dbsnp} \
-      ${sep=" " prefix("--intervals ", intervals)} \
+      ${sep=" " intervalOptions} \
       --input_file:tumor ${bam_file} \
       --out ${stats_filename} \
       --vcf ${vcf_filename} \
