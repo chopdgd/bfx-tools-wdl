@@ -6,7 +6,7 @@ version 1.0
 # -------------------------------------------------------------------------------------------------
 
 
-task Index {
+task BAMIndex {
   input {
     File ? samtools
 
@@ -30,7 +30,7 @@ task Index {
     ~{default="samtools" samtools} index \
       ~{"-@ " + cpu} \
       ~{userString} \
-      ~{input_file} > ~{output_filename};
+      ~{input_file} > ~{output_file};
   }
 
   output {
