@@ -42,26 +42,26 @@ task HaplotypeCallerERC {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ${sep=' ' modules}; do
+    for MODULE in ~{sep=' ' modules}; do
       module load $MODULE
     done;
 
-    ${default="java" java} \
-      -Xmx${memory}g \
-      -jar ${default="gatk" gatk} \
+    ~{default="java" java} \
+      -Xmx~{memory}g \
+      -jar ~{default="gatk" gatk} \
       -T HaplotypeCaller -ERC GVCF \
-      ${userString} \
-      -nct ${cpu} \
-      ${"--dbsnp " + dbsnp} \
-      -R ${reference} \
-      -I ${bam_file} \
-      ${sep=" " intervalOptions} \
-      -o ${gvcf_filename};
+      ~{userString} \
+      -nct ~{cpu} \
+      ~{"--dbsnp " + dbsnp} \
+      -R ~{reference} \
+      -I ~{bam_file} \
+      ~{sep=" " intervalOptions} \
+      -o ~{gvcf_filename};
   }
 
   output {
-    File gvcf_file = "${gvcf_filename}"
-    File gvcf_idx_file = "${gvcf_idx_filename}"
+    File gvcf_file = "~{gvcf_filename}"
+    File gvcf_idx_file = "~{gvcf_idx_filename}"
   }
 
   runtime {

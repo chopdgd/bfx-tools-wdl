@@ -27,20 +27,20 @@ task MPileup2CNS {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ${sep=' ' modules}; do
+    for MODULE in ~{sep=' ' modules}; do
         module load $MODULE
     done;
 
-    ${default="java" java} \
-      -Xmx${memory}g \
-      -jar ${default="varscan" varscan} mpileup2cns \
-      ${mpileup} \
-      ${userString} \
-      --variants --output-vcf 1 > ${output_filename};
+    ~{default="java" java} \
+      -Xmx~{memory}g \
+      -jar ~{default="varscan" varscan} mpileup2cns \
+      ~{mpileup} \
+      ~{userString} \
+      --variants --output-vcf 1 > ~{output_filename};
   }
 
   output {
-    File vcf_file = "${output_filename}"
+    File vcf_file = "~{output_filename}"
   }
 
   runtime {

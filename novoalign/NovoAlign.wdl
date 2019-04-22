@@ -33,20 +33,20 @@ task NovoAlign {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ${sep=' ' modules}; do
+    for MODULE in ~{sep=' ' modules}; do
         module load $MODULE
     done;
 
-    cp ${novoalign_license} .;
+    cp ~{novoalign_license} .;
 
-    ${default="novoalign" novoalign} \
-      -d ${reference_novoindex} \
-      -f ${fastq_1} ${fastq_2} \
-      -c ${cpu} \
-      -o ${output_format} \
-      "@RG\\tID:${sample_id}\\tPU:${platform_unit}\\tLB:${library}\\tPL:${platform}\\tSM:${sample_id}" \
-      ${userString} \
-      ${true="-# 50000" false="" debug};
+    ~{default="novoalign" novoalign} \
+      -d ~{reference_novoindex} \
+      -f ~{fastq_1} ~{fastq_2} \
+      -c ~{cpu} \
+      -o ~{output_format} \
+      "@RG\\tID:~{sample_id}\\tPU:~{platform_unit}\\tLB:~{library}\\tPL:~{platform}\\tSM:~{sample_id}" \
+      ~{userString} \
+      ~{true="-# 50000" false="" debug};
   }
 
   output {

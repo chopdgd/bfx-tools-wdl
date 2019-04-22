@@ -24,20 +24,20 @@ task BamToFastQ {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ${sep=' ' modules}; do
+    for MODULE in ~{sep=' ' modules}; do
       module load $MODULE
     done;
 
-    ${default="bedtools" bedtools} \
+    ~{default="bedtools" bedtools} \
       bamtofastq \
-      -i ${bam_file} \
-      -fq ${fastq1} \
-      ${"-fq2 " + fastq2};
+      -i ~{bam_file} \
+      -fq ~{fastq1} \
+      ~{"-fq2 " + fastq2};
   }
 
   output {
-    File fastq1 = "${fastq1}"
-    File ? fastq2 = "${fastq2}"
+    File fastq1 = "~{fastq1}"
+    File ? fastq2 = "~{fastq2}"
   }
 
   runtime {

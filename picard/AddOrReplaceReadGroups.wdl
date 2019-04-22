@@ -29,30 +29,30 @@ task AddOrReplaceReadGroups {
     Int cpu = 1
   }
 
-  String output_filename = "${sample_id}" + "${output_filename_extension}"
+  String output_filename = "~{sample_id}" + "~{output_filename_extension}"
 
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ${sep=' ' modules}; do
+    for MODULE in ~{sep=' ' modules}; do
         module load $MODULE
     done;
 
-    ${default="java" java} \
-      -Xmx${memory}g \
-      -jar ${default="picard" picard} AddOrReplaceReadGroups \
-      ${userString} \
-      I=${input_bam} \
-      O=${output_filename} \
-      RGID=${RGID} \
-      RGLB=${RGLB} \
-      RGPL=${RGPL} \
-      RGPU=${RGPU} \
-      RGSM=${RGSM};
+    ~{default="java" java} \
+      -Xmx~{memory}g \
+      -jar ~{default="picard" picard} AddOrReplaceReadGroups \
+      ~{userString} \
+      I=~{input_bam} \
+      O=~{output_filename} \
+      RGID=~{RGID} \
+      RGLB=~{RGLB} \
+      RGPL=~{RGPL} \
+      RGPU=~{RGPU} \
+      RGSM=~{RGSM};
   }
 
 	output {
-		File output_bam = "${output_filename}"
+		File output_bam = "~{output_filename}"
 	}
 
 	runtime {

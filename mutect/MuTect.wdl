@@ -41,29 +41,29 @@ task MuTect {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ${sep=' ' modules}; do
+    for MODULE in ~{sep=' ' modules}; do
       module load $MODULE
     done;
 
-    ${default="java" java} \
-      -Xmx${memory}g \
-      -jar ${mutect} \
+    ~{default="java" java} \
+      -Xmx~{memory}g \
+      -jar ~{mutect} \
       -T MuTect \
-      ${userString} \
-      -R ${reference} \
-      ${"--dbsnp " + dbsnp} \
-      ${sep=" " intervalOptions} \
-      --input_file:tumor ${bam_file} \
-      --out ${stats_filename} \
-      --vcf ${vcf_filename} \
-      --coverage_file ${coverage_filename};
+      ~{userString} \
+      -R ~{reference} \
+      ~{"--dbsnp " + dbsnp} \
+      ~{sep=" " intervalOptions} \
+      --input_file:tumor ~{bam_file} \
+      --out ~{stats_filename} \
+      --vcf ~{vcf_filename} \
+      --coverage_file ~{coverage_filename};
   }
 
   output {
-    File vcf_file = "${vcf_filename}"
-    File vcf_idx_file = "${vcf_idx_filename}"
-    File stats_file = "${stats_filename}"
-    File coverage_file = "${coverage_filename}"
+    File vcf_file = "~{vcf_filename}"
+    File vcf_idx_file = "~{vcf_idx_filename}"
+    File stats_file = "~{stats_filename}"
+    File coverage_file = "~{coverage_filename}"
   }
 
   runtime {

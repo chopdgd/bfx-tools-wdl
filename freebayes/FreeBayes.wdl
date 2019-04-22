@@ -32,20 +32,20 @@ task FreeBayes {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ${sep=' ' modules}; do
+    for MODULE in ~{sep=' ' modules}; do
       module load $MODULE
     done;
 
-    ${default="freebayes" freebayes} \
-      -f ${reference} \
-      ${"-t " + intervals} \
-      ${bam_file} \
-      ${userString} \
-      -v ${output_filename};
+    ~{default="freebayes" freebayes} \
+      -f ~{reference} \
+      ~{"-t " + intervals} \
+      ~{bam_file} \
+      ~{userString} \
+      -v ~{output_filename};
   }
 
   output {
-    File vcf_file = "${output_filename}"
+    File vcf_file = "~{output_filename}"
   }
 
   runtime {

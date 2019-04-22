@@ -34,25 +34,25 @@ task CombineVariants {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ${sep=' ' modules}; do
+    for MODULE in ~{sep=' ' modules}; do
       module load $MODULE
     done;
 
-    ${default="java" java} \
-      -Xmx${memory}g \
-      -jar ${default="gatk" gatk} \
+    ~{default="java" java} \
+      -Xmx~{memory}g \
+      -jar ~{default="gatk" gatk} \
       -T CombineVariants \
-      ${userString} \
-      -R ${reference} \
-      -nt ${cpu} \
-      ${sep=" " prefix("--variant ", input_files)} \
-      ${"-genotypeMergeOptions " + genotypeMergeOptions} \
-      -o ${output_filename};
+      ~{userString} \
+      -R ~{reference} \
+      -nt ~{cpu} \
+      ~{sep=" " prefix("--variant ", input_files)} \
+      ~{"-genotypeMergeOptions " + genotypeMergeOptions} \
+      -o ~{output_filename};
     }
 
   output {
-    File vcf_file = "${output_filename}"
-    File vcf_idx_file = "${output_idx_filename}"
+    File vcf_file = "~{output_filename}"
+    File vcf_idx_file = "~{output_idx_filename}"
   }
 
   runtime {

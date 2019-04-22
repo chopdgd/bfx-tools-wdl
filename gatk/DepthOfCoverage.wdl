@@ -38,28 +38,28 @@ task DepthOfCoverage {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ${sep=' ' modules}; do
+    for MODULE in ~{sep=' ' modules}; do
       module load $MODULE
     done;
 
-    ${default="java" java} \
-      -Xmx${memory}g \
-      -jar ${default="gatk" gatk} \
+    ~{default="java" java} \
+      -Xmx~{memory}g \
+      -jar ~{default="gatk" gatk} \
       -T DepthOfCoverage \
-      ${userString} \
-      -R ${reference} \
-      ${"-geneList " + gene_list} \
-      ${sep=" " prefix("-ct ", summary_coverage_threshold)} \
-      ${sep=" " prefix("-I ", bam_files)} \
-      ${sep=" " intervalOptions} \
-      -o ${output_base_filename};
+      ~{userString} \
+      -R ~{reference} \
+      ~{"-geneList " + gene_list} \
+      ~{sep=" " prefix("-ct ", summary_coverage_threshold)} \
+      ~{sep=" " prefix("-I ", bam_files)} \
+      ~{sep=" " intervalOptions} \
+      -o ~{output_base_filename};
   }
 
   output {
-    File sample_interval_statistics_file = "${output_base_filename}" + ".sample_interval_statistics"
-    File sample_statistics_file = "${output_base_filename}" + ".sample_statistics"
-    File sample_summary_file = "${output_base_filename}" + ".sample_summary"
-    File sample_interval_summary_file = "${output_base_filename}" + ".sample_interval_summary"
+    File sample_interval_statistics_file = "~{output_base_filename}" + ".sample_interval_statistics"
+    File sample_statistics_file = "~{output_base_filename}" + ".sample_statistics"
+    File sample_summary_file = "~{output_base_filename}" + ".sample_summary"
+    File sample_interval_summary_file = "~{output_base_filename}" + ".sample_interval_summary"
   }
 
   runtime {

@@ -29,23 +29,23 @@ task BedToIntervalList {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ${sep=' ' modules}; do
+    for MODULE in ~{sep=' ' modules}; do
         module load $MODULE
     done;
 
-    ${default="java" java} \
-      -Xmx${memory}g \
-      -jar ${default="picard" picard} BedToIntervalList \
-      ${userString} \
-      VALIDATION_STRINGENCY=${default="LENIENT" validation_stringency} \
-      SEQUENCE_DICTIONARY=${reference_dict} \
-      ${true="UNIQUE=true" false="" unique} \
-      INPUT=${bed_file} \
-      OUTPUT=${output_filename};
+    ~{default="java" java} \
+      -Xmx~{memory}g \
+      -jar ~{default="picard" picard} BedToIntervalList \
+      ~{userString} \
+      VALIDATION_STRINGENCY=~{default="LENIENT" validation_stringency} \
+      SEQUENCE_DICTIONARY=~{reference_dict} \
+      ~{true="UNIQUE=true" false="" unique} \
+      INPUT=~{bed_file} \
+      OUTPUT=~{output_filename};
   }
 
   output {
-    File interval_list_file = "${output_filename}"
+    File interval_list_file = "~{output_filename}"
   }
 
   runtime {

@@ -31,30 +31,30 @@ task Pindel {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ${sep=' ' modules}; do
+    for MODULE in ~{sep=' ' modules}; do
         module load $MODULE
     done;
 
-    echo -e ${bam_file}"\t"${sliding_window}"\t"${sample_id} > config;
+    echo -e ~{bam_file}"\t"~{sliding_window}"\t"~{sample_id} > config;
 
-    ${default="pindel" pindel} \
-      ${userString} \
-      ${"-j " + intervals} \
-      -f ${reference} \
+    ~{default="pindel" pindel} \
+      ~{userString} \
+      ~{"-j " + intervals} \
+      -f ~{reference} \
       -i config \
-      -o ${sample_id};
+      -o ~{sample_id};
   }
 
   output {
-    File deletion_file = "${sample_id}" + "_D"
-    File short_insertion_file = "${sample_id}" + "_SI"
-    File inversion_file = "${sample_id}" + "_INV"
-    File tandem_duplication_file = "${sample_id}" + "_TD"
-    File large_insertion_file = "${sample_id}" + "_LI"
-    File unassigned_breakpoints_file = "${sample_id}" + "_BP"
-    File CloseEndMapped_file = "${sample_id}" + "_CloseEndMapped"
-    File INT_file = "${sample_id}" + "_INT_final"
-    File RP_file = "${sample_id}" + "_RP"
+    File deletion_file = "~{sample_id}" + "_D"
+    File short_insertion_file = "~{sample_id}" + "_SI"
+    File inversion_file = "~{sample_id}" + "_INV"
+    File tandem_duplication_file = "~{sample_id}" + "_TD"
+    File large_insertion_file = "~{sample_id}" + "_LI"
+    File unassigned_breakpoints_file = "~{sample_id}" + "_BP"
+    File CloseEndMapped_file = "~{sample_id}" + "_CloseEndMapped"
+    File INT_file = "~{sample_id}" + "_INT_final"
+    File RP_file = "~{sample_id}" + "_RP"
   }
 
   runtime {

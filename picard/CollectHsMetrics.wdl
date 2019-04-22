@@ -34,26 +34,26 @@ task CollectHsMetrics {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ${sep=' ' modules}; do
+    for MODULE in ~{sep=' ' modules}; do
         module load $MODULE
     done;
 
-    ${default="java" java} \
-      -Xmx${memory}g \
-      -jar ${default="picard" picard} CollectHsMetrics \
-      ${userString} \
-      VALIDATION_STRINGENCY=${default="LENIENT" validation_stringency} \
-      REFERENCE_SEQUENCE=${reference} \
-      INPUT=${input_file} \
-      BAIT_INTERVALS=${bait_intervals} \
-      TARGET_INTERVALS=${target_intervals} \
-      PER_TARGET_COVERAGE=${per_target_coverage_filename} \
-      OUTPUT=${output_filename};
+    ~{default="java" java} \
+      -Xmx~{memory}g \
+      -jar ~{default="picard" picard} CollectHsMetrics \
+      ~{userString} \
+      VALIDATION_STRINGENCY=~{default="LENIENT" validation_stringency} \
+      REFERENCE_SEQUENCE=~{reference} \
+      INPUT=~{input_file} \
+      BAIT_INTERVALS=~{bait_intervals} \
+      TARGET_INTERVALS=~{target_intervals} \
+      PER_TARGET_COVERAGE=~{per_target_coverage_filename} \
+      OUTPUT=~{output_filename};
   }
 
   output {
-    File metrics_file = "${output_filename}"
-    File per_target_coverage_file = "${per_target_coverage_filename}"
+    File metrics_file = "~{output_filename}"
+    File per_target_coverage_file = "~{per_target_coverage_filename}"
   }
 
   runtime {

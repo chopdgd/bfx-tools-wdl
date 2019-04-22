@@ -28,30 +28,30 @@ task ExtractMappedReads {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ${sep=' ' modules}; do
+    for MODULE in ~{sep=' ' modules}; do
         module load $MODULE
     done;
 
-    ${default="samtools" samtools} view \
-      ${userString} \
-      --reference ${reference} \
-      ${"-@ " + cpu} \
-      ${input_file} | \
-    ${default="samtools" samtools} sort \
+    ~{default="samtools" samtools} view \
+      ~{userString} \
+      --reference ~{reference} \
+      ~{"-@ " + cpu} \
+      ~{input_file} | \
+    ~{default="samtools" samtools} sort \
       -O BAM \
-      --reference ${reference} \
-      ${"-@ " + cpu} \
-      - -o ${output_filename};
+      --reference ~{reference} \
+      ~{"-@ " + cpu} \
+      - -o ~{output_filename};
 
-    ${default="samtools" samtools} index \
-      ${"-@ " + cpu} \
-      ${output_filename} \
-      ${output_filename}.bai;
+    ~{default="samtools" samtools} index \
+      ~{"-@ " + cpu} \
+      ~{output_filename} \
+      ~{output_filename}.bai;
   }
 
   output {
-    File bam_file = "${output_filename}"
-    File bam_idx_file = "${output_filename}" + ".bai"
+    File bam_file = "~{output_filename}"
+    File bam_idx_file = "~{output_filename}" + ".bai"
   }
 
   runtime {

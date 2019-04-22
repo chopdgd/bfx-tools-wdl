@@ -20,17 +20,17 @@ task Clone {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ${sep=' ' modules}; do
+    for MODULE in ~{sep=' ' modules}; do
       module load $MODULE
     done;
 
-    ${default="git" git} \
-      clone ${repo} \
-      ${clone_directory} \
-      ${userString} \
-      -b ${branch};
+    ~{default="git" git} \
+      clone ~{repo} \
+      ~{clone_directory} \
+      ~{userString} \
+      -b ~{branch};
 
-    echo $PWD/${clone_directory} > directory.txt;
+    echo ~PWD/~{clone_directory} > directory.txt;
   }
 
   output {

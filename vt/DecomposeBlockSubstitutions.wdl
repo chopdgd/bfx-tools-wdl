@@ -24,17 +24,17 @@ task DecomposeBlockSubstitutions {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ${sep=' ' modules}; do
+    for MODULE in ~{sep=' ' modules}; do
       module load $MODULE
     done;
 
-    ${default="vt" vt} decompose_blocksub \
-      ${input_file} \
-      -o ${output_filename};
+    ~{default="vt" vt} decompose_blocksub \
+      ~{input_file} \
+      -o ~{output_filename};
   }
 
   output {
-    File vcf_file = "${output_filename}"
+    File vcf_file = "~{output_filename}"
   }
 
   runtime {

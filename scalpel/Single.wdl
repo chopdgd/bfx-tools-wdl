@@ -34,21 +34,21 @@ task Single {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ${sep=' ' modules}; do
+    for MODULE in ~{sep=' ' modules}; do
         module load $MODULE
     done;
 
-    ${default="scalpel" scalpel} --single \
-      --ref ${reference} \
-      --bam ${bam_file} \
-      --bed ${intervals} \
-      --numprocs ${cpu} \
-      ${userString} \
-      --dir ${sample_id};
+    ~{default="scalpel" scalpel} --single \
+      --ref ~{reference} \
+      --bam ~{bam_file} \
+      --bed ~{intervals} \
+      --numprocs ~{cpu} \
+      ~{userString} \
+      --dir ~{sample_id};
   }
 
   output {
-    File vcf_file = "${output_filename}"
+    File vcf_file = "~{output_filename}"
   }
 
   runtime {

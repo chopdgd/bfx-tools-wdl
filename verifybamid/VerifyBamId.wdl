@@ -27,19 +27,19 @@ task VerifyBamId {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ${sep=' ' modules}; do
+    for MODULE in ~{sep=' ' modules}; do
       module load $MODULE
     done;
 
-    ${default="verifybamid" verifybamid} \
-      --vcf ${omni_vcf} \
-      --bam ${bam_file} \
-      --out ${sample_id} \
-      ${userString};
+    ~{default="verifybamid" verifybamid} \
+      --vcf ~{omni_vcf} \
+      --bam ~{bam_file} \
+      --out ~{sample_id} \
+      ~{userString};
   }
 
   output {
-    File freemix_file = "${sample_id}" + ".selfSM"
+    File freemix_file = "~{sample_id}" + ".selfSM"
   }
 
   runtime {
