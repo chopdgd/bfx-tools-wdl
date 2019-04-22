@@ -24,7 +24,7 @@ task GenotypeGVCFs {
     Array[File] gvcf_files
     Array[File] gvcf_idx_files
 
-    Float stand_call_conf = 10.0
+    Float stand_call_conf = 50.0
     String ? userString
 
     Array[String] modules = []
