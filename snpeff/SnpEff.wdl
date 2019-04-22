@@ -31,22 +31,22 @@ task SnpEff {
     command {
       set -Eeuxo pipefail;
 
-      for MODULE in ${sep=' ' modules}; do
+      for MODULE in ~{sep=' ' modules}; do
           module load $MODULE
       done;
 
-      ${default="java" java} \
-        -Xmx${memory}g \
-        -jar ${default="snpeff" snpeff} eff \
-        ${userString} \
-        -c ${config} \
-        -dataDir ${dataDir} \
-        ${reference_version} \
-        ${input_file} > ${output_filename};
+      ~{default="java" java} \
+        -Xmx~{memory}g \
+        -jar ~{default="snpeff" snpeff} eff \
+        ~{userString} \
+        -c ~{config} \
+        -dataDir ~{dataDir} \
+        ~{reference_version} \
+        ~{input_file} > ~{output_filename};
   }
 
   output {
-    File vcf_file = "${output_filename}"
+    File vcf_file = "~{output_filename}"
   }
 
   runtime {

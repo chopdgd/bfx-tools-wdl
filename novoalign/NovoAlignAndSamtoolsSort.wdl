@@ -41,41 +41,41 @@ task NovoAlignAndSamtoolsSort {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ${sep=' ' modules}; do
+    for MODULE in ~{sep=' ' modules}; do
         module load $MODULE
     done;
 
-    cp ${novoalign_license} .;
+    cp ~{novoalign_license} .;
 
-    ${default="novoalign" novoalign} \
-      -d ${reference_novoindex} \
-      ${true="-# 50000" false="" debug} \
-      -f ${fastq_1} ${fastq_2} \
-      ${userString} \
-      -c ${cpu} \
-      -o ${output_format} \
-      "@RG\\tID:${sample_id}\\tPU:${platform_unit}\\tLB:${library}\\tPL:${platform}\\tSM:${sample_id}" | \
-    ${default="samtools" samtools} view \
+    ~{default="novoalign" novoalign} \
+      -d ~{reference_novoindex} \
+      ~{true="-# 50000" false="" debug} \
+      -f ~{fastq_1} ~{fastq_2} \
+      ~{userString} \
+      -c ~{cpu} \
+      -o ~{output_format} \
+      "@RG\\tID:~{sample_id}\\tPU:~{platform_unit}\\tLB:~{library}\\tPL:~{platform}\\tSM:~{sample_id}" | \
+    ~{default="samtools" samtools} view \
       -b \
-      --reference ${reference} \
-      ${"-@ " + cpu} \
+      --reference ~{reference} \
+      ~{"-@ " + cpu} \
       - | \
-    ${default="samtools" samtools} sort \
+    ~{default="samtools" samtools} sort \
       -O BAM \
-      --reference ${reference} \
-      ${"-@ " + cpu} \
+      --reference ~{reference} \
+      ~{"-@ " + cpu} \
       - \
-      -o ${output_filename};
+      -o ~{output_filename};
 
-    ${default="samtools" samtools} index ${"-@ " + cpu} ${output_filename} ${output_idx_filename};
+    ~{default="samtools" samtools} index ~{"-@ " + cpu} ~{output_filename} ~{output_idx_filename};
 
-    cp "stderr" ${output_alignment_stats};
+    cp "stderr" ~{output_alignment_stats};
   }
 
   output {
-    File metrics_file = "${output_alignment_stats}"
-    File bam_file = "${output_filename}"
-    File bam_idx_file = "${output_idx_filename}"
+    File metrics_file = "~{output_alignment_stats}"
+    File bam_file = "~{output_filename}"
+    File bam_idx_file = "~{output_idx_filename}"
   }
 
   runtime {

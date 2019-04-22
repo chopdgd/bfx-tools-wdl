@@ -13,11 +13,11 @@ task wget {
   String filename = basename(url)
 
   command {
-    wget ${userString} ${url} -O ${filename}
+    wget ~{userString} ~{url} -O ~{filename}
   }
 
   output {
-    File output_file = "${filename}"
+    File output_file = "~{filename}"
   }
 }
 
@@ -28,11 +28,11 @@ task mkdir {
   }
 
   command {
-    mkdir ${default="-p " userString} ${directory}
+    mkdir ~{default="-p " userString} ~{directory}
   }
 
   output {
-    String output_directory = "${directory}"
+    String output_directory = "~{directory}"
   }
 }
 
@@ -44,11 +44,11 @@ task mv {
   }
 
   command {
-    mv ${userString} ${input_file} ${target}
+    mv ~{userString} ~{input_file} ~{target}
   }
 
   output {
-    File output_file = "${target}"
+    File output_file = "~{target}"
   }
 }
 
@@ -60,11 +60,11 @@ task cp {
   }
 
   command {
-    cp ${userString} ${input_file} ${target}
+    cp ~{userString} ~{input_file} ~{target}
   }
 
   output {
-    File output_file = "${target}"
+    File output_file = "~{target}"
   }
 }
 
@@ -77,11 +77,11 @@ task UnZip {
   String output_filename = basename(input_file, ".gz")
 
   command {
-    gunzip -dc ${userString} ${input_file} > ${output_filename}
+    gunzip -dc ~{userString} ~{input_file} > ~{output_filename}
   }
 
   output {
-    File output_file = "${output_filename}"
+    File output_file = "~{output_filename}"
   }
 }
 
@@ -101,17 +101,17 @@ task BgZip {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ${sep=' ' modules}; do
+    for MODULE in ~{sep=' ' modules}; do
       module load $MODULE
     done;
 
-    ${default="bgzip" bgzip} \
-      -c ${userString} \
-      ${input_file} > ${output_filename};
+    ~{default="bgzip" bgzip} \
+      -c ~{userString} \
+      ~{input_file} > ~{output_filename};
   }
 
   output {
-    File output_file = "${output_filename}"
+    File output_file = "~{output_filename}"
   }
 
   runtime {
@@ -136,17 +136,17 @@ task Tabix {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ${sep=' ' modules}; do
+    for MODULE in ~{sep=' ' modules}; do
       module load $MODULE
     done;
 
-    ${default="tabix" tabix} \
-      ${userString} \
-      ${input_file};
+    ~{default="tabix" tabix} \
+      ~{userString} \
+      ~{input_file};
   }
 
   output {
-    File output_file = "${output_filename}"
+    File output_file = "~{output_filename}"
   }
 
   runtime {
@@ -175,22 +175,22 @@ task CompressAndIndex {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ${sep=' ' modules}; do
+    for MODULE in ~{sep=' ' modules}; do
         module load $MODULE
     done;
 
-    ${default="bgzip" bgzip} \
-      -c ${bgzipParams} \
-      ${input_file} > ${output_filename};
+    ~{default="bgzip" bgzip} \
+      -c ~{bgzipParams} \
+      ~{input_file} > ~{output_filename};
 
-    ${default="tabix" tabix} \
-      ${tabixParams} \
-      ${output_filename};
+    ~{default="tabix" tabix} \
+      ~{tabixParams} \
+      ~{output_filename};
   }
 
   output {
-    File output_file = "${output_filename}"
-    File output_idx_file = "${output_idx_filename}"
+    File output_file = "~{output_filename}"
+    File output_idx_file = "~{output_idx_filename}"
   }
 
   runtime {

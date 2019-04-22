@@ -34,7 +34,7 @@ task Index {
   }
 
   output {
-    File output_idx_file = "${output_file}"
+    File output_idx_file = "~{output_file}"
   }
 
   runtime {

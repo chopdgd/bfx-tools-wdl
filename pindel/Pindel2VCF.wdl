@@ -30,22 +30,22 @@ task Pindel2Vcf {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ${sep=' ' modules}; do
+    for MODULE in ~{sep=' ' modules}; do
         module load $MODULE
     done;
 
-    cp ${input_file} ${temp_filename};
+    cp ~{input_file} ~{temp_filename};
 
-    ${default="pindel2vcf" pindel2vcf} \
-      ${userString} \
-      -r ${reference} \
-      -R ${reference_version} \
-      -d ${reference_date} \
-      -p ${temp_filename};
+    ~{default="pindel2vcf" pindel2vcf} \
+      ~{userString} \
+      -r ~{reference} \
+      -R ~{reference_version} \
+      -d ~{reference_date} \
+      -p ~{temp_filename};
   }
 
   output {
-    File vcf_file = "${temp_filename}" + ".vcf"
+    File vcf_file = "~{temp_filename}" + ".vcf"
   }
 
   runtime {

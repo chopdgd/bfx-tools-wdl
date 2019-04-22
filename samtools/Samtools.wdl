@@ -23,15 +23,15 @@ task Samtools {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ${sep=' ' modules}; do
+    for MODULE in ~{sep=' ' modules}; do
         module load $MODULE
     done;
 
-    ${default="samtools" samtools} ${command} \
-      ${"--reference " + reference} \
-      ${"-@ " + cpu} \
-      ${userString} \
-      ${input_file};
+    ~{default="samtools" samtools} ~{command} \
+      ~{"--reference " + reference} \
+      ~{"-@ " + cpu} \
+      ~{userString} \
+      ~{input_file};
   }
 
   output {

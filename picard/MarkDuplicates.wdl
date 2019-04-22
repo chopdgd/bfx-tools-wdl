@@ -35,28 +35,28 @@ task MarkDuplicates {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ${sep=' ' modules}; do
+    for MODULE in ~{sep=' ' modules}; do
         module load $MODULE
     done;
 
-    ${default="java" java} \
-      -Xmx${memory}g \
-      -jar ${default="picard" picard} MarkDuplicates \
-      ${userString} \
-      VALIDATION_STRINGENCY=${default="LENIENT" validation_stringency} \
-      REFERENCE_SEQUENCE=${reference} \
-      INPUT=${input_file} \
-      REMOVE_DUPLICATES=${default=false remove_duplicates} \
-      ${"ASSUME_SORT_ORDER=" + sort_order} \
-      CREATE_INDEX=${create_index} \
-      METRICS_FILE=${metrics_filename} \
-      OUTPUT=${output_filename};
+    ~{default="java" java} \
+      -Xmx~{memory}g \
+      -jar ~{default="picard" picard} MarkDuplicates \
+      ~{userString} \
+      VALIDATION_STRINGENCY=~{default="LENIENT" validation_stringency} \
+      REFERENCE_SEQUENCE=~{reference} \
+      INPUT=~{input_file} \
+      REMOVE_DUPLICATES=~{default=false remove_duplicates} \
+      ~{"ASSUME_SORT_ORDER=" + sort_order} \
+      CREATE_INDEX=~{create_index} \
+      METRICS_FILE=~{metrics_filename} \
+      OUTPUT=~{output_filename};
   }
 
   output {
-    File metrics_file = "${metrics_filename}"
-    File bam_file = "${output_filename}"
-    File bam_idx_file = "${output_idx_filename}"
+    File metrics_file = "~{metrics_filename}"
+    File bam_file = "~{output_filename}"
+    File bam_idx_file = "~{output_idx_filename}"
   }
 
   runtime {

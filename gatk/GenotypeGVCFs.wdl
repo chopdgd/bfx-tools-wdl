@@ -40,27 +40,27 @@ task GenotypeGVCFs {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ${sep=' ' modules}; do
+    for MODULE in ~{sep=' ' modules}; do
       module load $MODULE
     done;
 
-    ${default="java" java} \
-      -Xmx${memory}g \
-      -jar ${default="gatk" gatk} \
+    ~{default="java" java} \
+      -Xmx~{memory}g \
+      -jar ~{default="gatk" gatk} \
       -T GenotypeGVCFs \
-      ${userString} \
-      -stand_call_conf ${stand_call_conf} \
-      ${"--dbsnp " + dbsnp} \
-      -nt ${cpu} \
-      -R ${reference} \
-      ${sep=" " prefix("--variant ", gvcf_files)} \
-      ${sep=" " intervalOptions} \
-      -o ${vcf_filename};
+      ~{userString} \
+      -stand_call_conf ~{stand_call_conf} \
+      ~{"--dbsnp " + dbsnp} \
+      -nt ~{cpu} \
+      -R ~{reference} \
+      ~{sep=" " prefix("--variant ", gvcf_files)} \
+      ~{sep=" " intervalOptions} \
+      -o ~{vcf_filename};
   }
 
   output {
-    File vcf_file = "${vcf_filename}"
-    File vcf_idx_file = "${vcf_filename_idx}"
+    File vcf_file = "~{vcf_filename}"
+    File vcf_idx_file = "~{vcf_filename_idx}"
   }
 
   runtime {

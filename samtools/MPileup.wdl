@@ -25,15 +25,15 @@ task MPileup {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ${sep=' ' modules}; do
+    for MODULE in ~{sep=' ' modules}; do
         module load $MODULE
     done;
 
-    ${default="samtools" samtools} mpileup \
-      ${"--reference " + reference} \
-      ${"--positions" + intervals} \
-      ${userString} \
-      ${sep=" " bam_files};
+    ~{default="samtools" samtools} mpileup \
+      ~{"--reference " + reference} \
+      ~{"--positions" + intervals} \
+      ~{userString} \
+      ~{sep=" " bam_files};
   }
 
   output {
