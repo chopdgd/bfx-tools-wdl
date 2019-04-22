@@ -16,7 +16,7 @@ task DepthOfCoverage {
     File reference_idx
     File reference_dict
 
-    Array[File] intervals
+    Array[File] intervals = []
     File ? gene_list
 
     String sample_id
@@ -30,6 +30,8 @@ task DepthOfCoverage {
     Int memory = 4
     Int cpu = 1
   }
+
+  Array[String] intervalOptions = prefix("--intervals ", intervals)
 
   String output_base_filename = sample_id + ".depthOfCoverage"
 
@@ -49,7 +51,7 @@ task DepthOfCoverage {
       ${"-geneList " + gene_list} \
       ${sep=" " prefix("-ct ", summary_coverage_threshold)} \
       ${sep=" " prefix("-I ", bam_files)} \
-      ${sep=" " prefix("--intervals ", intervals)} \
+      ${sep=" " intervalOptions} \
       -o ${output_base_filename};
   }
 

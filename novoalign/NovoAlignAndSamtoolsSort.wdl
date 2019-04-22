@@ -36,6 +36,7 @@ task NovoAlignAndSamtoolsSort {
 
   String output_filename = sample_id + ".sorted.bam"
   String output_idx_filename = sample_id + ".sorted.bam.bai"
+  String output_alignment_stats = sample_id + ".alignment.stats"
 
   command {
     set -Eeuxo pipefail;
@@ -67,10 +68,12 @@ task NovoAlignAndSamtoolsSort {
       -o ${output_filename};
 
     ${default="samtools" samtools} index ${"-@ " + cpu} ${output_filename} ${output_idx_filename};
+
+    cp "stderr" ${output_alignment_stats};
   }
 
   output {
-    File metrics_file = stderr()
+    File metrics_file = "${output_alignment_stats}"
     File bam_file = "${output_filename}"
     File bam_idx_file = "${output_idx_filename}"
   }
