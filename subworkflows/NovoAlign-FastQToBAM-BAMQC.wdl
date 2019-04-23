@@ -10,7 +10,7 @@ version 1.0
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/develop/utilities/CombineFastQ.wdl" as CombineFastQ
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/develop/novoalign/NovoAlignAndSamtoolsSort.wdl" as NovoAlign
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/develop/picard/MarkDuplicates.wdl" as Picard
-import "https://raw.githubusercontent.com/chopdgd/bfx-workflows-wdl/develop/subworkflows/BAM-Quality-Control.wdl" as BAMQualityControl
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/develop/subworkflows/BAM-Quality-Control.wdl" as BAMQualityControl
 
 workflow FastQToBAM {
   input {
