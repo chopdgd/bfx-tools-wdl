@@ -15,7 +15,7 @@ import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/develop/utilitie
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/develop/novoalign/NovoAlignAndSamtoolsSort.wdl" as NovoAlign
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/develop/picard/MarkDuplicates.wdl" as Picard
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/develop/gatk/HaplotypeCallerERC.wdl" as GATK
-import "https://raw.githubusercontent.com/chopdgd/bfx-workflows-wdl/develop/subworkflows/BAM-Quality-Control.wdl" as BAMQualityControl
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/develop/subworkflows/BAM-Quality-Control.wdl" as BAMQualityControl
 
 workflow FastQToGVCFAndBAMQC {
   input {
