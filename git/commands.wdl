@@ -30,7 +30,7 @@ task Clone {
       ~{userString} \
       -b ~{branch};
 
-    echo ~PWD/~{clone_directory} > directory.txt;
+    echo $PWD/~{clone_directory} > directory.txt;
   }
 
   output {
