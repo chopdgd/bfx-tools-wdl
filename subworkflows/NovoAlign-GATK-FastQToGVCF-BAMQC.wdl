@@ -11,6 +11,7 @@ version 1.0
 #  * VerifyBamId
 # -------------------------------------------------------------------------------------------------
 
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/develop/unix/commands.wdl" as Unix
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/develop/utilities/CombineFastQ.wdl" as CombineFastQ
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/develop/novoalign/NovoAlignAndSamtoolsSort.wdl" as NovoAlign
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/develop/picard/MarkDuplicates.wdl" as Picard
@@ -117,12 +118,18 @@ workflow FastQToGVCFAndBAMQC {
       omni_vcf_idx=omni_vcf_idx,
   }
 
+  call Unix.cp as RenameBAMIdx {
+    input:
+      input_file=MarkDuplicates.bam_idx_file,
+      target=sub(basename(MarkDuplicates.bam_idx_file), '.bai', '.bam.bai')
+  }
+
   output {
     # BAMs
     File bam_file = Alignment.bam_file
     File bam_idx_file = Alignment.bam_idx_file
     File markdups_bam_file = MarkDuplicates.bam_file
-    File markdups_bam_idx_file = MarkDuplicates.bam_idx_file
+    File markdups_bam_idx_file = RenameBAMIdx.output_file
 
     # gVCFs
     File gvcf_file = HaplotypeCaller.gvcf_file
