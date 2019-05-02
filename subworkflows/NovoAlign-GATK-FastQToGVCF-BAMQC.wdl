@@ -129,7 +129,8 @@ workflow FastQToGVCFAndBAMQC {
     File bam_file = Alignment.bam_file
     File bam_idx_file = Alignment.bam_idx_file
     File markdups_bam_file = MarkDuplicates.bam_file
-    File markdups_bam_idx_file = RenameBAMIdx.output_file
+    File markdups_bam_idx_file = MarkDuplicates.bam_idx_file
+    File renamed_markdups_bam_idx_file = RenameBAMIdx.output_file
 
     # gVCFs
     File gvcf_file = HaplotypeCaller.gvcf_file
