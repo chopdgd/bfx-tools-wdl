@@ -20,7 +20,6 @@ task MarkDuplicates {
     String validation_stringency = "LENIENT"
     Boolean remove_duplicates = false
     String ? sort_order
-    Boolean create_index = true
     String ? userString
 
     Array[String] modules = []
@@ -31,6 +30,7 @@ task MarkDuplicates {
   String metrics_filename = sample_id + ".picardmkdup.metrics"
   String output_filename = sample_id + ".markdups.bam"
   String output_idx_filename = sample_id + ".markdups.bai"
+  String output_renamed_idx_filename = sample_id + ".markdups.bam.bai"
 
   command {
     set -Eeuxo pipefail;
@@ -43,20 +43,22 @@ task MarkDuplicates {
       -Xmx~{memory}g \
       -jar ~{default="picard" picard} MarkDuplicates \
       ~{userString} \
-      VALIDATION_STRINGENCY=~{default="LENIENT" validation_stringency} \
+      VALIDATION_STRINGENCY=~{validation_stringency} \
       REFERENCE_SEQUENCE=~{reference} \
       INPUT=~{input_file} \
-      REMOVE_DUPLICATES=~{default=false remove_duplicates} \
+      REMOVE_DUPLICATES=~{remove_duplicates} \
       ~{"ASSUME_SORT_ORDER=" + sort_order} \
-      CREATE_INDEX=~{create_index} \
+      CREATE_INDEX=true \
       METRICS_FILE=~{metrics_filename} \
       OUTPUT=~{output_filename};
+
+    cp ~{output_idx_filename} ~{output_renamed_idx_filename};
   }
 
   output {
     File metrics_file = "~{metrics_filename}"
     File bam_file = "~{output_filename}"
-    File bam_idx_file = "~{output_idx_filename}"
+    File bam_idx_file = "~{output_renamed_idx_filename}"
   }
 
   runtime {
@@ -74,7 +76,6 @@ task MarkDuplicates {
     validation_stringency: "Validation stringency for all SAM files read by this program. Setting stringency to SILENT can improve performance when processing a BAM file in which variable-length data (read, qualities, tags) do not otherwise need to be decoded."
     remove_duplicates: "If true do not write duplicates to the output file instead of writing them with appropriate flags set."
     sort_order: "If not null, assume that the input file has this order even if the header says otherwise."
-    create_index: "Whether to create a BAM index when writing a coordinate-sorted BAM file."
     userString: "An optional parameter which allows the user to specify additions to the command line at run time."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
