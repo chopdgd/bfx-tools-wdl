@@ -1,4 +1,4 @@
-#!/bin/sh  
+#!/bin/sh
 #
 # An example hook script to verify what is about to be committed.
 # Called by "git commit" with no arguments.  The hook should
@@ -51,7 +51,7 @@ fi
 echo "pre-commit checks completed"
 
 # WOMtool validate
-touched_files=$(git diff --cached --name-only | egrep '\.wdl$' || true)
+touched_files=$(git diff --cached --name-only --diff-filter=d | egrep '\.wdl$' || true)
 if [ -n "$touched_files" ]; then
 	echo "pre-commit running womtool validate on $touched_files"
 	for FILE in $touched_files
