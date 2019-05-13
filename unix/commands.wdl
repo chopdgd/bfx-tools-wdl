@@ -68,6 +68,23 @@ task cp {
   }
 }
 
+task Install {
+  input {
+    File input_file
+    String mode = '755'
+    String target
+    String ? userString
+  }
+
+  command {
+    install -D ~{input_file} -m ~{mode} ~{userString} ~{target}
+  }
+
+  output {
+    File output_file = "~{target}"
+  }
+}
+
 task UnZip {
   input {
     File input_file
