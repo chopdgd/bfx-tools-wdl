@@ -2,6 +2,11 @@
 
 Standard tasks to run Bioinformatics tools using WDL
 
+## How to run?
+
+***Make sure you use Cromwell version 35 and above***
+
+
 ## How to use?
 
 In your wdl workflows you can import directly like:
