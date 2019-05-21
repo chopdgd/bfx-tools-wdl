@@ -13,7 +13,7 @@ task Pindel2Vcf {
 
     File reference
     File reference_idx
-    File reference_version =  "1000GenomesPilot-NCBI37"
+    String reference_version =  "1000GenomesPilot-NCBI37"
     String reference_date = "20101123"
 
     File input_file
