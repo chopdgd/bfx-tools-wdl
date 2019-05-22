@@ -5,7 +5,6 @@ version 1.0
 # Documentation: http://www.htslib.org/doc/samtools.html
 # -------------------------------------------------------------------------------------------------
 
-
 task ExtractMappedReads {
   input {
     File ? samtools
@@ -23,7 +22,7 @@ task ExtractMappedReads {
     Int cpu = 1
   }
 
-  String output_filename = basename(bam_file) + ".mapped.bam"
+  String output_filename = basename(input_file) + ".mapped.bam"
 
   command {
     set -Eeuxo pipefail;
