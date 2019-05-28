@@ -31,7 +31,7 @@ task MPileup {
 
     ~{default="samtools" samtools} mpileup \
       ~{"--reference " + reference} \
-      ~{"--positions" + intervals} \
+      ~{"--positions " + intervals} \
       ~{userString} \
       ~{sep=" " bam_files};
   }
