@@ -7,27 +7,20 @@ version 1.0
 # -------------------------------------------------------------------------------------------------
 
 
-task Gsnap {
+task GSnap {
   input {
     File ? gsnap
-    File ? circ_reference
+    File reference_name
     String reference_dir
     String sample_id
     File fastq_1
     File fastq_2
 
-    String read_group_id = "~{sample_id}"
-    String read_group_name = "~{sample_id}"
-    String read_group_library = "Illumina"
-    String read_group_platform = "HiSeq"
-    String platform_unit = "PU"
-
-    String userString = "--gunzip --format=sam --nofails --pairmax-dna=500 --query-unk-mismatch=1 -n 1 -O -t 4 "
+    String userString = "--gunzip --format=sam --nofails --pairmax-dna=500 --query-unk-mismatch=1 -n 1 -O"
 
     Array[String] modules = []
     Int memory = 1
-    Int cpu = 16
-    Boolean debug = false
+    Int cpu = 4
   }
 
   command {
@@ -39,7 +32,8 @@ task Gsnap {
 
     ~{default="gsnap" gsnap} \
       -D ~{reference_dir} \
-      -d ~{default="chrMc" circ_reference}
+      -d ~{reference_name} \
+      -t ~{cpu} \
       ~{userString} \
       ~{fastq_1} ~{fastq_2};
   }
@@ -55,17 +49,14 @@ task Gsnap {
 
   parameter_meta {
     gsnap: "gsnap executable."
+    reference_name: "Name of the reference to use"
     reference_dir: "Circular reference sequence directory."
     sample_id: "Sample ID to use in SAM tag."
     fastq_1: "FASTQ Files left reads."
     fastq_2: "FASTQ Files right reads."
-    read_group_library: "library parameter for readgroup."
-    read_group_platform: "platform parameter for readgroup."
-    platform_unit: "PU parameter for readgroup."
     userString: "An optional parameter which allows the user to specify additions to the command line at run time."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
-    debug: "Should only map 50000 reads to test."
   }
 
   meta {
