@@ -20,7 +20,6 @@ workflow MitoAnnotation {
     File ? snpsift
     File ? bgzip
     File ? tabix
-    File ? vt
     File snpeff_config
     File snpeff_dataDir
 
@@ -30,26 +29,12 @@ workflow MitoAnnotation {
     String reference_version
 
     # Resources
-    File reference
     File mitomap_poly
     File ? mitomap_poly_idx
     File mitomap_disease
     File ? mitomap_disease_idx
     File rcrs_vcf
     File ? rcrs_vcf_idx
-  }
-
-  call DecomposeNormalizeVCF.DecomposeNormalizeVCF {
-    input:
-      vt=vt,
-      reference=reference,
-      input_file=input_file,
-  }
-
-  call DecomposeBlockSubstitutions.DecomposeBlockSubstitutions {
-    input:
-      vt=vt,
-      input_file=DecomposeNormalizeVCF.vcf_file,
   }
 
   call SnpEff.SnpEff {
@@ -60,7 +45,7 @@ workflow MitoAnnotation {
       dataDir=snpeff_dataDir,
       filename_prefix=sample_id,
       reference_version=reference_version,
-      input_file=DecomposeBlockSubstitutions.vcf_file,
+      input_file=input_file,
   }
 
   call SnpSift.SnpSift as SnpSift_mitomap_poly {
