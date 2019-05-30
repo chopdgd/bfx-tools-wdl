@@ -7,8 +7,6 @@ version 1.0
 # -------------------------------------------------------------------------------------------------
 # BFX Tools
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/develop/unix/commands.wdl" as Unix
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/develop/vt/DecomposeAndNormalize.wdl" as DecomposeNormalizeVCF
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/develop/vt/DecomposeBlockSubstitutions.wdl" as DecomposeBlockSubstitutions
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/develop/snpeff/SnpEff.wdl" as SnpEff
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/develop/snpeff/SnpSift.wdl" as SnpSift
 
