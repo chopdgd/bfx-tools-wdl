@@ -27,6 +27,8 @@ task NovoAlignAndSamtoolsSort {
     String platform_unit = "PU"
 
     String userString = "-i PE 240,150 -r All 5 -R 60 -t 15,2 -H 20 99999 --hlimit 7 --trim3HP -p 5,20 -k"
+    String ? Samtools_view_parameters
+    String ? Samtools_sort_parameters
 
     Array[String] modules = []
     Float memory = 2.5
@@ -57,10 +59,12 @@ task NovoAlignAndSamtoolsSort {
       "@RG\\tID:~{sample_id}\\tPU:~{platform_unit}\\tLB:~{library}\\tPL:~{platform}\\tSM:~{sample_id}" | \
     ~{default="samtools" samtools} view \
       -b \
+      ~{Samtools_view_parameters} \
       --reference ~{reference} \
       ~{"-@ " + cpu} \
       - | \
     ~{default="samtools" samtools} sort \
+      ~{Samtools_sort_parameters} \
       -O BAM \
       --reference ~{reference} \
       ~{"-@ " + cpu} \
