@@ -16,7 +16,7 @@ task HaploGrep {
     String ? userString
 
     # Run time variables
-    Int memory = 4
+    Int memory = 6
     Int cpu = 1
     Array[String] modules = []
   }
@@ -34,7 +34,7 @@ task HaploGrep {
       -Xmx~{memory}g \
       -jar ~{default="haplogrep" haplogrep} \
       --format ~{format} \
-      --in ~{vcf_file}
+      --in ~{vcf_file} \
       --out ~{haplogrep_filename} \
       ~{userString}
   }
