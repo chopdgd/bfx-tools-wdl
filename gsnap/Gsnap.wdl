@@ -7,10 +7,10 @@ version 1.0
 # -------------------------------------------------------------------------------------------------
 
 
-task Gsnap {
+task GSnap {
   input {
     File ? gsnap
-    File ? circ_reference
+    File reference_name
     String reference_dir
     String sample_id
     File fastq_1
@@ -27,6 +27,7 @@ task Gsnap {
     Int memory = 1
     Int cpu = 16
     Boolean debug = false
+
   }
 
   command {
@@ -42,7 +43,7 @@ task Gsnap {
       --read-group-library= ~{read_group_library} \
       --read-group-platform= ~{read_group_platform} \ 
       -D ~{reference_dir} \
-      -d ~{default="chrMc" circ_reference} \
+      -d ~{default="chrMc" reference_name} \
       ~{userString} \
       ~{fastq_1} ~{fastq_2};
   }
@@ -58,6 +59,7 @@ task Gsnap {
 
   parameter_meta {
     gsnap: "gsnap executable."
+    reference_name: "Name of the reference to use"
     reference_dir: "Circular reference sequence directory."
     sample_id: "Sample ID to use in SAM tag."
     fastq_1: "FASTQ Files left reads."
