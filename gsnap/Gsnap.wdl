@@ -20,7 +20,6 @@ task Gsnap {
     String read_group_name = "~{sample_id}"
     String read_group_library = "Illumina"
     String read_group_platform = "HiSeq"
-    String platform_unit = "PU"
 
     String userString = "--gunzip --format=sam --nofails --pairmax-dna=500 --query-unk-mismatch=1 -n 1 -O -t 4 "
 
@@ -38,8 +37,12 @@ task Gsnap {
     done;
 
     ~{default="gsnap" gsnap} \
+      --read-group-id= ~{read_group_id} \
+      --read-group-name= ~{read_group_name} \
+      --read-group-library= ~{read_group_library} \
+      --read-group-platform= ~{read_group_platform} \ 
       -D ~{reference_dir} \
-      -d ~{default="chrMc" circ_reference}
+      -d ~{default="chrMc" circ_reference} \
       ~{userString} \
       ~{fastq_1} ~{fastq_2};
   }
