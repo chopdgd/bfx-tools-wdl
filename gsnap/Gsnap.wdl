@@ -16,11 +16,17 @@ task GSnap {
     File fastq_1
     File fastq_2
 
-    String userString = "--gunzip --format=sam --nofails --pairmax-dna=500 --query-unk-mismatch=1 -n 1 -O"
+    String read_group_id = "~{sample_id}"
+    String read_group_name = "~{sample_id}"
+    String read_group_library = "Illumina"
+    String read_group_platform = "HiSeq"
 
     Array[String] modules = []
     Int memory = 1
-    Int cpu = 4
+    Int cpu = 16
+    Boolean debug = false
+
+    String userString = "--format=sam --nofails --pairmax-dna=500 --query-unk-mismatch=1 -n 1 -O -t " + cpu
   }
 
   command {
@@ -31,9 +37,12 @@ task GSnap {
     done;
 
     ~{default="gsnap" gsnap} \
+      --read-group-id= ~{read_group_id} \
+      --read-group-name= ~{read_group_name} \
+      --read-group-library= ~{read_group_library} \
+      --read-group-platform= ~{read_group_platform} \
       -D ~{reference_dir} \
-      -d ~{reference_name} \
-      -t ~{cpu} \
+      -d ~{default="chrMc" circ_reference} \
       ~{userString} \
       ~{fastq_1} ~{fastq_2};
   }
