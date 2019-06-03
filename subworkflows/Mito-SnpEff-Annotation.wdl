@@ -8,7 +8,7 @@ version 1.0
 # BFX Tools
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/develop/unix/commands.wdl" as Unix
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/develop/snpeff/SnpEff.wdl" as SnpEff
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/feature-67/snpeff/SnpSift.wdl" as SnpSift
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/develop/snpeff/SnpSift.wdl" as SnpSift
 
 workflow MitoAnnotation {
   input {
@@ -65,7 +65,7 @@ workflow MitoAnnotation {
       filename_prefix=sample_id,
       database=mitomap_disease,
       database_idx=mitomap_disease_idx,
-      input_file=SnpSift_mitomap_poly.output_file,
+      input_file=SnpSift_mitomap_poly.vcf_file,
   }
 
   call SnpSift.SnpSift as Extract_rCRS_var {
@@ -76,14 +76,14 @@ workflow MitoAnnotation {
       filename_prefix=sample_id,
       database=rcrs_vcf,
       database_idx=rcrs_vcf_idx,
-      input_file=SnpSift_mitomap_disease.output_file,
+      input_file=SnpSift_mitomap_disease.vcf_file,
   }
 
   call Unix.CompressAndIndex {
     input:
       bgzip=bgzip,
       tabix=tabix,
-      input_file=Extract_rCRS_var.output_file,
+      input_file=Extract_rCRS_var.vcf_file,
   }
 
   output {
