@@ -7,7 +7,7 @@ version 1.0
 # -------------------------------------------------------------------------------------------------
 
 
-task BamToFastQ {
+task Intersect {
   input {
     File ? bedtools
 
@@ -48,7 +48,7 @@ task BamToFastQ {
 
   parameter_meta {
     bedtools: "bedtools executable."
-    vcf_a: "the VCF in which all all features are compared"
+    vcf_a: "the VCF in which all features are compared"
     vcfs: "the VCF(s) to check for overlapping features with vcf_a"
     userString: "An optional parameter which allows the user to specify additions to the command line at run time"
     memory: "GB of RAM to use at runtime."
