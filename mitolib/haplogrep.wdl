@@ -20,7 +20,7 @@ task HaploGrep {
     Int cpu = 1
     Array[String] modules = []
   }
-  # Output file names
+  
   String haplogrep_filename = sample_id + "_haplogrep.out"
 
   command {
