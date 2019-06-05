@@ -11,8 +11,8 @@ task Intersect {
   input {
     File ? bedtools
 
-    File vcf_a
-    Array[File] vcfs
+    File bed_a
+    Array[File] beds
 
     String userString = "-wao"
 
@@ -21,7 +21,7 @@ task Intersect {
     Int cpu = 1
   }
 
-  String output_filename = basename(vcf_a, ".vcf") + '.intersect.vcf'
+  String output_filename = basename(bed_a, ".bed") + '.intersect.bed'
 
   command {
     set -Eeuxo pipefail;
@@ -32,13 +32,13 @@ task Intersect {
 
     ~{default="bedtools" bedtools} \
       intersect \
-      -a ~{vcf_a} \
-      -b ~{sep=', ' vcfs} \
+      -a ~{bed_a} \
+      -b ~{sep=', ' beds} \
       ~{userString} > ~{output_filename}
   }
 
   output {
-    File intersect_vcf = "~{output_filename}"
+    File intersect_bed = "~{output_filename}"
   }
 
   runtime {
@@ -48,8 +48,8 @@ task Intersect {
 
   parameter_meta {
     bedtools: "bedtools executable."
-    vcf_a: "the VCF in which all features are compared"
-    vcfs: "the VCF(s) to check for overlapping features with vcf_a"
+    bed_a: "the BED in which all features are compared"
+    beds: "the BED(s) to check for overlapping features with bed_a"
     userString: "An optional parameter which allows the user to specify additions to the command line at run time"
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."

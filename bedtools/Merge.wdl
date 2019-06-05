@@ -11,7 +11,7 @@ task Merge {
   input {
     File ? bedtools
 
-    File vcf
+    File bed
     String columns = "4,5,6,7,8,9,10,11"
     String operation = "collapse"
 
@@ -22,7 +22,7 @@ task Merge {
     Int cpu = 1
   }
 
-  String output_filename = basename(vcf, ".vcf") + '.merged.vcf'
+  String output_filename = basename(bed, ".bed") + '.merged.bed'
 
   command {
     set -Eeuxo pipefail;
@@ -33,14 +33,14 @@ task Merge {
 
     ~{default="bedtools" bedtools} \
       merge -i \
-      ~{vcf} \
+      ~{bed} \
       -c ~{columns} \
       -o ~{operation} \
       ~{userString} > ~{output_filename}
   }
 
   output {
-    File merged_vcf = "~{output_filename}"
+    File merged_bed = "~{output_filename}"
   }
 
   runtime {
@@ -50,7 +50,7 @@ task Merge {
 
   parameter_meta {
     bedtools: "bedtools executable."
-    vcf: "the VCF in which all features are to be merged"
+    bed: "the BED in which all features are to be merged"
     columns: "comma separated list (bedtools requirement) to operate upon)"
     operation: "the type of merge to be preformed; 'collapse' keeps duplicates"
     userString: "An optional parameter which allows the user to specify additions to the command line at run time"
