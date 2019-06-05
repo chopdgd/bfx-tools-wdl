@@ -12,7 +12,7 @@ task Merge {
     File ? bedtools
 
     File bed
-    String columns = "4,5,6,7,8,9,10,11"
+    String columns = "4,5,6,7,8,12,13,15"
     String operation = "collapse"
 
     String ? userString
