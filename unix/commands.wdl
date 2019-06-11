@@ -247,3 +247,20 @@ task sort {
     File output_file = stdout()
   }
 }
+
+task cat {
+	input {
+		File input_file
+
+		Array[String] ? input_files
+		String ? userString
+	}
+
+	command {
+		cat ${userString} ${input_file} ${sep=" " input_files}
+	}
+
+	output {
+		File output_file = stdout()
+	}
+}
