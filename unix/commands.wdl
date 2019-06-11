@@ -215,3 +215,35 @@ task CompressAndIndex {
     cpu: cpu
   }
 }
+
+task cut {
+  input {
+    File input_file
+    String fields
+    String ? delimiter
+    String ? userString
+  }
+
+  command {
+    cut ~{userString} ~{"-d " + delimiter} -f ~{fields}
+  }
+
+  output {
+    File output_file = stdout()
+  }
+}
+
+task sort {
+  input {
+    File input_file
+    String ? userString
+  }
+
+  command {
+    sort ~{userString} ~{input_file}
+  }
+
+  output {
+    File output_file = stdout()
+  }
+}
