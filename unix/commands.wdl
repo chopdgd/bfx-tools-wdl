@@ -219,48 +219,53 @@ task CompressAndIndex {
 task cut {
   input {
     File input_file
+    String output_filename
+
     String fields
     String ? delimiter
     String ? userString
   }
 
   command {
-    cut ~{userString} ~{"-d " + delimiter} -f ~{fields}
+    cut ~{userString} ~{"-d " + delimiter} -f ~{fields} > ~{output_filename}
   }
 
   output {
-    File output_file = stdout()
+    File output_file = "~{output_filename}"
   }
 }
 
 task sort {
   input {
     File input_file
+    String output_filename
+
     String ? userString
   }
 
   command {
-    sort ~{userString} ~{input_file}
+    sort ~{userString} ~{input_file} > ~{output_filename}
   }
 
   output {
-    File output_file = stdout()
+    File output_file = "~{output_filename}"
   }
 }
 
 task cat {
 	input {
 		File input_file
+    String output_filename
 
 		Array[String] ? input_files
 		String ? userString
 	}
 
 	command {
-		cat ${userString} ${input_file} ${sep=" " input_files}
+		cat ~{userString} ~{input_file} ~{sep=" " input_files} > ~{output_filename}
 	}
 
 	output {
-		File output_file = stdout()
+		File output_file = "~{output_filename}"
 	}
 }
