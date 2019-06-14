@@ -269,3 +269,18 @@ task cat {
 		File output_file = "~{output_filename}"
 	}
 }
+
+task sed {
+  input {
+    File input_file
+    String command
+  }
+
+  command {
+    sed -i ~{command} ~{input_file}
+  }
+
+  output {
+    File output_file = "~{input_file}"
+  }
+}
