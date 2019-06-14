@@ -15,7 +15,7 @@ task MPileup2CNS {
     String sample_id
     File mpileup
 
-    String userString = "--min_var-freq 0.03 --strand-filter 1"
+    String userString = "--min-var-freq 0.03 --strand-filter 1"
 
     Array[String] modules = []
     Int memory = 4
@@ -62,6 +62,6 @@ task MPileup2CNS {
     author: "Michael A. Gonzalez"
     email: "GonzalezMA@email.chop.edu"
     varscan_version: "2.3.9"
-    version: "0.1.0"
+    version: "0.2.0"
   }
 }
