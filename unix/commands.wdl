@@ -273,14 +273,15 @@ task cat {
 task sed {
   input {
     File input_file
+    String output_filename
     String command
   }
 
   command {
-    sed -i ~{command} ~{input_file}
+    sed ~{command} ~{input_file} > ~{output_filename}
   }
 
   output {
-    File output_file = "~{input_file}"
+    File output_file = "~{output_filename}"
   }
 }
