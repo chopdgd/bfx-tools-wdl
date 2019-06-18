@@ -25,7 +25,7 @@ task Pindel2Vcf {
     Int cpu = 1
   }
 
-  String temp_filename = basename(input_file)
+  String temp_filename = basename(input_file) + '_merged_pindel_files'
 
   command {
     set -Eeuxo pipefail;
