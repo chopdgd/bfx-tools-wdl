@@ -43,6 +43,7 @@ workflow FastQToGVCFAndBAMQC {
 
     File bait_intervals
     File target_intervals
+    File variant_calling_intervals
     Array[Int] summary_coverage_threshold
     File ? omni_vcf
     File ? omni_vcf_idx
@@ -92,7 +93,7 @@ workflow FastQToGVCFAndBAMQC {
       reference_dict=reference_dict,
       dbsnp=dbsnp,
       dbsnp_idx=dbsnp_idx,
-      intervals=[target_intervals],
+      intervals=[variant_calling_intervals],
       sample_id=sample_id,
       bam_file=MarkDuplicates.bam_file,
       bam_idx_file=MarkDuplicates.bam_idx_file,
@@ -159,6 +160,7 @@ workflow FastQToGVCFAndBAMQC {
     dbsnp_idx: "dbSNP VCF index file (.tbi)."
     bait_intervals: "An interval list file that contains the locations of the baits used. Default value: null. This option must be specified at least 1 times."
     target_intervals: "An interval list file that contains the locations of the targets. Default value: null. This option must be specified at least 1 times."
+    variant_calling_intervals: "An interval list file that contains the locations of the variant calling intervals. Default value: target_intervals."
     summary_coverage_threshold: "Coverage threshold (in percent) for summarizing statistics."
     omni_vcf: "OMNI 2500 Genotypes VCF for VerifyBamId"
     omni_vcf_idx: "OMNI 2500 Genotypes VCF index for VerifyBamId"
