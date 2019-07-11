@@ -31,7 +31,7 @@ task NovoAlignAndSamtoolsSort {
     String ? Samtools_sort_parameters
 
     Array[String] modules = []
-    Float memory = 2.5
+    Float memory = 30
     Int cpu = 16
     Boolean debug = false
   }

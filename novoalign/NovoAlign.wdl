@@ -25,7 +25,7 @@ task NovoAlign {
     String userString = "-i PE 240,150 -r All 5 -R 60 -t 15,2 -H 20 99999 --hlimit 7 --trim3HP -p 5,20 -k"
 
     Array[String] modules = []
-    Int memory = 1
+    Float memory = 30
     Int cpu = 16
     Boolean debug = false
   }

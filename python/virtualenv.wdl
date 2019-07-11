@@ -10,7 +10,7 @@ task CreateVirtualenv {
     File requirements
 
     Array[String] modules = ['python/2.7']
-    Int memory = 1
+    Float memory = 1
     Int cpu = 1
   }
 

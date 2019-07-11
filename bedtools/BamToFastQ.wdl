@@ -17,7 +17,7 @@ task BamToFastQ {
     String ? fastq2
 
     Array[String] modules = []
-    Int memory = 1
+    Float memory = 1
     Int cpu = 1
   }
 

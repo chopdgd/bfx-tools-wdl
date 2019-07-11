@@ -30,7 +30,7 @@ task HaplotypeCallerERC {
     String ? userString
 
     Array[String] modules = []
-    Int memory = 4
+    Float memory = 8
     Int cpu = 1
   }
 

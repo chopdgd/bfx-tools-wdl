@@ -21,7 +21,7 @@ task Pindel2Vcf {
     String ? userString
 
     Array[String] modules = []
-    Int memory = 8
+    Float memory = 8
     Int cpu = 1
   }
 
