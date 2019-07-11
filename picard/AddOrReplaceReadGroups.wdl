@@ -29,6 +29,7 @@ task AddOrReplaceReadGroups {
     Int cpu = 1
   }
 
+  Int jvm_memory = round(memory)
   String output_filename = "~{sample_id}" + "~{output_filename_extension}"
 
   command {
@@ -39,7 +40,7 @@ task AddOrReplaceReadGroups {
     done;
 
     ~{default="java" java} \
-      -Xmx~{memory}g \
+      -Xmx~{jvm_memory}g \
       -jar ~{default="picard" picard} AddOrReplaceReadGroups \
       ~{userString} \
       I=~{input_bam} \

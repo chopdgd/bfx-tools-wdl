@@ -30,6 +30,7 @@ task SnpSift {
     Int cpu = 1
   }
 
+  Int jvm_memory = round(memory)
   String database_prefix = if mode == "dbnsfp" then "-db" else ""
   String output_filename = filename_prefix + '.snpsift.vcf'
 
@@ -41,7 +42,7 @@ task SnpSift {
     done;
 
     ~{default="java" java} \
-      -Xmx~{memory}g \
+      -Xmx~{jvm_memory}g \
       -jar ~{default="snpsift" snpsift} \
       ~{mode} \
       ~{userString} \

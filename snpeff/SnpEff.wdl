@@ -26,6 +26,7 @@ task SnpEff {
     Int cpu = 1
   }
 
+  Int jvm_memory = round(memory)
   String output_filename = filename_prefix + '.snpeff.vcf'
 
     command {
@@ -36,7 +37,7 @@ task SnpEff {
       done;
 
       ~{default="java" java} \
-        -Xmx~{memory}g \
+        -Xmx~{jvm_memory}g \
         -jar ~{default="snpeff" snpeff} eff \
         ~{userString} \
         -c ~{config} \

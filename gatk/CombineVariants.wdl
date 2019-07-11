@@ -31,9 +31,9 @@ task CombineVariants {
     Int cpu = 1
   }
 
+  Int jvm_memory = round(memory)
   Array[String] input_files_with_tags = prefix("--variant", tagged_input_files)
   Array[String] input_files_no_tags = prefix("--variant ", input_files)
-
   String output_filename = filename_prefix + ".merged.vcf.gz"
   String output_idx_filename = filename_prefix + ".merged.vcf.gz.tbi"
 
@@ -45,7 +45,7 @@ task CombineVariants {
     done;
 
     ~{default="java" java} \
-      -Xmx~{memory}g \
+      -Xmx~{jvm_memory}g \
       -jar ~{default="gatk" gatk} \
       -T CombineVariants \
       ~{userString} \

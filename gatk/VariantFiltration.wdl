@@ -29,6 +29,7 @@ task VariantFiltration {
     Int cpu = 1
   }
 
+  Int jvm_memory = round(memory)
   String output_filename = basename(input_file) + ".filtered.vcf.gz"
   String output_idx_filename = basename(input_file) + ".filtered.vcf.gz.tbi"
 
@@ -40,7 +41,7 @@ task VariantFiltration {
     done;
 
     ~{default="java" java} \
-      -Xmx~{memory}g \
+      -Xmx~{jvm_memory}g \
       -jar ~{default="gatk" gatk} \
       -T VariantFiltration \
       ~{userString} \

@@ -30,11 +30,11 @@ task SelectVariants {
     Int cpu = 1
   }
 
+  Int jvm_memory = round(memory)
   Array[String] intervalOptions = prefix("--intervals ", intervals)
   Array[String] selectTypeIncludeOptions = prefix("--selectTypeToInclude ", selectType)
   Array[String] selectTypeExcludeOptions = prefix("--selectTypeToExclude ", selectTypeToExclude)
   Array[String] selectExpressionsOptions = prefix("--selectexpressions ", selectExpressions)
-
   String output_filename = basename(input_file) + ".filtered.vcf.gz"
   String output_idx_filename = basename(input_file) + ".filtered.vcf.gz.tbi"
 
@@ -46,7 +46,7 @@ task SelectVariants {
     done;
 
     ~{default="java" java} \
-      -Xmx~{memory}g \
+      -Xmx~{jvm_memory}g \
       -jar ~{default="gatk" gatk} \
       -T SelectVariants \
       ~{userString} \

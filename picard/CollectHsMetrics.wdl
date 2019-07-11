@@ -28,6 +28,7 @@ task CollectHsMetrics {
     Int cpu = 1
   }
 
+  Int jvm_memory = round(memory)
   String per_target_coverage_filename = sample_id + ".HsMetrics.target"
   String output_filename = sample_id + ".HsMetrics"
 
@@ -39,7 +40,7 @@ task CollectHsMetrics {
     done;
 
     ~{default="java" java} \
-      -Xmx~{memory}g \
+      -Xmx~{jvm_memory}g \
       -jar ~{default="picard" picard} CollectHsMetrics \
       ~{userString} \
       VALIDATION_STRINGENCY=~{default="LENIENT" validation_stringency} \

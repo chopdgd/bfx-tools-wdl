@@ -31,8 +31,8 @@ task DepthOfCoverage {
     Int cpu = 1
   }
 
+  Int jvm_memory = round(memory)
   Array[String] intervalOptions = prefix("--intervals ", intervals)
-
   String output_base_filename = sample_id + ".depthOfCoverage"
 
   command {
@@ -43,7 +43,7 @@ task DepthOfCoverage {
     done;
 
     ~{default="java" java} \
-      -Xmx~{memory}g \
+      -Xmx~{jvm_memory}g \
       -jar ~{default="gatk" gatk} \
       -T DepthOfCoverage \
       ~{userString} \

@@ -20,7 +20,8 @@ task HaploGrep {
     Int cpu = 1
     Array[String] modules = []
   }
-  
+
+  Int jvm_memory = round(memory)
   String haplogrep_filename = sample_id + "_haplogrep.out"
 
   command {
@@ -31,7 +32,7 @@ task HaploGrep {
     done;
 
     ~{default="java" java} \
-      -Xmx~{memory}g \
+      -Xmx~{jvm_memory}g \
       -jar ~{default="haplogrep" haplogrep} \
       --format ~{format} \
       --in ~{vcf_file} \

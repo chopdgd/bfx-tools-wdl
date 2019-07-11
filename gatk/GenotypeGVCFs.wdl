@@ -32,8 +32,8 @@ task GenotypeGVCFs {
     Int cpu = 1
   }
 
+  Int jvm_memory = round(memory)
   Array[String] intervalOptions = prefix("--intervals ", intervals)
-
   String vcf_filename = cohort_id + ".rawVariants.vcf.gz"
   String vcf_filename_idx = cohort_id + ".rawVariants.vcf.gz.tbi"
 
@@ -45,7 +45,7 @@ task GenotypeGVCFs {
     done;
 
     ~{default="java" java} \
-      -Xmx~{memory}g \
+      -Xmx~{jvm_memory}g \
       -jar ~{default="gatk" gatk} \
       -T GenotypeGVCFs \
       ~{userString} \

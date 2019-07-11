@@ -34,8 +34,8 @@ task HaplotypeCallerERC {
     Int cpu = 1
   }
 
+  Int jvm_memory = round(memory)
   Array[String] intervalOptions = prefix("--intervals ", intervals)
-
   String gvcf_filename = sample_id + ".rawLikelihoods.g.vcf.gz"
   String gvcf_idx_filename = sample_id + ".rawLikelihoods.g.vcf.gz.tbi"
 
@@ -47,7 +47,7 @@ task HaplotypeCallerERC {
     done;
 
     ~{default="java" java} \
-      -Xmx~{memory}g \
+      -Xmx~{jvm_memory}g \
       -jar ~{default="gatk" gatk} \
       -T HaplotypeCaller -ERC GVCF \
       ~{userString} \

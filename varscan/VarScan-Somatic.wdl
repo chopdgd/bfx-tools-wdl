@@ -23,6 +23,8 @@ task Somatic {
     Int cpu = 1
   }
 
+  Int jvm_memory = round(memory)
+
   command {
     set -Eeuxo pipefail;
 
@@ -31,7 +33,7 @@ task Somatic {
     done;
 
     ~{default="java" java} \
-      -Xmx~{memory}g \
+      -Xmx~{jvm_memory}g \
       -jar ~{default="varscan" varscan} somatic \
       ~{normal_mpileup} \
       ~{tumor_mpileup} \

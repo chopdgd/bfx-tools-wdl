@@ -22,6 +22,7 @@ task MPileup2CNS {
     Int cpu = 1
   }
 
+  Int jvm_memory = round(memory)
   String output_filename = sample_id + '.varscan.vcf'
 
   command {
@@ -32,7 +33,7 @@ task MPileup2CNS {
     done;
 
     ~{default="java" java} \
-      -Xmx~{memory}g \
+      -Xmx~{jvm_memory}g \
       -jar ~{default="varscan" varscan} mpileup2cns \
       ~{mpileup} \
       ~{userString} \

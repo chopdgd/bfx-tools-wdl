@@ -27,6 +27,7 @@ task MarkDuplicates {
     Int cpu = 1
   }
 
+  Int jvm_memory = round(memory)
   String metrics_filename = sample_id + ".picardmkdup.metrics"
   String output_filename = sample_id + ".markdups.bam"
   String output_idx_filename = sample_id + ".markdups.bai"
@@ -40,7 +41,7 @@ task MarkDuplicates {
     done;
 
     ~{default="java" java} \
-      -Xmx~{memory}g \
+      -Xmx~{jvm_memory}g \
       -jar ~{default="picard" picard} MarkDuplicates \
       ~{userString} \
       VALIDATION_STRINGENCY=~{validation_stringency} \

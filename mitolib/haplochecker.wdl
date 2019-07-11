@@ -23,6 +23,8 @@ task ContaminationCheck {
     Int cpu = 1
   }
 
+  Int jvm_memory = round(memory)
+
   command {
     set -Eeuxo pipefail;
 
@@ -31,7 +33,7 @@ task ContaminationCheck {
     done;
 
     ~{default="java" java} \
-      -Xmx~{memory}g \
+      -Xmx~{jvm_memory}g \
       -jar ~{default="mitolib" mitolib} haplochecker \
       --ref ~{reference} \
       ~{userString} \

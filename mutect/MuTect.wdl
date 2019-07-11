@@ -31,8 +31,8 @@ task MuTect {
     Int cpu = 1
   }
 
+  Int jvm_memory = round(memory)
   Array[String] intervalOptions = prefix("--intervals ", intervals)
-
   String vcf_filename = sample_id + "_MuTect.vcf"
   String vcf_idx_filename = sample_id + "_MuTect.vcf.idx"
   String stats_filename = sample_id + "_MuTect.call_stats.txt"
@@ -46,7 +46,7 @@ task MuTect {
     done;
 
     ~{default="java" java} \
-      -Xmx~{memory}g \
+      -Xmx~{jvm_memory}g \
       -jar ~{mutect} \
       -T MuTect \
       ~{userString} \
