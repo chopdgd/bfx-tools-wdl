@@ -19,7 +19,7 @@ task ContaminationCheck {
     String userString = "--VAF 0.01 --QUAL 10 --MAPQ 20"
 
     Array[String] modules = []
-    Int memory = 4
+    Float memory = 4
     Int cpu = 1
   }
 

@@ -18,7 +18,7 @@ task MPileup {
     String ? userString
 
     Array[String] modules = []
-    Int memory = 4
+    Float memory = 4
     Int cpu = 1
   }
 

@@ -20,7 +20,7 @@ task VerifyBamId {
     String userString = "--maxDepth 1000 --ignoreRG --verbose --precise --chip-none"
 
     Array[String] modules = []
-    Int memory = 8
+    Float memory = 8
     Int cpu = 1
   }
 

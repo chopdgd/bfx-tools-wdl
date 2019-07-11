@@ -25,7 +25,7 @@ task Single {
     String userString = "--mapscore 15 --intarget --format vcf"
 
     Array[String] modules = []
-    Int memory = 4
+    Float memory = 4
     Int cpu = 1
   }
 

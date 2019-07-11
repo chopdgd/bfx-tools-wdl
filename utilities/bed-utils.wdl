@@ -11,7 +11,7 @@ task PadCombineTrim {
     Int coverage_padding = 6
 
     # Run time variables
-    Int memory = 1
+    Float memory = 1
     Int cpu = 1
   }
 

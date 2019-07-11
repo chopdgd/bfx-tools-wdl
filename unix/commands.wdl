@@ -109,7 +109,7 @@ task BgZip {
     String ? userString
 
     Array[String] modules = []
-    Int memory = 1
+    Float memory = 1
     Int cpu = 1
   }
 
@@ -144,7 +144,7 @@ task Tabix {
     String userString = "-p vcf"
 
     Array[String] modules = []
-    Int memory = 1
+    Float memory = 1
     Int cpu = 1
   }
 
@@ -182,7 +182,7 @@ task CompressAndIndex {
     String tabixParams = "-p vcf"
 
     Array[String] modules = []
-    Int memory = 1
+    Float memory = 1
     Int cpu = 1
   }
 

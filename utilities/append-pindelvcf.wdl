@@ -10,7 +10,7 @@ task AppendPindel {
     File pindel_vcf
 
     # Resource Allocation
-    Int memory = 1
+    Float memory = 1
     Int cpu = 1
   }
 

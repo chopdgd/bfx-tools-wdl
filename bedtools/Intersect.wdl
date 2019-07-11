@@ -17,7 +17,7 @@ task Intersect {
     String userString = "-wao"
 
     Array[String] modules = []
-    Int memory = 1
+    Float memory = 1
     Int cpu = 1
   }
 

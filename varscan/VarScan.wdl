@@ -18,7 +18,7 @@ task MPileup2CNS {
     String userString = "--min-var-freq 0.03 --strand-filter 1"
 
     Array[String] modules = []
-    Int memory = 4
+    Float memory = 4
     Int cpu = 1
   }
 
