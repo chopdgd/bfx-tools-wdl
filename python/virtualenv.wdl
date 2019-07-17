@@ -26,10 +26,12 @@ task CreateVirtualenv {
     source ~{name}/bin/activate;
 
     pip install -r ~{requirements};
+
+    echo $PWD/~{python_binary} > python.path;
   }
 
   output {
-    String python = "~{python_binary}"
+    String python = read_string("./python.path")
   }
 
   runtime {
