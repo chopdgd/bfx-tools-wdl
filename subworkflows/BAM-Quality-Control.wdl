@@ -41,7 +41,7 @@ workflow BAMQualityControl {
       reference=reference,
       reference_idx=reference_idx,
       reference_dict=reference_dict,
-      intervals=[bait_intervals],
+      intervals=[target_intervals],
       sample_id=sample_id,
       bam_files=[bam_file],
       bam_idx_files=[bam_idx_file],
