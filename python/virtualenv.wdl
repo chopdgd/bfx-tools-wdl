@@ -29,7 +29,7 @@ task CreateVirtualenv {
   }
 
   output {
-    File python = "~{python_binary}"
+    String python = "~{python_binary}"
   }
 
   runtime {
