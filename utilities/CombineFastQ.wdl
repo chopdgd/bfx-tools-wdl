@@ -30,7 +30,7 @@ task CombineFastQ {
   >>>
 
   output {
-    File output_file = "${output_filename}"
+    File output_file = "~{output_filename}"
   }
 
   runtime {
