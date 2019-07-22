@@ -22,9 +22,11 @@ task PadCombineTrim {
   String trimmed_variant_file = basename(combined_variant_file) + '.trimmed.bed'
 
   command <<<
+    set -Eeuxo pipefail;
+
     awk '{$2-=~{variant_calling_padding};$3+=~{variant_calling_padding}}1' OFS='\t' ~{bed_file} > ~{padded_variant_file}; #add padding variant
 
-    cat ~{padded_variant_file} ${sep=" " bed_files} > ~{combined_variant_file}; #combine
+    cat ~{padded_variant_file} ~{sep=" " bed_files} > ~{combined_variant_file}; #combine
 
     cut -f1,2,3,4,5,6,7 ~{combined_variant_file} > ~{trimmed_variant_file}; #trim
 
