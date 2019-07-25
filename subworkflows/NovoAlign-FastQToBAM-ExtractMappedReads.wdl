@@ -12,7 +12,7 @@ import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.0.0/novoalign
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.0.0/samtools/ExtractMappedReads.wdl" as ExtractMappedReads
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.0.0/picard/MarkDuplicates.wdl" as Picard
 
-workflow FastQToBAM {
+workflow FastQToMappedBAM {
   input {
     String sample_id
     File fastq_1
