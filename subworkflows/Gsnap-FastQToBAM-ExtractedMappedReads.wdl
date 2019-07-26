@@ -49,34 +49,36 @@ workflow  FastQToCircularBAM {
       fastq_2=CombineRead2.output_file,
   }
 
+  call ExtractMappedReads.ExtractMappedReads as ExtractMapped {
+    input:
+      samtools=samtools,
+      reference=reference,
+      reference_idx=reference_idx,
+      bam_file=GsnapAlignment.bam_file,
+      bam_file_idx=GsnapAlignment.bam_idx_file,
+  }
+
   output {
     # BAMs
-    File bam_file = Alignment.bam_file
-    File bam_idx_file = Alignment.bam_idx_file
-    File markdups_bam_file = MarkDuplicates.bam_file
-    File markdups_bam_idx_file = MarkDuplicates.bam_idx_file
+    File bam_file = ExtractMapped.bam_file
+    File bam_idx_file = ExtractMapped.bam_idx_file
 
-    # QC
-    File alignment_metrics_file = Alignment.metrics_file
-    File markdups_metrics_file = MarkDuplicates.metrics_file
   }
 
   parameter_meta {
     sample_id: "Sample ID to use in SAM TAG."
     fastq_1: "FASTQ Files left reads."
     fastq_2: "FASTQ Files right reads."
-    novoalign: "NovoAlign executable."
-    novoalign_license: "NovoAlign License."
+    gsnap: "GSnap executable."
     samtools: "Samtools executable."
-    picard: "Picard jar file."
     reference: "Reference sequence fasta file."
     reference_novoindex: "Reference sequence file index with NovoIndex."
     reference_idx: "Reference sequence index (.fai)."
   }
 
   meta {
-    author: "Michael A. Gonzalez"
-    email: "GonzalezMA@email.chop.edu"
+    author: "Pushkala Jayaraman"
+    email: "jayaramanp@email.chop.edu"
     version: "0.1.0"
   }
 }
