@@ -7,7 +7,7 @@ version 1.0
 # -------------------------------------------------------------------------------------------------
 
 
-task ConfigManta{
+task CallMantaCNV {
   input {
     File ? python
     String sample_id
