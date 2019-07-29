@@ -60,8 +60,8 @@ workflow FastQToMappedBAM {
       samtools=samtools,
       reference=reference,
       reference_idx=reference_idx,
-      bam_file=Alignment.bam_file,
-      bam_file_idx=Alignment.bam_idx_file,
+      input_bam_file=Alignment.bam_file,
+      input_bam_idx_file=Alignment.bam_idx_file,
   }
 
   call Picard.MarkDuplicates as MarkDuplicates {
