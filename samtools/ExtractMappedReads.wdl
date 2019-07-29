@@ -12,8 +12,8 @@ task ExtractMappedReads {
     File ? reference
     File ? reference_idx
 
-    File input_file
-    File ? input_idx_file
+    File bam_file
+    File ? bam_idx_file
 
     String ? userString
 
@@ -62,8 +62,8 @@ task ExtractMappedReads {
     samtools: "Samtools executable."
     reference: "Reference sequence file."
     reference_idx: "Reference sequence index (.fai)."
-    input_file: "bam file."
-    input_idx_file: "bam index file."
+    bam_file: "bam file."
+    bam_idx_file: "bam index file."
     userString: "An optional parameter which allows the user to specify additions to the command line at run time."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
