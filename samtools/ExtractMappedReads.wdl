@@ -9,8 +9,8 @@ task ExtractMappedReads {
   input {
     File ? samtools
 
-    File reference
-    File reference_idx
+    File ? reference
+    File ? reference_idx
 
     File input_file
     File ? input_idx_file
@@ -33,12 +33,12 @@ task ExtractMappedReads {
 
     ~{default="samtools" samtools} view \
       ~{userString} \
-      --reference ~{reference} \
+      ~{"--reference " + reference} \
       ~{"-@ " + cpu} \
       ~{input_file} | \
     ~{default="samtools" samtools} sort \
       -O BAM \
-      --reference ~{reference} \
+      ~{"--reference " + reference} \
       ~{"-@ " + cpu} \
       - -o ~{output_filename};
 
