@@ -57,6 +57,7 @@ task Pindel2Vcf4Mito {
     reference: "reference file."
     reference_idx: "reference idx."
     reference_version: "The name and version of the reference genome."
+    sample_id: "sample identifier"
     reference_date: "The date of the version of the reference genome used."
     userString: "An optional parameter which allows the user to specify additions to the command line at run time."
     memory: "GB of RAM to use at runtime."
