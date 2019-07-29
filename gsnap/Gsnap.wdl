@@ -10,8 +10,8 @@ version 1.0
 task GSnap {
   input {
     File ? gsnap
-    File reference_name
-    String reference_dir
+    String reference_name
+    File reference_dir
     String sample_id
     File fastq_1
     File fastq_2
