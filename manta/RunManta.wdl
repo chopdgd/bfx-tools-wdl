@@ -11,12 +11,14 @@ task CallMantaCNV {
   input {
     File ? python
     String sample_id
-
-    String userString "-m local -j 16"
+    String ? userString
     Array[String] modules = []
     Float memory = 4
-    Int cpu = 1
+    Int cpu = 8
   }
+
+  String run_directory = sample_id+"/"
+  String output_filename = run_directory + "/results/variants/tumorSV.vcf.gz"
 
   command {
     set -Eeuxo pipefail;
@@ -25,15 +27,13 @@ task CallMantaCNV {
         module load $MODULE
     done;
 
-    run_directory = ~{sample_id}+"/"
-
     ~{default="python" python} \
-      ~{run_directory + "runWorkflow.py"}
-      ~{userString};
+      ~{run_directory + "/runWorkflow.py"}
+      ~{default="-m local -j 8" userString};
   }
 
   output {
-    File mantaVCF = run_directory + "results/variants/tumorSV.vcf.gz"
+    File mantaVCF = "~{output_filename}"
   }
 
   runtime {
