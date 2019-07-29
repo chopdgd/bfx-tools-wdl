@@ -78,7 +78,6 @@ task GSnap {
     fastq_2: "FASTQ Files right reads."
     read_group_library: "library parameter for readgroup."
     read_group_platform: "platform parameter for readgroup."
-    platform_unit: "PU parameter for readgroup."
     userString: "An optional parameter which allows the user to specify additions to the command line at run time."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
