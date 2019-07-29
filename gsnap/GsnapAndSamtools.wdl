@@ -34,7 +34,8 @@ task GSnap {
 
   String output_filename = sample_id + ".sorted.bam"
   String output_idx_filename = sample_id + ".sorted.bam.bai"
-
+  String gsnap_cmd = gsnap+"/gsnap"
+  
   command {
     set -Eeuxo pipefail;
 
@@ -42,7 +43,7 @@ task GSnap {
         module load $MODULE
     done;
 
-    ~{default="gsnap" gsnap + "/gsnap"} \
+    ~{default="gsnap" gsnap_cmd } \
       --read-group-id= ~{read_group_id} \
       --read-group-name= ~{read_group_name} \
       --read-group-library= ~{read_group_library} \
