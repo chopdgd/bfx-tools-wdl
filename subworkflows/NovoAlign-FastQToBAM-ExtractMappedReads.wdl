@@ -9,7 +9,7 @@ version 1.0
 
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.0.0/utilities/CombineFastQ.wdl" as CombineFastQ
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.0.0/novoalign/NovoAlignAndSamtoolsSort.wdl" as NovoAlign
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.0.0/samtools/ExtractMappedReads.wdl" as ExtractMappedReads
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/extract-mapped-reads-modify-reference-optional/samtools/ExtractMappedReads.wdl" as ExtractMappedReads
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.0.0/picard/MarkDuplicates.wdl" as Picard
 
 workflow FastQToMappedBAM {
