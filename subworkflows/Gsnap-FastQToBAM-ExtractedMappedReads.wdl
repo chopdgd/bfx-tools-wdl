@@ -24,7 +24,7 @@ workflow  FastQToCircularBAM {
     File ? samtools
 
     File circular_reference_dir
-    File circular_reference_name
+    String circular_reference_name
   }
 
   call CombineFastQ.CombineFastQ as CombineRead1 {
