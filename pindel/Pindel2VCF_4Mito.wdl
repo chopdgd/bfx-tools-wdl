@@ -7,7 +7,7 @@ version 1.0
 # -------------------------------------------------------------------------------------------------
 
 
-task Pindel2Vcf {
+task Pindel2Vcf4Mito {
   input {
     File ? pindel2vcf
 
