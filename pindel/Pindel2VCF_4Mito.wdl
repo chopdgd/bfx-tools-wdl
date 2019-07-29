@@ -6,17 +6,17 @@ version 1.0
 # Documentation: http://gmt.genome.wustl.edu/packages/pindel/user-manual.html
 # -------------------------------------------------------------------------------------------------
 
-
-task Pindel2Vcf4Mito {
+task Pindel2VCF4Mito {
+  
   input {
+  
     File ? pindel2vcf
-
     File reference
     File reference_idx
-    String reference_version =  "1000GenomesPilot-NCBI37"
-    String reference_date = "20101123"
+    String reference_version =  "NC_012920"
+    String reference_date = "10312014"
 
-    String sample_id
+    String sample
 
     String ? userString
 
@@ -25,7 +25,7 @@ task Pindel2Vcf4Mito {
     Int cpu = 1
   }
 
-  String output_file = sample_id+".vcf"
+  String output_file = sample+".vcf"
 
   command {
     set -Eeuxo pipefail;
@@ -39,7 +39,7 @@ task Pindel2Vcf4Mito {
       -r ~{reference} \
       -R ~{reference_version} \
       -d ~{reference_date} \
-      -P ~{sample_id} \
+      -P ~{sample} \
       -v ~{output_file};
   }
 
@@ -57,7 +57,7 @@ task Pindel2Vcf4Mito {
     reference: "reference file."
     reference_idx: "reference idx."
     reference_version: "The name and version of the reference genome."
-    sample_id: "sample identifier"
+    sample: "sample identifier"
     reference_date: "The date of the version of the reference genome used."
     userString: "An optional parameter which allows the user to specify additions to the command line at run time."
     memory: "GB of RAM to use at runtime."
@@ -65,8 +65,8 @@ task Pindel2Vcf4Mito {
   }
 
   meta {
-    author: "Michael A. Gonzalez"
-    email: "GonzalezMA@email.chop.edu"
+    author: "Pushkala Jayaraman"
+    email: "jayaramanp@email.chop.edu"
     pindel_version: "0.2.5"
     version: "0.1.0"
   }
