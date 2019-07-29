@@ -44,15 +44,14 @@ task GSnap {
     done;
 
     ~{default="gsnap" gsnap_cmd } \
-      --read-group-id= ~{read_group_id} \
-      --read-group-name= ~{read_group_name} \
-      --read-group-library= ~{read_group_library} \
-      --read-group-platform= ~{read_group_platform} \
+      --read-group-id=~{read_group_id} \
+      --read-group-name=~{read_group_name} \
+      --read-group-library=~{read_group_library} \
+      --read-group-platform=~{read_group_platform} \
       -D ~{reference_dir} \
       --gunzip \
       -d ~{default="chrMc" reference_name} \
-      ~{userString} \
-      ~{fastq_1} ~{fastq_2} | \
+      ~{userString} ~{fastq_1} ~{fastq_2} | \
     ~{default="samtools" samtools} sort \
       -O BAM \
       ~{"-@ " + cpu} \
