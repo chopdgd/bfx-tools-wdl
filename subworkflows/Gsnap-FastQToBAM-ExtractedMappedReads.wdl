@@ -53,8 +53,6 @@ workflow  FastQToCircularBAM {
   call ExtractMappedReads.ExtractMappedReads as ExtractMapped {
     input:
       samtools=samtools,
-      reference=reference,
-      reference_idx=reference_idx,
       input_bam_file=GsnapAlignment.bam_file,
       input_bam_idx_file=GsnapAlignment.bam_idx_file,
   }
