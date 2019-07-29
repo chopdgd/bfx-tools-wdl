@@ -22,7 +22,7 @@ task GSnap {
     String read_group_library = "Illumina"
     String read_group_platform = "HiSeq"
 
-    String userString = "--gunzip --format=sam --nofails --pairmax-dna=500 --query-unk-mismatch=1 -n 1 -O -t 4 "
+    String userString = "--format=sam --nofails --pairmax-dna=500 --query-unk-mismatch=1 -n 1 -O -t 4 "
 
     Array[String] modules = []
     Int memory = 1
@@ -49,6 +49,7 @@ task GSnap {
       --read-group-library= ~{read_group_library} \
       --read-group-platform= ~{read_group_platform} \
       -D ~{reference_dir} \
+      --gunzip \
       -d ~{default="chrMc" reference_name} \
       ~{userString} \
       ~{fastq_1} ~{fastq_2} | \
