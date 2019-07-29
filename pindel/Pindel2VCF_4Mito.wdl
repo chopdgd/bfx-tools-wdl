@@ -25,7 +25,7 @@ task Pindel2VCF4Mito {
     Int cpu = 1
   }
   
-  String sample = basename(sample_id_cnv "_D")
+  String sample = basename(sample_id_cnv, "_D")
   
   String output_file = sample + ".vcf"
 
