@@ -43,7 +43,6 @@ task CallMantaCNV {
 
   parameter_meta {
     sample_id: "sample id."
-    run_directory: "the directory in which the runWorkflow.py will be generated. This will be run in the next step."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
   }

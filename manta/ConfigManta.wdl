@@ -57,7 +57,6 @@ task ConfigManta{
     reference_idx: "reference idx."
     sample_id: "sample id."
     bam_file: "BAM file."
-    run_directory: "the directory in which the runWorkflow.py will be generated. This will be run in the next step."
     bam_idx_file: "BAM index file."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
