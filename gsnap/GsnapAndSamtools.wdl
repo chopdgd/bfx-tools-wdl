@@ -61,7 +61,8 @@ task GSnap {
   }
 
   output {
-    File sam_file = stdout()
+    File bam_file = "~{output_filename}"
+    File bam_idx_file = "~{output_idx_filename}"
   }
 
   runtime {
