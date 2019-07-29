@@ -9,7 +9,7 @@ version 1.0
 # -------------------------------------------------------------------------------------------------
 
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.0.0/utilities/CombineFastQ.wdl" as CombineFastQ
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.0.0/gsnap/GsnapAndSamtools.wdl" as CircularMapping
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/featureMitoIH14-circular-alignment/gsnap/GsnapAndSamtools.wdl" as CircularMapping
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/extract-mapped-reads-modify-reference-optional/samtools/ExtractMappedReads.wdl" as ExtractMappedReads
 
 workflow  FastQToCircularBAM {
