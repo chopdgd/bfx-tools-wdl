@@ -42,7 +42,7 @@ task GSnap {
         module load $MODULE
     done;
 
-    ~{default="gsnap" gsnap} \
+    ~{default="gsnap" gsnap + "gsnap"} \
       --read-group-id= ~{read_group_id} \
       --read-group-name= ~{read_group_name} \
       --read-group-library= ~{read_group_library} \
@@ -71,7 +71,7 @@ task GSnap {
   }
 
   parameter_meta {
-    gsnap: "gsnap executable."
+    gsnap: "gsnap directory that hosts the executable."
     reference_name: "Name of the reference to use"
     reference_dir: "Circular reference sequence directory."
     sample_id: "Sample ID to use in SAM tag."
