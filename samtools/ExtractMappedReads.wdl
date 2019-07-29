@@ -12,8 +12,8 @@ task ExtractMappedReads {
     File ? reference
     File ? reference_idx
 
-    File bam_file
-    File ? bam_idx_file
+    File input_bam_file
+    File ? input_bam_idx_file
 
     String ? userString
 
@@ -22,7 +22,7 @@ task ExtractMappedReads {
     Int cpu = 1
   }
 
-  String output_filename = basename(input_file) + ".mapped.bam"
+  String output_filename = basename(input_bam_file) + ".mapped.bam"
 
   command {
     set -Eeuxo pipefail;
@@ -35,7 +35,7 @@ task ExtractMappedReads {
       ~{userString} \
       ~{"--reference " + reference} \
       ~{"-@ " + cpu} \
-      ~{input_file} | \
+      ~{input_bam_file} | \
     ~{default="samtools" samtools} sort \
       -O BAM \
       ~{"--reference " + reference} \
@@ -62,8 +62,8 @@ task ExtractMappedReads {
     samtools: "Samtools executable."
     reference: "Reference sequence file."
     reference_idx: "Reference sequence index (.fai)."
-    bam_file: "bam file."
-    bam_idx_file: "bam index file."
+    input_bam_file: "bam file."
+    input_bam_idx_file: "bam index file."
     userString: "An optional parameter which allows the user to specify additions to the command line at run time."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
