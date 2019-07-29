@@ -34,8 +34,6 @@ task Pindel2Vcf4Mito {
         module load $MODULE
     done;
 
-    cp ~{input_file} ~{temp_filename};
-
     ~{default="pindel2vcf" pindel2vcf} \
       ~{userString} \
       -r ~{reference} \
