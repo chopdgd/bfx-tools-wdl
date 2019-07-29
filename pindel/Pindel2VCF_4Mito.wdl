@@ -25,6 +25,8 @@ task Pindel2Vcf {
     Int cpu = 1
   }
 
+  String output_file = sample_id+".vcf"
+
   command {
     set -Eeuxo pipefail;
 
@@ -40,11 +42,11 @@ task Pindel2Vcf {
       -R ~{reference_version} \
       -d ~{reference_date} \
       -P ~{sample_id} \
-      -v;
+      -v ~{output_file};
   }
 
   output {
-    File vcf_file = "~{sample_id}" + ".vcf"
+    File vcf_file = "~{output_file}"
   }
 
   runtime {
@@ -58,7 +60,6 @@ task Pindel2Vcf {
     reference_idx: "reference idx."
     reference_version: "The name and version of the reference genome."
     reference_date: "The date of the version of the reference genome used."
-    input_file: "output from pindel."
     userString: "An optional parameter which allows the user to specify additions to the command line at run time."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
