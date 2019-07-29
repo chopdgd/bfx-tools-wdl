@@ -25,7 +25,7 @@ task Pindel2VCF4Mito {
     Int cpu = 1
   }
 
-  String output_file = sample+".vcf"
+  String output_file = sample + ".vcf"
 
   command {
     set -Eeuxo pipefail;
@@ -35,12 +35,12 @@ task Pindel2VCF4Mito {
     done;
 
     ~{default="pindel2vcf" pindel2vcf} \
-      ~{userString} \
-      -r ~{reference} \
-      -R ~{reference_version} \
-      -d ~{reference_date} \
-      -P ~{sample} \
-      -v ~{output_file};
+    ~{userString} \
+    -r ~{reference} \
+    -R ~{reference_version} \
+    -d ~{reference_date} \
+    -P ~{sample} \
+    -v ~{output_file};
   }
 
   output {
@@ -57,7 +57,7 @@ task Pindel2VCF4Mito {
     reference: "reference file."
     reference_idx: "reference idx."
     reference_version: "The name and version of the reference genome."
-    sample: "sample identifier"
+    sample: "sample identifier."
     reference_date: "The date of the version of the reference genome used."
     userString: "An optional parameter which allows the user to specify additions to the command line at run time."
     memory: "GB of RAM to use at runtime."
