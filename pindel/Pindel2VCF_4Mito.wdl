@@ -16,7 +16,7 @@ task Pindel2VCF4Mito {
     String reference_version =  "NC_012920"
     String reference_date = "10312014"
 
-    String sample
+    File sample_id_cnv
 
     String ? userString
 
@@ -24,7 +24,9 @@ task Pindel2VCF4Mito {
     Float memory = 8
     Int cpu = 1
   }
-
+  
+  String sample = basename(sample_id_cnv)
+  
   String output_file = sample + ".vcf"
 
   command {
