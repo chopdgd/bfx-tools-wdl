@@ -11,8 +11,8 @@ task GSnap {
   input {
     File ? gsnap
     File ? samtools
-    File reference_name
-    String reference_dir
+    String reference_name
+    File reference_dir
     String sample_id
     File fastq_1
     File fastq_2
