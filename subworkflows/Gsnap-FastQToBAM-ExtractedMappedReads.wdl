@@ -56,7 +56,7 @@ workflow  FastQToCircularBAM {
       reference=reference,
       reference_idx=reference_idx,
       bam_file=GsnapAlignment.bam_file,
-      bam_file_idx=GsnapAlignment.bam_idx_file,
+      bam_idx_file=GsnapAlignment.bam_idx_file,
   }
 
   output {
