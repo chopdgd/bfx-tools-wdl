@@ -42,7 +42,7 @@ task GSnap {
         module load $MODULE
     done;
 
-    ~{default="gsnap" gsnap + "gsnap"} \
+    ~{default="gsnap" gsnap + "/gsnap"} \
       --read-group-id= ~{read_group_id} \
       --read-group-name= ~{read_group_name} \
       --read-group-library= ~{read_group_library} \
