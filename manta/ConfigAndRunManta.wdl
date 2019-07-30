@@ -1,7 +1,7 @@
 version 1.0
 # -------------------------------------------------------------------------------------------------
 # Package Name: https://github.com/Illumina/manta
-# Task Summary: Manta calls structural variants (SVs) and indels from mapped paired-end sequencing reads. It is optimized for analysis of germline variation in small sets of individuals and somatic variation in tumor/normal sample pairs. 
+# Task Summary: Manta calls structural variants (SVs) and indels from mapped paired-end sequencing reads. It is optimized for analysis of germline variation in small sets of individuals and somatic variation in tumor/normal sample pairs.
 # Tool Name: Manta
 # Documentation: https://github.com/Illumina/manta/tree/master/docs
 # -------------------------------------------------------------------------------------------------
@@ -9,7 +9,7 @@ version 1.0
 
 task ConfigRunManta{
   input {
-    File ? python
+    String ? python
     File ? manta
 
     File reference
@@ -27,7 +27,7 @@ task ConfigRunManta{
   }
 
   String run_directory = "./sample_id"
-  
+
   command {
     set -Eeuxo pipefail;
 
@@ -40,9 +40,9 @@ task ConfigRunManta{
       ~{"--tumorBam" + bam_file} \
       ~{"--referenceFasta " + reference} \
       ~{"--runDir" + run_directory};
-      
+
       ~{default="python" python} ~{run_directory}/runWorkflow.py ~{default="-m local -j 8" userString};
-      
+
   }
 
   output {
