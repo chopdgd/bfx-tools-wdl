@@ -18,7 +18,7 @@ task CallMantaCNV {
   }
 
   String run_directory = sample_id+"/"
-  String output_filename = run_directory + "/results/variants/tumorSV.vcf.gz"
+  File output_filename = run_directory + "/results/variants/tumorSV.vcf.gz"
 
   command {
     set -Eeuxo pipefail;
