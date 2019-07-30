@@ -17,7 +17,7 @@ task CallMantaCNV {
     Int cpu = 8
   }
 
-  String run_directory = sample_id+"/"
+  File run_directory = sample_id+"/"
   File output_filename = run_directory + "/results/variants/tumorSV.vcf.gz"
 
   command {
