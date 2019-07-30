@@ -27,7 +27,7 @@ task ConfigManta{
   }
 
   String run_directory = sample_id+"/"
-
+  
   command {
     set -Eeuxo pipefail;
 
@@ -39,7 +39,7 @@ task ConfigManta{
       ~{manta + "configManta.py"}
       ~{"--tumorBam" + bam_file} \
       ~{"--referenceFasta " + reference} \
-      ~{"--runDir" + run_directory};
+      ~{"--runDir" + run_directory} | tail -1 - ;
   }
 
   output {
