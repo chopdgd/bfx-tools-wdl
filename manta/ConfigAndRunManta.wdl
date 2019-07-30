@@ -26,7 +26,7 @@ task ConfigRunManta{
     Int cpu = 1
   }
 
-  String run_directory = ~{sample_id}+"/"
+  String run_directory = "./sample_id"
   
   command {
     set -Eeuxo pipefail;
@@ -39,14 +39,14 @@ task ConfigRunManta{
       ~{manta + "configManta.py"}
       ~{"--tumorBam" + bam_file} \
       ~{"--referenceFasta " + reference} \
-      ~{"--runDir" + run_directory} | tail -1 - > workflowscript.py ;  
+      ~{"--runDir" + run_directory};
       
-      ~{default="python" python} workflowscript.py ~{default="-m local -j 8" userString};
+      ~{default="python" python} ~{run_directory}/runWorkflow.py ~{default="-m local -j 8" userString};
       
   }
 
   output {
-    File vcfFile = run_directory + "/results/variants/tumor.vcf.gz"
+    File vcfFile = run_directory + "/results/variants/tumorSV.vcf.gz"
   }
 
   runtime {
