@@ -40,6 +40,7 @@ task Pindel2Vcf4Mito {
       -R ~{reference_version} \
       -d ~{reference_date} \
       -P ~{sample_id} \
+      -L ~{sample_id + ".log"}
       -v ~{output_file};
   }
 
