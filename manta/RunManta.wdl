@@ -1,21 +1,24 @@
 version 1.0
 # -------------------------------------------------------------------------------------------------
 # Package Name: https://github.com/Illumina/manta
-# Task Summary: Manta calls structural variants (SVs) and indels from mapped paired-end sequencing reads. It is optimized for analysis of germline variation in small sets of individuals and somatic variation in tumor/normal sample pairs. 
+# Task Summary: Manta calls structural variants (SVs) and indels from mapped paired-end sequencing reads. It is optimized for analysis of germline variation in small sets of individuals and somatic variation in tumor/normal sample pairs.
 # Tool Name: Manta
 # Documentation: https://github.com/Illumina/manta/tree/master/docs
 # -------------------------------------------------------------------------------------------------
 
 
-task ConfigManta{
+task CallMantaCNV {
   input {
     File ? python
-
-    String userString "-m local -j 16"
+    String sample_id
+    String ? userString
     Array[String] modules = []
     Float memory = 4
-    Int cpu = 1
+    Int cpu = 8
   }
+
+  File run_directory = sample_id+"/"
+  File output_filename = run_directory + "/results/variants/tumorSV.vcf.gz"
 
   command {
     set -Eeuxo pipefail;
@@ -24,15 +27,13 @@ task ConfigManta{
         module load $MODULE
     done;
 
-    run_directory = ~{sample_id}+"/"
-
     ~{default="python" python} \
-      ~{run_directory + "runWorkflow.py"}
-      ~{userString};
+      ~{run_directory + "/runWorkflow.py"}
+      ~{default="-m local -j 8" userString};
   }
 
   output {
-    File mantaVCF = run_directory + "results/variants/tumorSV.vcf.gz"
+    File mantaVCF = "~{output_filename}"
   }
 
   runtime {
@@ -42,7 +43,6 @@ task ConfigManta{
 
   parameter_meta {
     sample_id: "sample id."
-    run_directory: the directory in which the runWorkflow.py will be generated. This will be run in the next step. 
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
   }
@@ -54,3 +54,6 @@ task ConfigManta{
     version: "0.1.0"
   }
 }
+
+
+
