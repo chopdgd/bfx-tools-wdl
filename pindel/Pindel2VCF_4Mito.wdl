@@ -13,8 +13,8 @@ task Pindel2VCF4Mito {
     File ? pindel2vcf
     File reference
     File reference_idx
-    String reference_version =  "NC_012920"
-    String reference_date = "10312014"
+    String reference_version="NC_012920"
+    String reference_date="10312014"
 
     File sample_id_cnv
 
@@ -25,7 +25,7 @@ task Pindel2VCF4Mito {
     Int cpu = 1
   }
   
-  String sample = basename(sample_id_cnv, "_D")
+  String sample_prefix = basename(sample_id_cnv, "_D")
   
   String output_file = sample + ".vcf"
 
@@ -37,12 +37,7 @@ task Pindel2VCF4Mito {
     done;
 
     ~{default="pindel2vcf" pindel2vcf} \
-    ~{userString} \
-    -r ~{reference} \
-    -R ~{reference_version} \
-    -d ~{reference_date} \
-    -P ~{sample} \
-    -v ~{output_file};
+    ~{userString} -r ~{reference} -R ~{reference_version} -d ~{reference_date} --pindel_output_root ~{sample_prefix} -v ~{output_file}
   }
 
   output {
