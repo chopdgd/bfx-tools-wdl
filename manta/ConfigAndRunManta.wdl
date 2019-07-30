@@ -19,7 +19,7 @@ task ConfigRunManta{
     File bam_file
     File bam_idx_file
 
-    
+    String ? userString
 
     Array[String] modules = []
     Float memory = 4
