@@ -6,17 +6,17 @@ version 1.0
 # Documentation: http://gmt.genome.wustl.edu/packages/pindel/user-manual.html
 # -------------------------------------------------------------------------------------------------
 
+task Pindel2VCF4Mito {
 
-task Pindel2Vcf4Mito {
   input {
-    File ? pindel2vcf
 
+    File ? pindel2vcf
     File reference
     File reference_idx
-    String reference_version =  "1000GenomesPilot-NCBI37"
-    String reference_date = "20101123"
+    String reference_version="NC_012920"
+    String reference_date="10312014"
 
-    String sample_id
+    File sample_id_cnv
 
     String ? userString
 
@@ -25,7 +25,9 @@ task Pindel2Vcf4Mito {
     Int cpu = 1
   }
 
-  String output_file = sample_id+".vcf"
+  String sample_prefix = basename(sample_id_cnv, "_D")
+
+  String output_file = sample_prefix + ".vcf"
 
   command {
     set -Eeuxo pipefail;
@@ -35,13 +37,9 @@ task Pindel2Vcf4Mito {
     done;
 
     ~{default="pindel2vcf" pindel2vcf} \
-      ~{userString} \
-      -r ~{reference} \
-      -R ~{reference_version} \
-      -d ~{reference_date} \
-      -P ~{sample_id} \
-      -L ~{sample_id + ".log"}
-      -v ~{output_file};
+    ~{userString} -r ~{reference} -R ~{reference_version} \
+    -d ~{reference_date} --pindel_output_root ~{sample_prefix} \
+    -L ~{sample_id + ".log"} -v ~{output_file}
   }
 
   output {
@@ -58,7 +56,6 @@ task Pindel2Vcf4Mito {
     reference: "reference file."
     reference_idx: "reference idx."
     reference_version: "The name and version of the reference genome."
-    sample_id: "sample identifier"
     reference_date: "The date of the version of the reference genome used."
     userString: "An optional parameter which allows the user to specify additions to the command line at run time."
     memory: "GB of RAM to use at runtime."
@@ -66,8 +63,8 @@ task Pindel2Vcf4Mito {
   }
 
   meta {
-    author: "Michael A. Gonzalez"
-    email: "GonzalezMA@email.chop.edu"
+    author: "Pushkala Jayaraman"
+    email: "jayaramanp@email.chop.edu"
     pindel_version: "0.2.5"
     version: "0.1.0"
   }
