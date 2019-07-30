@@ -39,7 +39,7 @@ task Pindel2VCF4Mito {
     ~{default="pindel2vcf" pindel2vcf} \
     ~{userString} -r ~{reference} -R ~{reference_version} \
     -d ~{reference_date} --pindel_output_root ~{sample_prefix} \
-    -L ~{sample_id + ".log"} -v ~{output_file}
+    -L ~{sample_prefix + ".log"} -v ~{output_file}
   }
 
   output {
