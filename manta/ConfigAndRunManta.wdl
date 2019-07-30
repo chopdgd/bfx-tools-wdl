@@ -7,7 +7,7 @@ version 1.0
 # -------------------------------------------------------------------------------------------------
 
 
-task ConfigManta{
+task ConfigRunManta{
   input {
     File ? python
     File ? manta
@@ -26,6 +26,8 @@ task ConfigManta{
     Int cpu = 1
   }
 
+  String run_directory = ~{sample_id}+"/"
+  
   command {
     set -Eeuxo pipefail;
 
@@ -33,17 +35,18 @@ task ConfigManta{
         module load $MODULE
     done;
 
-    run_directory = ~{sample_id}+"/"
-
     ~{default="python" python} \
       ~{manta + "configManta.py"}
       ~{"--tumorBam" + bam_file} \
       ~{"--referenceFasta " + reference} \
-      ~{"--runDir" + run_directory};
+      ~{"--runDir" + run_directory} | tail -1 - > workflowscript.py ;  
+      
+      ~{default="python" python} workflowscript.py ~{default="-m local -j 8" userString};
+      
   }
 
   output {
-    File workflowFile = stdout()
+    File vcfFile = run_directory + "/results/variants/tumor.vcf.gz"
   }
 
   runtime {
