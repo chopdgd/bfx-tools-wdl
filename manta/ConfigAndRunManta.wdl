@@ -26,7 +26,7 @@ task ConfigRunManta{
     Int cpu = 1
   }
 
-  String run_directory = "./sample_id"
+  String run_directory = "./"+sample_id
 
   command {
     set -Eeuxo pipefail;
