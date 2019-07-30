@@ -27,7 +27,7 @@ task Pindel2VCF4Mito {
   
   String sample_prefix = basename(sample_id_cnv, "_D")
   
-  String output_file = sample + ".vcf"
+  String output_file = sample_prefix + ".vcf"
 
   command {
     set -Eeuxo pipefail;
