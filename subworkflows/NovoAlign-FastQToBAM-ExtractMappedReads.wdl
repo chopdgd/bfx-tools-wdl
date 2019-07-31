@@ -64,21 +64,10 @@ workflow FastQToMappedBAM {
       input_bam_idx_file=Alignment.bam_idx_file,
   }
 
-  call Picard.MarkDuplicates as MarkDuplicates {
-    input:
-      picard=picard,
-      reference=reference,
-      reference_idx=reference_idx,
-      sample_id=sample_id,
-      input_file=ExtractMapped.bam_file,
-  }
-
   output {
     # BAMs
     File bam_file = ExtractMapped.bam_file
     File bam_idx_file = ExtractMapped.bam_idx_file
-    File markdups_bam_file = MarkDuplicates.bam_file
-    File markdups_bam_idx_file = MarkDuplicates.bam_idx_file
 
     # QC
     File alignment_metrics_file = Alignment.metrics_file
@@ -92,7 +81,6 @@ workflow FastQToMappedBAM {
     novoalign: "NovoAlign executable."
     novoalign_license: "NovoAlign License."
     samtools: "Samtools executable."
-    picard: "Picard jar file."
     reference: "Reference sequence fasta file."
     reference_novoindex: "Reference sequence file index with NovoIndex."
     reference_idx: "Reference sequence index (.fai)."
