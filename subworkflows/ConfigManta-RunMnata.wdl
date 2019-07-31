@@ -64,11 +64,6 @@ workflow ConfigMantaRunManta{
   
   }
 
-  runtime {
-    memory: memory + " GB"
-    cpu: cpu
-  }
-
   parameter_meta {
     manta: "manta Config executable."
     reference: "reference file."
