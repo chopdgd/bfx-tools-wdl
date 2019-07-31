@@ -37,7 +37,7 @@ task ConfigRunManta{
     done;
 
     ~{default="python" python} \
-      ~{manta}
+      ~{manta + "/configManta.py"}
       ~{"--tumorBam " + bam_file} \
       ~{"--referenceFasta " + reference} \
       ~{"--runDir " + run_directory};
@@ -56,7 +56,7 @@ task ConfigRunManta{
   }
 
   parameter_meta {
-    manta: "manta Config executable."
+    manta: "manta dir containing configManta.py executable."
     reference: "reference file."
     reference_idx: "reference idx."
     sample_id: "sample id."
