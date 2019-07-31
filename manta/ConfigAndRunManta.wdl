@@ -8,6 +8,7 @@ version 1.0
 
 
 task ConfigRunManta{
+  
   input {
     String ? python
     File ? manta
