@@ -53,7 +53,7 @@ task PindelCNV2VCF4Mito {
       ~{pindel_userString} \
       ~{"-j " + intervals} \
       -f ~{reference} \
-      -L ~{sample_id + ".log"}
+      -L ~{sample_id + ".log"} \
       -i config \
       -o ~{sample_id};
 
