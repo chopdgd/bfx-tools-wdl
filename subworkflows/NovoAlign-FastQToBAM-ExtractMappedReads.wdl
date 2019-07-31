@@ -63,6 +63,15 @@ workflow FastQToMappedBAM {
       input_bam_file=Alignment.bam_file,
       input_bam_idx_file=Alignment.bam_idx_file,
   }
+  
+  call Picard.MarkDuplicates as MarkDuplicates {
+    input:
+      picard=picard,
+      reference=reference,
+      reference_idx=reference_idx,
+      sample_id=sample_id,
+      input_file=ExtractMapped.bam_file,
+  }
 
   output {
     # BAMs
@@ -71,6 +80,7 @@ workflow FastQToMappedBAM {
 
     # QC
     File alignment_metrics_file = Alignment.metrics_file
+    File markdups_metrics_file = MarkDuplicates.
   }
 
   parameter_meta {
