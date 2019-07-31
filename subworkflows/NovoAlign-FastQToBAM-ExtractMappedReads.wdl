@@ -80,7 +80,7 @@ workflow FastQToMappedBAM {
 
     # QC
     File alignment_metrics_file = Alignment.metrics_file
-    File markdups_metrics_file = MarkDuplicates.
+    File markdups_metrics_file = MarkDuplicates.metrics_file
   }
 
   parameter_meta {
@@ -89,6 +89,7 @@ workflow FastQToMappedBAM {
     fastq_2: "FASTQ Files right reads."
     novoalign: "NovoAlign executable."
     novoalign_license: "NovoAlign License."
+    picard: "picard jar file."
     samtools: "Samtools executable."
     reference: "Reference sequence fasta file."
     reference_novoindex: "Reference sequence file index with NovoIndex."
