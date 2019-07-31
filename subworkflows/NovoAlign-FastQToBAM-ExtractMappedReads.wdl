@@ -71,7 +71,6 @@ workflow FastQToMappedBAM {
 
     # QC
     File alignment_metrics_file = Alignment.metrics_file
-    File markdups_metrics_file = MarkDuplicates.metrics_file
   }
 
   parameter_meta {
