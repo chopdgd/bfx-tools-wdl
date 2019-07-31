@@ -19,6 +19,8 @@ workflow PindelCNV {
     File bam_file
     File bam_idx_file
 
+    File ? intervals
+
     File reference
     File reference_idx
     String reference_version
@@ -37,6 +39,7 @@ workflow PindelCNV {
       pindel=pindel,
       pindel2vcf=pindel2vcf,
       reference=reference,
+      intervals=intervals,
       reference_idx=reference_idx,
       reference_version=reference_version,
       reference_date=reference_date,
