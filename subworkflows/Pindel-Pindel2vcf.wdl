@@ -25,6 +25,8 @@ workflow PindelCNV {
     String reference_date
     
     Int pindel_sliding_window
+
+    String pindel_userString
     String ? pindel2vcf_userString
   }
 
