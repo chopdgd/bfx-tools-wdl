@@ -54,13 +54,12 @@ task PindelCNV2VCF4Mito {
       ~{"-j " + intervals} \
       -f ~{reference} \
       -L ~{sample_id + ".log"} \
-      -i config \
-      -o ~{sample_id};
+      -i config -o ~{sample_id} ;
 
     ~{default="pindel2vcf" pindel2vcf} \
     ~{pindel2vcf_userString} -r ~{reference} -R ~{reference_version} \
     -d ~{reference_date} -P ~{sample_id} \
-    -v ~{output_file}
+    -v ~{output_file} ;
   }
 
   output {
