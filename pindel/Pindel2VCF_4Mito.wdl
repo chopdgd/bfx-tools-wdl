@@ -47,7 +47,7 @@ task PindelCNV2VCF4Mito {
     echo -e ~{bam_file}"\t"~{sliding_window}"\t"~{sample_id} > config;
 
     ~{default="pindel" pindel} \
-      ~{userString} \
+      ~{pindel_userString} \
       ~{"-j " + intervals} \
       -f ~{reference} \
       -L ~{sample_id + ".log"}
@@ -55,7 +55,7 @@ task PindelCNV2VCF4Mito {
       -o ~{sample_id};
 
     ~{default="pindel2vcf" pindel2vcf} \
-    ~{userString} -r ~{reference} -R ~{reference_version} \
+    ~{pindel2vcf_userString} -r ~{reference} -R ~{reference_version} \
     -d ~{reference_date} -P ~{sample_id} \
     -v ~{output_file}
   }

@@ -29,7 +29,7 @@ workflow PindelCNV {
   }
 
 
-  call Pindel2VCF4Mito.Pindel2VCF4Mito as Pindel2VCF {
+  call Pindel2VCF4Mito.PindelCNV2VCF4Mito as PindelCNV2VCF {
     input:
       sample_id=sample_id,
       pindel=pindel,
@@ -46,7 +46,7 @@ workflow PindelCNV {
 
   output {
     Array[File] pindel_vcf_files = [
-        Pindel2VCF.vcf_file,
+        PindelCNV2VCF.vcf_file,
       ]
   }
 
