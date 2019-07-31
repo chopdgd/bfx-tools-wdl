@@ -1,16 +1,16 @@
 version 1.0
 # -------------------------------------------------------------------------------------------------
-# Workflow Summary: FASTQ to BAM pipeline using NovoAlign, Samtools, and Picard
+# Workflow Summary: CNV calling from circular alignment pipeline using Pindel and pindel2vcf tools
 # Tools Used:
 #  * Pindel
 #  * pindel2vcf
 # -------------------------------------------------------------------------------------------------
 
- import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/feature-pindel2vcf-formito/pindel/Pindel.wdl" as PindelCNVCalling
- import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/feature-pindel2vcf-formito/pindel/Pindel2VCF_4Mito.wdl" as Pindel2VCF4Mito
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/feature-pindel2vcf-formito/pindel/Pindel2VCF_4Mito.wdl" as Pindel2VCF4Mito
 
-workflow FastQToBAM {
+workflow PindelCNV {
   input {
+
     String sample_id
     
     File ? pindel
@@ -26,37 +26,30 @@ workflow FastQToBAM {
     
     Int pindel_sliding_window
     String ? pindel2vcf_userString
-
   }
 
-  call PindelCNVCalling.Pindel as PindelCNV {
-    input:
-      pindel=pindel,
-      reference=reference,
-      reference_idx=reference_idx,
-      sample_id=sample_id,
-      bam_file=bam_file,
-      bam_idx_file=bam_idx_file,
-      userString="-T 5 -H 3 -E 0.99 -s -v 10 -x 6 -l -k -C ",
-      sliding_window=pindel_sliding_window
-  }
 
   call Pindel2VCF4Mito.Pindel2VCF4Mito as Pindel2VCF {
     input:
-      sample_id_cnv=PindelCNV.deletion_file,
+      sample_id=sample_id,
+      pindel=pindel,
       pindel2vcf=pindel2vcf,
       reference=reference,
       reference_idx=reference_idx,
       reference_version=reference_version,
       reference_date=reference_date,
-      userString="-sb -ss 3 -G ",
+      pindel_userString="-T 5 -H 3 -E 0.99 -s -v 10 -x 6 -l -k -C ",
+      pindel2vcf_userString="-sb -ss 3 -G ",
+      sliding_window=pindel_sliding_window
   }
+
 
   output {
     Array[File] pindel_vcf_files = [
         Pindel2VCF.vcf_file,
       ]
   }
+
 
   parameter_meta {
     sample_id: "Sample ID to use in SAM TAG."
@@ -66,9 +59,10 @@ workflow FastQToBAM {
     pindel_sliding_window: "average size of inserts used."
   }
 
+
   meta {
-    author: "Michael A. Gonzalez"
-    email: "GonzalezMA@email.chop.edu"
+    author: "Pushkala Jayaraman"
+    email: "jayaramanp@email.chop.edu"
     version: "0.1.0"
   }
 }

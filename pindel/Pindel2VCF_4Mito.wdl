@@ -6,28 +6,36 @@ version 1.0
 # Documentation: http://gmt.genome.wustl.edu/packages/pindel/user-manual.html
 # -------------------------------------------------------------------------------------------------
 
-task Pindel2VCF4Mito {
+task PindelCNV2VCF4Mito {
 
   input {
 
+    File ? pindel
+
+    File bam_file
+    File bam_idx_file
+
+    Int sliding_window = 300
+    String pindel_userString = "-t"
+
+    Array[String] modules = []
+    
     File ? pindel2vcf
     File reference
     File reference_idx
     String reference_version="NC_012920"
     String reference_date="10312014"
 
-    File sample_id_cnv
+    File sample_id
 
-    String ? userString
+    String ? pindel2vcf_userString
 
     Array[String] modules = []
     Float memory = 8
     Int cpu = 1
   }
 
-  String sample_prefix = basename(sample_id_cnv, "_D")
-
-  String output_file = sample_prefix + ".vcf"
+  String output_file = sample_id + ".vcf"
 
   command {
     set -Eeuxo pipefail;
@@ -36,13 +44,32 @@ task Pindel2VCF4Mito {
         module load $MODULE
     done;
 
+    echo -e ~{bam_file}"\t"~{sliding_window}"\t"~{sample_id} > config;
+
+    ~{default="pindel" pindel} \
+      ~{userString} \
+      ~{"-j " + intervals} \
+      -f ~{reference} \
+      -L ~{sample_id + ".log"}
+      -i config \
+      -o ~{sample_id};
+
     ~{default="pindel2vcf" pindel2vcf} \
     ~{userString} -r ~{reference} -R ~{reference_version} \
-    -d ~{reference_date} --pindel_output_root ~{sample_prefix} \
-    -L ~{sample_prefix + ".log"} -v ~{output_file}
+    -d ~{reference_date} -P ~{sample_id} \
+    -v ~{output_file}
   }
 
   output {
+    File deletion_file = "~{sample_id}" + "_D"
+    File short_insertion_file = "~{sample_id}" + "_SI"
+    File inversion_file = "~{sample_id}" + "_INV"
+    File tandem_duplication_file = "~{sample_id}" + "_TD"
+    File large_insertion_file = "~{sample_id}" + "_LI"
+    File unassigned_breakpoints_file = "~{sample_id}" + "_BP"
+    File CloseEndMapped_file = "~{sample_id}" + "_CloseEndMapped"
+    File INT_file = "~{sample_id}" + "_INT_final"
+    File RP_file = "~{sample_id}" + "_RP"
     File vcf_file = "~{output_file}"
   }
 
