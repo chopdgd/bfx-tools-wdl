@@ -16,6 +16,7 @@ workflow ConfigMantaRunManta{
   input {
     String ? python
     File ? manta
+    File remap_manta_vcf_python
 
     File reference
     File ? reference_idx
