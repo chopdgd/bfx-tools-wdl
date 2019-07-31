@@ -29,7 +29,7 @@ task PindelCNV2VCF4Mito {
     String reference_version="NC_012920"
     String reference_date="10312014"
 
-    File sample_id
+    String sample_id
 
     String ? pindel2vcf_userString
 
