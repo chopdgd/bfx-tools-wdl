@@ -53,7 +53,7 @@ workflow FastQToBAM {
   }
 
   output {
-    Array[Array[File]] pindel_vcf_files = [
+    Array[File] pindel_vcf_files = [
         Pindel2VCF.vcf_file,
       ]
   }
