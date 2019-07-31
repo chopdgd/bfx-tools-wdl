@@ -14,13 +14,13 @@ workflow FastQToBAM {
     String sample_id
     
     File ? pindel
-    File ? pindel2vcf
+    File pindel2vcf
 
     File bam_file
-    File ? bam_idx_file
+    File bam_idx_file
 
     File reference
-    File ? reference_idx
+    File reference_idx
     String reference_version
     String reference_date
     
