@@ -38,11 +38,11 @@ task ConfigRunManta{
 
     ~{default="python" python} \
       ~{manta + "/bin/configManta.py"}
-      ~{"--tumorBam " + bam_file} \
-      ~{"--referenceFasta " + reference} \
-      ~{"--runDir " + run_directory};
+      ~{" --tumorBam " + bam_file} \
+      ~{" --referenceFasta " + reference} \
+      ~{" --runDir " + run_directory};
 
-      ~{default="python" python} ~{run_directory}/runWorkflow.py ~{default="-m local -j 8" userString};
+      ~{default="python" python} ~{run_directory}/runWorkflow.py ~{default=" -m local -j 8 " userString};
 
   }
 
