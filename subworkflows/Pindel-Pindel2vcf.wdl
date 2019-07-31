@@ -35,6 +35,8 @@ workflow PindelCNV {
 
   call Pindel2VCF4Mito.PindelCNV2VCF4Mito as PindelCNV2VCF {
     input:
+      bam_file=bam_file,
+      bam_idx_file=bam_idx_file,
       sample_id=sample_id,
       pindel=pindel,
       pindel2vcf=pindel2vcf,
