@@ -56,10 +56,10 @@ workflow ConfigMantaRunManta{
    }
 
   output {
-    Array[Array[File]] manta_vcf_files = [
+    Array[File] manta_vcf_files = [
         RunManta.vcfFile,
      ]
-    Array[Array[File]] manta_remapped_vcf_files = [
+    Array[File] manta_remapped_vcf_files = [
         RemapVCF.manta_remapped_VCF,
      ]
   
