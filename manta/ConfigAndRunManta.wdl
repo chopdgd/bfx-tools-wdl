@@ -37,7 +37,7 @@ task ConfigRunManta{
     done;
 
     ~{default="python" python} \
-      ~{manta + "/configManta.py"}
+      ~{manta + "/bin/configManta.py"}
       ~{"--tumorBam " + bam_file} \
       ~{"--referenceFasta " + reference} \
       ~{"--runDir " + run_directory};
