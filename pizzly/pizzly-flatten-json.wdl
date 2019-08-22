@@ -6,7 +6,7 @@ version 1.0
 # Documentation: https://github.com/pmelsted/pizzly/blob/master/README.md
 # -------------------------------------------------------------------------------------------------
 
-task PostPizzly {
+task PizzlyFlattenJSON {
   input {
     String ? python
     File script

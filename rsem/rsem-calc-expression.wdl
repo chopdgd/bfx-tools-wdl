@@ -9,8 +9,9 @@ version 1.0
 task RSEMExpr {
   input {
     File rsem
-    String bam
-    String ref
+    File bam_file
+    File bam_idx_file
+    File reference
     String sample_id
 
     Float forward_prob = 0.5
@@ -33,8 +34,8 @@ task RSEMExpr {
       --no-bam-output \
       --no-qualities \
       --forward-prob ~{forward_prob} \
-      --bam ~{bam} \
-      ~{ref} \
+      --bam ~{bam_file} \
+      ~{reference} \
       ~{sample_id}
   }
 
@@ -50,8 +51,8 @@ task RSEMExpr {
 
   parameter_meta {
     rsem: "Path to rsem-calculate-expression."
-    bam: "Aligned transcriptome BAM."
-    ref: "pre-built reference directory; built with rsem-prepare-reference."
+    bam_file: "Aligned transcriptome BAM."
+    reference: "pre-built reference directory; built with rsem-prepare-reference."
     sample_id: "prefix for output files."
     forward_prob: "Probability of generating a read from the forward strand of a transcript."
     modules: "Modules to load when task is called; modules must be compatible with the platform the task runs on."
