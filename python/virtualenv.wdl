@@ -8,8 +8,9 @@ task CreateVirtualenv {
     String version = 'python2.7'
     String name = 'pyenv'
     File requirements
+    Array[String] python_modules = ['python/2.7']
 
-    Array[String] modules = ['python/2.7']
+    Array[String] modules = []
     Float memory = 4
     Int cpu = 1
   }
@@ -21,7 +22,15 @@ task CreateVirtualenv {
         module load $MODULE
     done;
 
+    for PYTHON_MODULE in ~{sep=' ' python_modules}; do
+        module load $PYTHON_MODULE
+    done;
+
     virtualenv --python=~{version} ~{name};
+
+    for PYTHON_MODULE in ~{sep=' ' python_modules}; do
+        module unload $PYTHON_MODULE
+    done;
 
     source ~{name}/bin/activate;
 
