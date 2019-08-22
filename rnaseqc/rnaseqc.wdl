@@ -10,7 +10,8 @@ task RNASeQC {
   input {
     File rnaseqc
     File gtf
-    File bam
+    File bam_file
+
     String sample_id
     String output_directory = "."
 
@@ -32,7 +33,7 @@ task RNASeQC {
       --coverage \
       --sample ~{sample_id} \
       ~{gtf} \
-      ~{bam} \
+      ~{bam_file} \
       ~{output_directory} \
       ~{userString}
   }
@@ -53,7 +54,7 @@ task RNASeQC {
   parameter_meta {
     rnaseqc: "Path to RNA-SeQC static Linux binary."
     gtf: "The input GTF file containing features to check the bam against (must be collapsed)."
-    bam: "The input BAM file (with readgroups) containing reads to process."
+    bam_file: "The input BAM file (with readgroups) containing reads to process."
     sample_id: "Prefix for output files."
     output_directory: "Output directory."
     userString: "An optional parameter which allows the user to specify additions to the command line at run time."

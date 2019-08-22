@@ -14,8 +14,9 @@ task STARAlignSamToolsIndex {
     File ? samtools
     String sample_id
 
+    File fastq_1
+    File fastq_2
     String reference_directory
-    Array[String] fastqs
 
     String readFilesCommand = "zcat"
     String outSAMattributes = "NH HI AS NM MD"
@@ -52,7 +53,7 @@ task STARAlignSamToolsIndex {
     ~{default="STAR" staralign} \
       --runMode alignReads \
       --genomeDir ~{reference_directory} \
-      --readFilesIn ~{sep=' ' fastqs} \
+      --readFilesIn ~{fastq_1} ~{fastq_2} \
       --readFilesCommand ~{readFilesCommand} \
       --outSAMattributes ~{outSAMattributes} \
       --outSAMunmapped ~{outSAMunmapped} \

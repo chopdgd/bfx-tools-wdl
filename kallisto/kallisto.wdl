@@ -10,8 +10,10 @@ task Kallisto {
   input {
     File kallisto
     File kallisto_index
+    File fastq_1
+    File fastq_2
     String output_path = "."
-    Array[File] fastqs
+
 
     Array[String] modules = []
     Float memory = 8
@@ -32,7 +34,7 @@ task Kallisto {
       --fusion \
       -b 10 \
       --threads ~{cpu} \
-      ~{sep=' ' fastqs}
+      ~{fastq_1} ~{fastq_2}
   }
 
   output {

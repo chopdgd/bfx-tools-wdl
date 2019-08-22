@@ -9,8 +9,8 @@ version 1.0
 task Arriba {
   input {
     File arriba
-    File bam
-    File reference_fasta
+    File bam_file
+    File reference
     File gtf
     File arriba_blacklist
     String sample_id
@@ -33,8 +33,8 @@ task Arriba {
     done;
 
     ~{arriba} \
-      -x ~{bam} \
-      -a ~{reference_fasta} \
+      -x ~{bam_file} \
+      -a ~{reference} \
       -g ~{gtf} \
       ~{userString} \
       -b ~{arriba_blacklist} \
@@ -56,8 +56,8 @@ task Arriba {
 
   parameter_meta {
     arriba: "Path to Arriba."
-    bam: "The aligned genome bam from STAR (not the transcriptome or bam with read groups)."
-    reference_fasta: "Genome fasta used in STAR."
+    bam_file: "The aligned genome bam from STAR (not the transcriptome or bam with read groups)."
+    reference: "Genome fasta used in STAR."
     gtf: "GTF file used to generate the STAR index."
     arriba_blacklist: "Gene blacklist provided by Arriba releases."
     sample_id: "Prefix for output files."
