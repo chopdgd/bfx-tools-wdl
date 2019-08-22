@@ -14,7 +14,6 @@ task Kallisto {
     File fastq_2
     String output_path = "."
 
-
     Array[String] modules = []
     Float memory = 8
     Int cpu = 4
@@ -52,7 +51,6 @@ task Kallisto {
     kallisto: "Path to kallisto."
     kallisto_index: "Index file built using the kallisto 'index' command."
     output_path: "The directory to write the output."
-    fastqs: "The reads to align to the kallisto index."
     modules: "Modules to load when task is called; modules must be compatible with the platform the task runs on."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
