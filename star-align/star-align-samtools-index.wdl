@@ -80,12 +80,6 @@ task STARAlignSamToolsIndex {
       --twopassMode Basic;
 
 
-    ~{default="samtools" samtools} sort \
-      -@ ~{cpu} \
-      -O BAM \
-      -o Aligned.toTranscriptome.sorted.bam \
-      Aligned.toTranscriptome.out.bam
-
     ~{default="samtools" samtools} index \
       -@ ~{cpu} \
       Aligned.sortedByCoord.out.bam \
@@ -93,20 +87,20 @@ task STARAlignSamToolsIndex {
 
     ~{default="samtools" samtools} index \
       -@ ~{cpu} \
-      Aligned.toTranscriptome.sorted.bam \
-      Aligned.toTranscriptome.sorted.bam.bai;
+      Aligned.toTranscriptome.out.bam \
+      Aligned.toTranscriptome.out.bam.bai;
 
     mv Aligned.sortedByCoord.out.bam ~{sample_id}.star-align.sorted.bam;
     mv Aligned.sortedByCoord.out.bam.bai ~{sample_id}.star-align.sorted.bam.bai;
-    mv Aligned.toTranscriptome.sorted.bam ~{sample_id}.star-align.transcriptome.sorted.bam;
-    mv Aligned.toTranscriptome.sorted.bam.bai ~{sample_id}.star-align.transcriptome.sorted.bam.bai;
+    mv Aligned.toTranscriptome.out.bam ~{sample_id}.star-align.transcriptome.bam;
+    mv Aligned.toTranscriptome.out.bam.bai ~{sample_id}.star-align.transcriptome.bam.bai;
   }
 
   output {
     File bam_file = "~{sample_id}" + '.star-align.sorted.bam'
     File bam_idx_file = "~{sample_id}" + '.star-align.sorted.bam.bai'
-    File transcriptome_bam_file = "~{sample_id}" + '.star-align.transcriptome.sorted.bam'
-    File transcriptome_bam_idx_file = "~{sample_id}" + '.star-align.transcriptome.sorted.bam.bai'
+    File transcriptome_bam_file = "~{sample_id}" + '.star-align.transcriptome.bam'
+    File transcriptome_bam_idx_file = "~{sample_id}" + '.star-align.transcriptome.bam.bai'
   }
 
   runtime {
