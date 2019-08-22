@@ -84,14 +84,22 @@ task STARAlignSamToolsIndex {
       Aligned.sortedByCoord.out.bam \
       Aligned.sortedByCoord.out.bam.bai;
 
+    ~{default="samtools" samtools} index \
+      -@ ~{cpu} \
+      Aligned.toTranscriptome.out.bam \
+      Aligned.toTranscriptome.out.bam.bai;
+
     mv Aligned.sortedByCoord.out.bam ~{sample_id}.star-align.sorted.bam;
     mv Aligned.sortedByCoord.out.bam.bai ~{sample_id}.star-align.sorted.bam.bai;
+    mv Aligned.toTranscriptome.out.bam ~{sample_id}.star-align.transcriptome.bam;
+    mv Aligned.toTranscriptome.out.bam.bai ~{sample_id}.star-align.transcriptome.bam.bai;
   }
 
   output {
     File bam_file = "~{sample_id}" + '.star-align.sorted.bam'
     File bam_idx_file = "~{sample_id}" + '.star-align.sorted.bam.bai'
-    File transcriptome_bam = 'Aligned.toTranscriptome.out.bam'
+    File transcriptome_bam_file = "~{sample_id}" + '.star-align.transcriptome.bam'
+    File transcriptome_bam_idx_file = "~{sample_id}" + '.star-align.transcriptome.bam.bai'
   }
 
   runtime {
@@ -103,7 +111,6 @@ task STARAlignSamToolsIndex {
     staralign: "Path to STAR binary."
     sample_id: "Prefix for output files."
     reference_directory: "Directory where the STAR reference index was created using STAR --genomeGenerate."
-    fastqs: "Input fastq files in format '<fastq1> <fastq2>'"
     readFilesCommand: "Shell command to read the fastqs in, e.g. zcat if fastqs are compressed."
     outSAMattributes: "Desired SAM attributes in desired order."
     outSAMunmapped: "Output of unmapped readed in SAM format."
