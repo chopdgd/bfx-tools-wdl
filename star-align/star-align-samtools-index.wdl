@@ -79,16 +79,10 @@ task STARAlignSamToolsIndex {
       ~{userString} \
       --twopassMode Basic;
 
-
     ~{default="samtools" samtools} index \
       -@ ~{cpu} \
       Aligned.sortedByCoord.out.bam \
       Aligned.sortedByCoord.out.bam.bai;
-
-    ~{default="samtools" samtools} index \
-      -@ ~{cpu} \
-      Aligned.toTranscriptome.out.bam \
-      Aligned.toTranscriptome.out.bam.bai;
 
     mv Aligned.sortedByCoord.out.bam ~{sample_id}.star-align.sorted.bam;
     mv Aligned.sortedByCoord.out.bam.bai ~{sample_id}.star-align.sorted.bam.bai;
