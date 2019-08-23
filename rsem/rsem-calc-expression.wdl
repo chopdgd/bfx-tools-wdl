@@ -10,7 +10,6 @@ task RSEMExpr {
   input {
     File rsem
     File bam_file
-    File bam_idx_file
     File reference
     String sample_id
 
