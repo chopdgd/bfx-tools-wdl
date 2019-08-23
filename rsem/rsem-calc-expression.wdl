@@ -10,7 +10,7 @@ task RSEMExpr {
   input {
     File rsem
     File bam_file
-    File reference
+    String reference_directory
     String sample_id
 
     Float forward_prob = 0.5
@@ -34,7 +34,7 @@ task RSEMExpr {
       --no-qualities \
       --forward-prob ~{forward_prob} \
       --bam ~{bam_file} \
-      ~{reference} \
+      ~{reference_directory} \
       ~{sample_id}
   }
 
