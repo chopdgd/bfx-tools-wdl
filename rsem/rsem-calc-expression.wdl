@@ -16,7 +16,7 @@ task RSEMExpr {
     Float forward_prob = 0.5
 
     Array[String] modules = []
-    Float memory = 12
+    Float memory = 24
     Int cpu = 12
   }
 
