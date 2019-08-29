@@ -14,6 +14,8 @@ task Kallisto {
     File fastq_2
     String output_path = "."
 
+    String userString = "-b 10"
+
     Array[String] modules = []
     Float memory = 8
     Int cpu = 4
@@ -31,7 +33,7 @@ task Kallisto {
       -i ~{kallisto_index} \
       -o ~{output_path} \
       --fusion \
-      -b 10 \
+      ~{userString} \
       --threads ~{cpu} \
       ~{fastq_1} ~{fastq_2}
   }

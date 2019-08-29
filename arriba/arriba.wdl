@@ -15,7 +15,7 @@ task Arriba {
     File arriba_blacklist
     String sample_id
 
-    String ? userString
+    String userString = "-T -P"
 
     Array[String] modules = []
     Float memory = 8
@@ -39,9 +39,7 @@ task Arriba {
       ~{userString} \
       -b ~{arriba_blacklist} \
       -o ~{fusion_output} \
-      -O ~{discarded_fusion_output} \
-      -T \
-      -P
+      -O ~{discarded_fusion_output}
   }
 
   output {

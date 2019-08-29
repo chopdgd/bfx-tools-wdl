@@ -9,12 +9,12 @@ version 1.0
 task Pizzly {
   input {
     File pizzly
-
     File transcript_fasta
     File gtf
     File fusion_file
-
     String sample_id
+
+    String userString = "-k 31"
 
     Int align_score = 2
     Int insert_size = 400
@@ -32,9 +32,9 @@ task Pizzly {
     done;
 
     ~{pizzly} \
-      -k 31 \
       --fasta ~{transcript_fasta} \
       --gtf ~{gtf} \
+      ~{userString} \
       --align-score ~{align_score} \
       --insert-size ~{insert_size} \
       --output ~{sample_id} \
