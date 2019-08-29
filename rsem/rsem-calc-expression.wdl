@@ -15,6 +15,8 @@ task RSEMExpr {
 
     Float forward_prob = 0.5
 
+    String userString = "--paired-end --no-bam-output --no-qualities"
+
     Array[String] modules = []
     Float memory = 24
     Int cpu = 12
@@ -29,9 +31,7 @@ task RSEMExpr {
 
     ~{rsem} \
       --num-threads ~{cpu} \
-      --paired-end \
-      --no-bam-output \
-      --no-qualities \
+      ~{userString} \
       --forward-prob ~{forward_prob} \
       --bam ~{bam_file} \
       ~{reference_directory} \

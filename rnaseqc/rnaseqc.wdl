@@ -15,7 +15,7 @@ task RNASeQC {
     String sample_id
     String output_directory = "."
 
-    String ? userString
+    String userString = "--coverage"
 
     Array[String] modules = []
     Float memory = 1
@@ -30,7 +30,6 @@ task RNASeQC {
     done;
 
     ~{rnaseqc} \
-      --coverage \
       --sample ~{sample_id} \
       ~{gtf} \
       ~{bam_file} \

@@ -13,6 +13,8 @@ task PizzlyFlattenJSON {
     File pizzly_json
     String sample_id
 
+    String ? userString
+
     Array[String] modules = []
     Float memory = 1
     Int cpu = 1
@@ -30,6 +32,7 @@ task PizzlyFlattenJSON {
     ~{default="python" python} \
       ~{script} \
       ~{pizzly_json} \
+      ~{userString} \
       ~{output_filename}
   }
 

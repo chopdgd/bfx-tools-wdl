@@ -20,6 +20,8 @@ task STARFusionSamToolsSortIndex {
     String sample_id
     String reference_dir
 
+    String userString = "--examine_coding_effect"
+
     Array[String] modules = []
     Float memory = 48
     Int cpu = 12
@@ -37,9 +39,9 @@ task STARFusionSamToolsSortIndex {
 
     ~{starfusion} \
       --genome_lib_dir ~{reference_dir} \
+      ~{userString} \
       --left_fq ~{fastq_1} \
       --right_fq ~{fastq_2} \
-      --examine_coding_effect \
       --CPU ~{cpu};
 
     ~{default="samtools" samtools} sort \

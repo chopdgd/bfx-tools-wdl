@@ -36,6 +36,7 @@ task STARAlignSamToolsIndex {
     Int outFilterMultimapNmax = 20
     Int outFilterMismatchNmax = 999
     Float outFilterMismatchNoverReadLmax = 0.04
+
     String ? userString
 
     Array[String] modules = []
