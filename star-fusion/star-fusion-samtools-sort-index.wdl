@@ -18,7 +18,7 @@ task STARFusionSamToolsSortIndex {
     File fastq_1
     File fastq_2
     String sample_id
-    String reference_dir
+    String reference_directory
 
     String userString = "--examine_coding_effect"
 
@@ -38,7 +38,7 @@ task STARFusionSamToolsSortIndex {
     PATH=~{samtools_path}:$PATH
 
     ~{starfusion} \
-      --genome_lib_dir ~{reference_dir} \
+      --genome_lib_dir ~{reference_directory} \
       ~{userString} \
       --left_fq ~{fastq_1} \
       --right_fq ~{fastq_2} \
@@ -76,7 +76,7 @@ task STARFusionSamToolsSortIndex {
     samtools: "Path to samtools binary."
     staralign_path: "Path to STAR-Align directory, not binary."
     samtools_path: "Path to samtools directory, not binary."
-    reference_dir: "Fusion genome reference directory."
+    reference_directory: "Fusion genome reference directory."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
   }
