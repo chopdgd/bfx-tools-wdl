@@ -6,6 +6,7 @@ task CollectQualityYieldMetrics {
     File picard
 
     File input_bam
+    File input_idx_bam
     String filename_prefix
 
     String use_original_qualities = "true"

@@ -6,7 +6,7 @@ task CalcReadGroupChecksum {
     File picard
 
     File input_bam
-    File input_bam_idx
+    File input_idx_bam
     String filename_prefix
 
     String ? userString

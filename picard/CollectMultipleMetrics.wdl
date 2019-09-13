@@ -11,6 +11,7 @@ task CollectMultipleMetrics {
                               "QualityScoreDistribution"]
 
     File input_bam
+    File input_idx_bam
     String filename_prefix
 
     File reference

@@ -6,7 +6,7 @@ task CollectWgsMetrics {
     File picard
 
     File input_bam
-    File input_bam_idx
+    File input_idx_bam
     String filename_prefix
 
     Array[File] intervals
@@ -61,7 +61,7 @@ task CollectWgsMetrics {
     reference_dict: "Reference sequence dictionary (.dict)."
     filename_prefix: "prefix for output files."
     input_bam: "Sorted BAM file."
-    input_bam_idx: "Sorted BAM index file."
+    input_idx_bam: "Sorted BAM index file."
     validation_stringency: "Validation stringency for all SAM files read by this program. Setting stringency to SILENT can improve performance when processing a BAM file in which variable-length data (read, qualities, tags) do not otherwise need to be decoded."
     intervals: "Interval list files to operate over."
     userString: "An optional parameter which allows the user to specify additions to the command line at run time."
