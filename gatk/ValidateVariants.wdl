@@ -64,7 +64,7 @@ task ValidateVariants {
     input_idx_file: "A VCF or gVCF index files (.tbi)."
     dbsnp: "dbSNP VCF file."
     dbsnp_idx: "dbSNP VCF index file (.tbi)."
-    intervals: "Array of interval lists to restrict region to (not useful with gVCFs."
+    intervals: "Array of interval lists to restrict ROI"
     userString: "An optional parameter which allows the user to specify additions to the command line at run time."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
