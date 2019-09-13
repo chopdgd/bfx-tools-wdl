@@ -89,9 +89,8 @@ task UnZip {
   input {
     File input_file
     String ? userString
+    String output_filename = basename(input_file, ".gz")
   }
-
-  String output_filename = basename(input_file, ".gz")
 
   command {
     gunzip -dc ~{userString} ~{input_file} > ~{output_filename}
@@ -107,13 +106,12 @@ task BgZip {
     File ? bgzip
     File input_file
     String ? userString
+    String output_filename = basename(input_file) + ".gz"
 
     Array[String] modules = []
     Float memory = 1
     Int cpu = 1
   }
-
-  String output_filename = basename(input_file) + ".gz"
 
   command {
     set -Eeuxo pipefail;
@@ -142,13 +140,12 @@ task Tabix {
     File ? tabix
     File input_file
     String userString = "-p vcf"
+    String output_filename = input_file + ".tbi"
 
     Array[String] modules = []
     Float memory = 1
     Int cpu = 1
   }
-
-  String output_filename = input_file + ".tbi"
 
   command {
     set -Eeuxo pipefail;
@@ -180,14 +177,13 @@ task CompressAndIndex {
 
     String ? bgzipParams
     String tabixParams = "-p vcf"
+    String output_filename = basename(input_file) + ".gz"
+    String output_idx_filename = basename(input_file) + ".gz.tbi"
 
     Array[String] modules = []
     Float memory = 1
     Int cpu = 1
   }
-
-  String output_filename = basename(input_file) + ".gz"
-  String output_idx_filename = basename(input_file) + ".gz.tbi"
 
   command {
     set -Eeuxo pipefail;
