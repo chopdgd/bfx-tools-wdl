@@ -10,7 +10,7 @@ version 1.0
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.0.0/vt/DecomposeAndNormalize.wdl" as VT
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.0.0/snpeff/SnpEff.wdl" as SnpEff
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.0.0/snpeff/SnpSift.wdl" as SnpSift
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.0.0/unix/commands.wdl" as Unix
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/hotfix-111/unix/commands.wdl" as Unix
 
 workflow Annotation {
   input {
@@ -26,6 +26,7 @@ workflow Annotation {
 
     File input_file
     File ? input_idx_file
+    String ? sample_id
 
     File reference
     File dbnsfp
@@ -59,7 +60,7 @@ workflow Annotation {
       config=config,
       dataDir=dataDir,
       reference_version=reference_version,
-      filename_prefix='snpeff',
+      filename_prefix=sample_id + 'snpeff',
       input_file=DecomposeNormalizeVCF.vcf_file,
   }
 
@@ -71,7 +72,7 @@ workflow Annotation {
       mode="dbnsfp",
       database=dbnsfp,
       database_idx=dbnsfp_idx,
-      filename_prefix='dbnsfp',
+      filename_prefix=sample_id + 'dbnsfp',
       input_file=SnpEff.vcf_file,
   }
 
@@ -83,7 +84,7 @@ workflow Annotation {
       mode="annotate",
       database=exac,
       database_idx=exac_idx,
-      filename_prefix='exac',
+      filename_prefix=sample_id + 'exac',
       input_file=dbNSFP.vcf_file,
   }
 
@@ -95,7 +96,7 @@ workflow Annotation {
       mode="annotate",
       database=gnomad_exome,
       database_idx=gnomad_exome_idx,
-      filename_prefix='gnomad_exome',
+      filename_prefix=sample_id + 'gnomad_exome',
       input_file=ExAC.vcf_file,
   }
 
@@ -107,7 +108,7 @@ workflow Annotation {
       mode="annotate",
       database=gnomad_genome,
       database_idx=gnomad_genome_idx,
-      filename_prefix='gnomad_genome',
+      filename_prefix=sample_id + 'gnomad_genome',
       input_file=gnomADExome.vcf_file,
   }
 
@@ -119,7 +120,7 @@ workflow Annotation {
       mode="annotate",
       database=hgmd,
       database_idx=hgmd_idx,
-      filename_prefix='hgmd',
+      filename_prefix=sample_id + 'hgmd',
       input_file=gnomADGenome.vcf_file,
   }
 
@@ -131,7 +132,7 @@ workflow Annotation {
       mode="annotate",
       database=clinvar,
       database_idx=clinvar_idx,
-      filename_prefix='clinvar',
+      filename_prefix=sample_id + 'clinvar',
       input_file=HGMD.vcf_file,
   }
 
@@ -143,7 +144,7 @@ workflow Annotation {
       mode="annotate",
       database=cosmic,
       database_idx=cosmic_idx,
-      filename_prefix='cosmic',
+      filename_prefix=sample_id + 'cosmic',
       input_file=ClinVar.vcf_file,
   }
 
@@ -152,6 +153,8 @@ workflow Annotation {
       bgzip=bgzip,
       tabix=tabix,
       input_file=COSMIC.vcf_file,
+      output_filename=sample_id + ".raw.vcf.gz",
+      output_idx_filename=sample_id + ".raw.vcf.gz.tbi",
   }
 
   output {
