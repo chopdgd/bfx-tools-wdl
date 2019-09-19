@@ -14,7 +14,7 @@ task ValidateSamFile {
     File reference_dict
 
     String validation_stringency = "STRICT"
-    String ? userString
+    String userString = "IGNORE=MISSING_TAG_NM"
 
     Array[String] modules = []
     Float memory = 16
@@ -37,6 +37,7 @@ task ValidateSamFile {
       INPUT=~{input_file} \
       OUTPUT=~{output_filename} \
       REFERENCE_SEQUENCE=~{reference} \
+      MODE=VERBOSE \
       ~{userString} \
       VALIDATION_STRINGENCY=~{validation_stringency};
 
