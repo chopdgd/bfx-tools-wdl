@@ -10,7 +10,7 @@ version 1.0
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.0.0/vt/DecomposeAndNormalize.wdl" as VT
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.0.0/snpeff/SnpEff.wdl" as SnpEff
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.0.0/snpeff/SnpSift.wdl" as SnpSift
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/hotfix-111/unix/commands.wdl" as Unix
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/master/unix/commands.wdl" as Unix
 
 workflow Annotation {
   input {
@@ -26,7 +26,7 @@ workflow Annotation {
 
     File input_file
     File ? input_idx_file
-    String ? sample_id
+    String sample_id = "snpeff"
 
     File reference
     File dbnsfp
