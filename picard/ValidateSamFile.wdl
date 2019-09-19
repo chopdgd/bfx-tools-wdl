@@ -13,7 +13,7 @@ task ValidateSamFile {
     File reference_idx
     File reference_dict
 
-    String validation_stringency = "STRICT"
+    String validation_stringency = "LENIENT"
     String userString = "IGNORE=MISSING_TAG_NM"
 
     Array[String] modules = []
