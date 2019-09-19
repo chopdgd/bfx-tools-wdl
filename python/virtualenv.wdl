@@ -18,6 +18,8 @@ task CreateVirtualenv {
   String python_binary = name + "/bin/python"
 
   command {
+    set -Eexo pipefail;
+
     for MODULE in ~{sep=' ' modules}; do
         module load $MODULE
     done;
