@@ -6,9 +6,9 @@ version 1.0
 #  * SnpSift -- snpsift version is 4.2 in the production pipeline
 # -------------------------------------------------------------------------------------------------
 # BFX Tools
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.0.0/unix/commands.wdl" as Unix
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.0.0/snpeff/SnpEff.wdl" as SnpEff
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.0.0/snpeff/SnpSift.wdl" as SnpSift
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.1.0/unix/commands.wdl" as Unix
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.1.0/snpeff/SnpEff.wdl" as SnpEff
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.1.0/snpeff/SnpSift.wdl" as SnpSift
 
 workflow MitoAnnotation {
   input {
