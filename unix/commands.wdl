@@ -281,3 +281,19 @@ task sed {
     File output_file = "~{output_filename}"
   }
 }
+
+task tar {
+  input {
+    Array[String] input_files
+    String output_filename
+    String userString = "-zcvf"
+  }
+
+  command {
+    tar ~{userString} ~{output_filename} ~{sep=" " input_files}
+  }
+
+  output {
+    File output_file = "~{output_filename}"
+  }
+}
