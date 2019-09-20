@@ -13,10 +13,10 @@ task Strelka2 {
     File ? python
     String strelka2
 
-    File tumor_bam
-    File tumor_bam_idx
-    File normal_bam
-    File normal_bam_idx
+    File tumor_input
+    File tumor_input_idx
+    File ? normal_input
+    File ? normal_input_idx
 
     File bed_file_bgzip
     File bed_file_idx
@@ -40,8 +40,8 @@ task Strelka2 {
     done;
 
     ~{default="python" python} ~{strelka2} \
-      --normalBam ~{normal_bam} \
-      --tumorBam ~{tumor_bam} \
+      ~{"--normalBam " + normal_input} \
+      --tumorBam ~{tumor_input} \
       --referenceFasta ~{reference} \
       --callRegions ~{bed_file_bgzip} \
       ~{userString} \
