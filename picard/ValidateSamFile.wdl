@@ -40,7 +40,6 @@ task ValidateSamFile {
       MODE=VERBOSE \
       ~{userString} \
       VALIDATION_STRINGENCY=~{validation_stringency};
-
   }
 
   output {
@@ -50,6 +49,7 @@ task ValidateSamFile {
   runtime {
     memory: jvm_memory * 1.5 + " GB"
     cpu: cpu
+    continueOnReturnCode: [0, 1]
   }
 
   parameter_meta {
