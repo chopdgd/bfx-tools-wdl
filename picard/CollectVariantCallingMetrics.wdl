@@ -61,7 +61,6 @@ task CollectVariantCallingMetrics {
     reference_dict: "Reference sequence dictionary (.dict)."
     filename_prefix: "prefix for output files."
     dbsnp: "dbSNP VCF file. This is required by this Picard command."
-    intervals: "An interval list file that contains the locations of the targets. Default value: null. This option must be specified at least 1 times."
     userString: "An optional parameter which allows the user to specify additions to the command line at run time."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
