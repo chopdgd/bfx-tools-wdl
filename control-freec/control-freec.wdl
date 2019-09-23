@@ -28,7 +28,7 @@ task ControlFREEC {
     Int ploidy = 2
     Float coefficient_of_variation = 0.062
     String input_format = "BAM"
-    String mate_orientation = "FR"
+    String mate_orientation = "0"
 
     String ? userString
 
