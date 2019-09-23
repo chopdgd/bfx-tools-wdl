@@ -14,8 +14,11 @@ task ControlFREEC {
     File sambamba
     File samtools
 
+    # NOTE: this is a String and not
+    #       a Boolean because it will
+    #       by used in the bash script
+    String is_tumor_normal = "false"
     String chr_len_files_directory
-    Boolean is_tumor_normal = "false"
 
     File tumor_input
     File tumor_input_idx
