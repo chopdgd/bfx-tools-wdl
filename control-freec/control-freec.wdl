@@ -28,7 +28,7 @@ task ControlFREEC {
     Int ploidy = 2
     Float coefficient_of_variation = 0.062
     String input_format = "BAM"
-    String mate_orientation = "0"
+    String mate_orientation = "FR"
 
     String ? userString
 
@@ -53,6 +53,7 @@ task ControlFREEC {
     chrFiles = ~{chr_len_files_directory}
     ploidy = ~{ploidy}
     maxThreads = ~{cpu}
+    coefficientOfVariation = ~{coefficient_of_variation}
     #sambamba = ~{sambamba}
     #samtools = ~{samtools}'
 
