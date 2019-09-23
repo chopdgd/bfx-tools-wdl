@@ -9,8 +9,6 @@ task CollectVariantCallingMetrics {
     File input_gvcf_idx
     String filename_prefix
 
-    Array[File] intervals
-
     File reference
     File reference_idx
     File reference_dict
@@ -43,8 +41,7 @@ task CollectVariantCallingMetrics {
       DBSNP=~{dbsnp} \
       THREAD_COUNT=~{cpu} \
       ~{userString} \
-      GVCF_INPUT=true \
-      INTERVALS=~{sep=" " intervals}
+      GVCF_INPUT=true
   }
 
   output {
