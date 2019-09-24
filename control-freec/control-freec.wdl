@@ -40,7 +40,10 @@ task ControlFREEC {
     Int cpu = 4
   }
 
-  Int pymem = round(memory)
+  String copynumber_filename = basename(tumor_input, ".bam") + ".bam_sample.cpn"
+  String ratio_filename = basename(tumor_input, ".bam") + ".bam_ratio.txt"
+  String cnv_filename = basename(tumor_input, ".bam") + ".bam_CNVS"
+  String bam_info_filename = basename(tumor_input, ".bam") + ".bam_info.txt"
 
   command <<<
     set -Eeuxo pipefail;
@@ -81,6 +84,10 @@ task ControlFREEC {
   >>>
 
   output {
+    File copynumber_file = "~{copynumber_filename}"
+    File ratio_file = "~{ratio_filename}"
+    File cnv_file = "~{cnv_filename}"
+    File bam_info_file = "~{bam_info_filename}"
   }
 
   runtime {
