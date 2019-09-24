@@ -16,7 +16,7 @@ task LoFreqSomatic {
     File normal_bam
     File normal_bam_idx
 
-    File bed_file
+    File ? bed_file
     String sample_id
 
     File reference
@@ -46,9 +46,9 @@ task LoFreqSomatic {
       --normal ~{normal_bam} \
       --tumor ~{tumor_bam} \
       --outprefix ~{output_filename_prefix} \
-      --ref ~{reference} \
       ~{"--dbsnp " + dbsnp} \
-      --bed ~{bed_file};
+      ~{"--bed " + bed_file} \
+      --ref ~{reference};
   }
 
   output {
