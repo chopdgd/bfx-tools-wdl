@@ -18,8 +18,8 @@ task Manta {
     File ? normal_input
     File ? normal_input_idx
 
-    File bed_file_bgzip
-    File bed_file_idx
+    File ? bed_file_bgzip
+    File ? bed_file_idx
     File reference
     File reference_idx
 
@@ -43,7 +43,7 @@ task Manta {
       ~{"--normalBam " + normal_input} \
       --tumorBam ~{tumor_input} \
       --referenceFasta ~{reference} \
-      --callRegions ~{bed_file_bgzip} \
+      ~{"--callRegions " + bed_file_bgzip} \
       ~{userString} \
       --runDir manta_run;
 
