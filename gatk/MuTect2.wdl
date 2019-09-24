@@ -23,16 +23,13 @@ task MuTect2 {
     String ? normal_sample_id
 
     Array[File] intervals = []
+    Array[File] germline_resources = []
 
     File reference
     File reference_idx
     File reference_dict
 
-    File ? dbsnp
-    File ? dbsnp_idx
-    File ? cosmic
     File ? panel_of_normals
-    File ? germline_resource
     String ? userString
 
     Array[String] modules = []
@@ -42,6 +39,7 @@ task MuTect2 {
 
   String output_vcf_name = sample_id + '.MuTect2.vcf'
   Array[String] intervalOptions = prefix("--intervals ", intervals)
+  Array[String] germline_resourceOptions = prefix("--germline-resource ", germline_resources)
 
   command {
     set -Eeuxo pipefail;
@@ -54,13 +52,11 @@ task MuTect2 {
       -R ~{reference} \
       -I ~{tumor_bam} \
       ~{sep=" " intervalOptions} \
+      ~{sep=" " germline_resourceOptions} \
       ~{"-I " + normal_bam} \
       ~{"-normal " + normal_sample_id} \
       ~{userString} \
       ~{"--panel-of-normals " + panel_of_normals} \
-      ~{"--germline-resource " + germline_resource} \
-      ~{"--dbsnp " + dbsnp} \
-      ~{"--cosmic " + cosmic} \
       -O ~{output_vcf_name};
   }
 
@@ -82,11 +78,8 @@ task MuTect2 {
     sample_id: "ID for the tumor_bam."
     normal_bam: "BAM file for normal sample; not required"
     normal_sample_id: "ID for the normal sample; required if normal_bam is provided"
-    dbsnp: "dbSNP VCF file."
-    dbsnp_idx: "dbSNP VCF index file (.tbi)."
-    cosmic: "COSMIC VCF downloaded from Sanger Institute."
     panel_of_normals: "VCF built with MuTect2 CreateSomaticPanelOfNormals"
-    germline_resource: "VCF of other germline events, e.g. gnomAD"
+    germline_resources: "VCF of other germline events, e.g. gnomAD, dbSNP, COSMIC, etc"
     intervals: "One or more genomic intervals over which to operate."
     sample_id: "tumor sample id; prefix for output files"
     userString: "An optional parameter which allows the user to specify additions to the command line at run time."
