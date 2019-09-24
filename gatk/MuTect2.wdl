@@ -50,7 +50,7 @@ task MuTect2 {
       module load $MODULE
     done;
 
-    ~{default="gatk" gatk} MuTect2 \
+    ~{default="gatk" gatk} Mutect2 \
       -R ~{reference} \
       -I ~{tumor_bam} \
       ~{sep=" " intervalOptions} \
