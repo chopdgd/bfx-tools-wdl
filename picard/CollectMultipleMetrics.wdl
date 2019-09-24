@@ -19,7 +19,6 @@ task CollectMultipleMetrics {
     File reference_dict
 
     String validation_stringency = "SILENT"
-    String ? sort_order
     String ? userString
 
     Array[String] modules = []
@@ -44,7 +43,6 @@ task CollectMultipleMetrics {
       VALIDATION_STRINGENCY=~{validation_stringency} \
       REFERENCE_SEQUENCE=~{reference} \
       INPUT=~{input_bam} \
-      ~{"ASSUME_SORT_ORDER=" + sort_order} \
       OUTPUT=~{filename_prefix};
   }
 
