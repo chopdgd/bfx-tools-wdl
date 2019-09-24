@@ -41,6 +41,7 @@ task MuTect2 {
   }
 
   String output_vcf_name = sample_id + '.MuTect2.vcf'
+  Array[String] intervalOptions = prefix("--intervals ", intervals)
 
   command {
     set -Eeuxo pipefail;
@@ -52,7 +53,7 @@ task MuTect2 {
     ~{default="gatk" gatk} MuTect2 \
       -R ~{reference} \
       -I ~{tumor_bam} \
-      ~{sep=" " prefix("--intervals ", intervals)} \
+      ~{sep=" " intervalOptions} \
       ~{"-I " + normal_bam} \
       ~{"-normal " + normal_sample_id} \
       ~{userString} \
