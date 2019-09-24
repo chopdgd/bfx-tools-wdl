@@ -297,3 +297,35 @@ task tar {
     File output_file = "~{output_filename}"
   }
 }
+
+task grep {
+	input {
+		File input_file
+    String output_filename
+		String ? userString
+	}
+
+	command {
+		grep ~{userString} ~{input_file} > ~{output_filename}
+	}
+
+	output {
+		File output_file = "~{output_filename}"
+	}
+}
+
+task zgrep {
+	input {
+		File input_file
+    String output_filename
+		String ? userString
+	}
+
+	command {
+		zgrep ~{userString} ~{input_file} > ~{output_filename}
+	}
+
+	output {
+		File output_file = "~{output_filename}"
+	}
+}
