@@ -35,6 +35,9 @@ task PindelCNV2VCF4Mito {
 
     Array[String] modules = []
     
+    Float ? memory = 8
+    Int ? cpu = 1
+    
   }
 
   String output_file = sample_id + ".vcf"
