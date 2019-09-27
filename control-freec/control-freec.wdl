@@ -42,7 +42,7 @@ task ControlFREEC {
 
   String copynumber_filename = basename(tumor_input, ".bam") + ".bam_sample.cpn"
   String ratio_filename = basename(tumor_input, ".bam") + ".bam_ratio.txt"
-  String cnv_filename = basename(tumor_input, ".bam") + ".bam_CNVS"
+  String cnv_filename = basename(tumor_input, ".bam") + ".bam_CNVs"
   String bam_info_filename = basename(tumor_input, ".bam") + ".bam_info.txt"
 
   command <<<
