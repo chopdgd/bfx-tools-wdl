@@ -30,7 +30,7 @@ task PindelCNV2VCF4Mito {
     String reference_date="10312014"
 
     String sample_id
-		String ? pindel_userString
+    String ? pindel_userString
     String ? pindel2vcf_userString
 
     Array[String] modules = []
