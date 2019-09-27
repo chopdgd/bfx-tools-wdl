@@ -31,6 +31,7 @@ task PindelCNV2VCF4Mito {
 
     String sample_id
 
+		String ? pindel_userString
     String ? pindel2vcf_userString
 
     Array[String] modules = []
@@ -90,8 +91,6 @@ task PindelCNV2VCF4Mito {
     reference_date: "The date of the version of the reference genome used."
     pindel_userString: "An optional parameter which allows the user to specify additions to the command line at run time."
     pindel2vcf_userString: "An optional parameter which allows the user to specify additions to the command line at run time."
-    memory: "GB of RAM to use at runtime."
-    cpu: "Number of CPUs to use at runtime."
   }
 
   meta {
