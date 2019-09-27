@@ -35,8 +35,8 @@ task PindelCNV2VCF4Mito {
 
     Array[String] modules = []
     
-    Float ? memory = 8
-    Int ? cpu = 1
+    Float memory = 8
+    Int cpu = 1
     
   }
 
