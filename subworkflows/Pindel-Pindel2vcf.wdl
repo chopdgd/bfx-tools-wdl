@@ -12,7 +12,7 @@ workflow PindelCNV {
   input {
 
     String sample_id
-    
+
     File ? pindel
     File pindel2vcf
 
@@ -25,11 +25,13 @@ workflow PindelCNV {
     File reference_idx
     String reference_version
     String reference_date
-    
+
     Int pindel_sliding_window
 
     String pindel_userString
     String ? pindel2vcf_userString
+    Float memory = 8
+    Int cpu = 1
   }
 
 
@@ -47,7 +49,9 @@ workflow PindelCNV {
       reference_date=reference_date,
       pindel_userString="-T 5 -H 3 -E 0.99 -s -v 10 -x 6 -l -k -C ",
       pindel2vcf_userString="-sb -ss 3 -G ",
-      sliding_window=pindel_sliding_window
+      sliding_window=pindel_sliding_window,
+      memory=memory,
+      cpu=cpu
   }
 
 

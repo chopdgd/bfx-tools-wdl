@@ -19,13 +19,13 @@ task PindelCNV2VCF4Mito {
     String pindel_userString = "-t"
 
     Array[String] modules = []
-    
+
     File ? pindel2vcf
     File reference
     File reference_idx
 
     File ? intervals
-    
+
     String reference_version="NC_012920"
     String reference_date="10312014"
 
@@ -34,10 +34,9 @@ task PindelCNV2VCF4Mito {
     String ? pindel2vcf_userString
 
     Array[String] modules = []
-    
     Float memory = 8
     Int cpu = 1
-    
+
   }
 
   String output_file = sample_id + ".vcf"
