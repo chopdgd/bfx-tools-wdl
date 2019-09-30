@@ -30,8 +30,6 @@ workflow PindelCNV {
 
     String pindel_userString
     String ? pindel2vcf_userString
-    Float memory = 8
-    Int cpu = 1
   }
 
 
@@ -50,8 +48,6 @@ workflow PindelCNV {
       pindel_userString="-T 5 -H 3 -E 0.99 -s -v 10 -x 6 -l -k -C ",
       pindel2vcf_userString="-sb -ss 3 -G ",
       sliding_window=pindel_sliding_window,
-      memory=memory,
-      cpu=cpu
   }
 
 
