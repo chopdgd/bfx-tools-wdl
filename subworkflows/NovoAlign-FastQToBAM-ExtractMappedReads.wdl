@@ -10,7 +10,6 @@ version 1.0
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.0.0/utilities/CombineFastQ.wdl" as CombineFastQ
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.0.0/novoalign/NovoAlignAndSamtoolsSort.wdl" as NovoAlign
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/extract-mapped-reads-modify-reference-optional/samtools/ExtractMappedReads.wdl" as ExtractMappedReads
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.0.0/picard/MarkDuplicates.wdl" as Picard
 
 workflow FastQToMappedBAM {
   input {
@@ -63,24 +62,11 @@ workflow FastQToMappedBAM {
       input_bam_file=Alignment.bam_file,
       input_bam_idx_file=Alignment.bam_idx_file,
   }
-  
-  call Picard.MarkDuplicates as MarkDuplicates {
-    input:
-      picard=picard,
-      reference=reference,
-      reference_idx=reference_idx,
-      sample_id=sample_id,
-      input_file=ExtractMapped.bam_file,
-  }
 
   output {
     # BAMs
     File bam_file = ExtractMapped.bam_file
     File bam_idx_file = ExtractMapped.bam_idx_file
-
-    # QC
-    File alignment_metrics_file = Alignment.metrics_file
-    File markdups_metrics_file = MarkDuplicates.metrics_file
   }
 
   parameter_meta {
@@ -97,8 +83,8 @@ workflow FastQToMappedBAM {
   }
 
   meta {
-    author: "Michael A. Gonzalez"
-    email: "GonzalezMA@email.chop.edu"
+    author: "Pushkala Jayaraman"
+    email: "jayaramanp@email.chop.edu"
     version: "0.1.0"
   }
 }
