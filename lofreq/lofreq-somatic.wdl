@@ -27,7 +27,7 @@ task LoFreqSomatic {
     String userString = "--verbose --min-cov 1"
 
     Array[String] modules = []
-    Float memory = 12
+    Float memory = 24
     Int cpu = 12
   }
 
