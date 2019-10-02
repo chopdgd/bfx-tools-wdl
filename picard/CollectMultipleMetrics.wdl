@@ -6,9 +6,7 @@ task CollectMultipleMetrics {
     File picard
     Array[String] programs = ["CollectAlignmentSummaryMetrics",
                               "CollectInsertSizeMetrics",
-                              "CollectSequencingArtifactMetrics",
-                              "CollectGcBiasMetrics",
-                              "QualityScoreDistribution"]
+                              "CollectSequencingArtifactMetrics"]
 
     File input_bam
     File input_idx_bam
@@ -52,8 +50,6 @@ task CollectMultipleMetrics {
     File ? bait_bias_summary_metrics = "~{filename_prefix}" + ".bait_bias_summary_metrics"
     File ? base_distribution_metrics = "~{filename_prefix}" + ".base_distribution_by_cycle_metrics"
     File ? error_summary_metrics = "~{filename_prefix}" + ".error_summary_metrics"
-    File ? gc_bias_detail_metrics = "~{filename_prefix}" + ".gc_bias.detail_metrics"
-    File ? gc_bias_summary_metrics = "~{filename_prefix}" + ".gc_bias.summary_metrics"
     File ? insert_size_metrics = "~{filename_prefix}" + ".insert_size_metrics"
     File ? pre_adapter_detail_metrics = "~{filename_prefix}" + ".pre_adapter_detail_metrics"
     File ? pre_adapter_summary_metrics = "~{filename_prefix}" + ".pre_adapter_summary_metrics"
