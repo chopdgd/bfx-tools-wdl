@@ -23,7 +23,8 @@ task CollectVariantCallingMetrics {
   }
 
   Int jvm_memory = round(memory)
-  String output_filename = filename_prefix + ".variant_calling_metrics.txt"
+  String detail_output_filename = filename_prefix + ".variant_calling_detail_metrics"
+  String summary_output_filename = filename_prefix + ".variant_calling_summary_metrics"
 
   command {
     set -Eeuxo pipefail;
@@ -45,7 +46,8 @@ task CollectVariantCallingMetrics {
   }
 
   output {
-    File gvcf_metrics = "~{output_filename}"
+    File gvcf_detail_metrics = "~{detail_output_filename}"
+    File gvcf_summary_metrics = "~{summary_output_filename}"
   }
 
   runtime {
