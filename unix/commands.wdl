@@ -74,6 +74,7 @@ task Install {
     String mode = '755'
     String target
     String ? userString
+    String sge_queue = "all.q"
   }
 
   command {
@@ -82,6 +83,10 @@ task Install {
 
   output {
     File output_file = "~{target}"
+  }
+
+  runtime {
+    sge_queue: sge_queue
   }
 }
 
