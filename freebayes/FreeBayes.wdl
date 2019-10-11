@@ -23,7 +23,7 @@ task FreeBayes {
     String userString = "-4 -q 15 -F 0.03"
 
     Array[String] modules = []
-    Float memory = 4
+    Float memory = 8
     Int cpu = 1
   }
 
