@@ -20,4 +20,4 @@
 - Added task for tar
 - Added support for slivar
 - Increased default memory for FreeBayes
-- Updated default queue for install command to all.q
+- Updated default queue for basic unix commands to be all.q

@@ -8,6 +8,10 @@ task wget {
   input {
     String url
     String ? userString
+
+    String sge_queue = "all.q"
+    Float memory = 1
+    Int cpu = 1
   }
 
   String filename = basename(url)
@@ -19,12 +23,22 @@ task wget {
   output {
     File output_file = "~{filename}"
   }
+
+  runtime {
+    sge_queue: sge_queue
+    memory: memory + " GB"
+    cpu: cpu
+  }
 }
 
 task mkdir {
   input {
     String directory
     String ? userString
+
+    String sge_queue = "all.q"
+    Float memory = 1
+    Int cpu = 1
   }
 
   command {
@@ -34,6 +48,12 @@ task mkdir {
   output {
     String output_directory = "~{directory}"
   }
+
+  runtime {
+    sge_queue: sge_queue
+    memory: memory + " GB"
+    cpu: cpu
+  }
 }
 
 task mv {
@@ -41,6 +61,10 @@ task mv {
     File input_file
     String target
     String ? userString
+
+    String sge_queue = "all.q"
+    Float memory = 1
+    Int cpu = 1
   }
 
   command {
@@ -50,6 +74,12 @@ task mv {
   output {
     File output_file = "~{target}"
   }
+
+  runtime {
+    sge_queue: sge_queue
+    memory: memory + " GB"
+    cpu: cpu
+  }
 }
 
 task cp {
@@ -57,6 +87,10 @@ task cp {
     File input_file
     String target
     String ? userString
+
+    String sge_queue = "all.q"
+    Float memory = 1
+    Int cpu = 1
   }
 
   command {
@@ -66,6 +100,12 @@ task cp {
   output {
     File output_file = "~{target}"
   }
+
+  runtime {
+    sge_queue: sge_queue
+    memory: memory + " GB"
+    cpu: cpu
+  }
 }
 
 task Install {
@@ -74,7 +114,10 @@ task Install {
     String mode = '755'
     String target
     String ? userString
+
     String sge_queue = "all.q"
+    Float memory = 1
+    Int cpu = 1
   }
 
   command {
@@ -87,6 +130,8 @@ task Install {
 
   runtime {
     sge_queue: sge_queue
+    memory: memory + " GB"
+    cpu: cpu
   }
 }
 
@@ -95,6 +140,10 @@ task UnZip {
     File input_file
     String ? userString
     String output_filename = basename(input_file, ".gz")
+
+    String sge_queue = "all.q"
+    Float memory = 1
+    Int cpu = 1
   }
 
   command {
@@ -103,6 +152,12 @@ task UnZip {
 
   output {
     File output_file = "~{output_filename}"
+  }
+
+  runtime {
+    sge_queue: sge_queue
+    memory: memory + " GB"
+    cpu: cpu
   }
 }
 
@@ -114,6 +169,8 @@ task BgZip {
     String output_filename = basename(input_file) + ".gz"
 
     Array[String] modules = []
+
+    String sge_queue = "all.q"
     Float memory = 1
     Int cpu = 1
   }
@@ -135,6 +192,7 @@ task BgZip {
   }
 
   runtime {
+    sge_queue: sge_queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -148,6 +206,8 @@ task Tabix {
     String output_filename = input_file + ".tbi"
 
     Array[String] modules = []
+
+    String sge_queue = "all.q"
     Float memory = 1
     Int cpu = 1
   }
@@ -169,6 +229,7 @@ task Tabix {
   }
 
   runtime {
+    sge_queue: sge_queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -186,6 +247,8 @@ task CompressAndIndex {
     String output_idx_filename = basename(input_file) + ".gz.tbi"
 
     Array[String] modules = []
+
+    String sge_queue = "all.q"
     Float memory = 1
     Int cpu = 1
   }
@@ -212,6 +275,7 @@ task CompressAndIndex {
   }
 
   runtime {
+    sge_queue: sge_queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -225,6 +289,10 @@ task cut {
     String fields
     String ? delimiter
     String ? userString
+
+    String sge_queue = "all.q"
+    Float memory = 1
+    Int cpu = 1
   }
 
   command {
@@ -234,6 +302,12 @@ task cut {
   output {
     File output_file = "~{output_filename}"
   }
+
+  runtime {
+    sge_queue: sge_queue
+    memory: memory + " GB"
+    cpu: cpu
+  }
 }
 
 task sort {
@@ -242,6 +316,10 @@ task sort {
     String output_filename
 
     String ? userString
+
+    String sge_queue = "all.q"
+    Float memory = 1
+    Int cpu = 1
   }
 
   command {
@@ -250,6 +328,12 @@ task sort {
 
   output {
     File output_file = "~{output_filename}"
+  }
+
+  runtime {
+    sge_queue: sge_queue
+    memory: memory + " GB"
+    cpu: cpu
   }
 }
 
@@ -260,6 +344,10 @@ task cat {
 
 		Array[String] ? input_files
 		String ? userString
+
+    String sge_queue = "all.q"
+    Float memory = 1
+    Int cpu = 1
 	}
 
 	command {
@@ -269,6 +357,12 @@ task cat {
 	output {
 		File output_file = "~{output_filename}"
 	}
+
+  runtime {
+    sge_queue: sge_queue
+    memory: memory + " GB"
+    cpu: cpu
+  }
 }
 
 task sed {
@@ -276,6 +370,10 @@ task sed {
     File input_file
     String output_filename
     String command
+
+    String sge_queue = "all.q"
+    Float memory = 1
+    Int cpu = 1
   }
 
   command {
@@ -285,6 +383,12 @@ task sed {
   output {
     File output_file = "~{output_filename}"
   }
+
+  runtime {
+    sge_queue: sge_queue
+    memory: memory + " GB"
+    cpu: cpu
+  }
 }
 
 task tar {
@@ -292,6 +396,10 @@ task tar {
     Array[String] input_files
     String output_filename
     String userString = "-zcvf"
+
+    String sge_queue = "all.q"
+    Float memory = 1
+    Int cpu = 1
   }
 
   command {
@@ -301,6 +409,12 @@ task tar {
   output {
     File output_file = "~{output_filename}"
   }
+
+  runtime {
+    sge_queue: sge_queue
+    memory: memory + " GB"
+    cpu: cpu
+  }
 }
 
 task grep {
@@ -308,6 +422,10 @@ task grep {
 		File input_file
     String output_filename
 		String ? userString
+
+    String sge_queue = "all.q"
+    Float memory = 1
+    Int cpu = 1
 	}
 
 	command {
@@ -317,6 +435,12 @@ task grep {
 	output {
 		File output_file = "~{output_filename}"
 	}
+
+  runtime {
+    sge_queue: sge_queue
+    memory: memory + " GB"
+    cpu: cpu
+  }
 }
 
 task zgrep {
@@ -324,6 +448,10 @@ task zgrep {
 		File input_file
     String output_filename
 		String ? userString
+
+    String sge_queue = "all.q"
+    Float memory = 1
+    Int cpu = 1
 	}
 
 	command {
@@ -333,4 +461,10 @@ task zgrep {
 	output {
 		File output_file = "~{output_filename}"
 	}
+
+  runtime {
+    sge_queue: sge_queue
+    memory: memory + " GB"
+    cpu: cpu
+  }
 }
