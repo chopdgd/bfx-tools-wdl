@@ -11,3 +11,13 @@
 
 - Updated the way to name files in SnpEff
 - Allowed Unix cp to override output_filename
+
+## [v1.2.0](https://github.com/chopdgd/bfx-tools-wdl/tree/v1.2.0) (2019-10-11)
+
+[Full Changelog](https://github.com/chopdgd/bfx-tools-wdl/compare/v1.1.0...v1.2.0)
+
+- adds pipefail to createvirtualenv so it won't fail silently
+- Added task for tar
+- Added support for slivar
+- Increased default memory for FreeBayes
+- Updated default queue for install command to all.q
