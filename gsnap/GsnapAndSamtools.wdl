@@ -11,8 +11,10 @@ task GSnap {
   input {
     File ? gsnap
     File ? samtools
-    String reference_name
-    File reference_dir
+    File reference
+    File reference_idx
+    String circular_reference_dir
+    String circular_reference_name
     String sample_id
     File fastq_1
     File fastq_2
@@ -23,6 +25,8 @@ task GSnap {
     String read_group_platform = "HiSeq"
 
     String userString = "--format=sam --nofails --pairmax-dna=500 --query-unk-mismatch=1 -n 1 -O -t 4 "
+    String ? Samtools_view_parameters
+    String ? Samtools_sort_parameters
 
     Array[String] modules = []
     Int memory = 1
@@ -34,8 +38,7 @@ task GSnap {
 
   String output_filename = sample_id + ".sorted.bam"
   String output_idx_filename = sample_id + ".sorted.bam.bai"
-  String gsnap_cmd = gsnap+"/gsnap"
-  
+
   command {
     set -Eeuxo pipefail;
 
@@ -43,16 +46,23 @@ task GSnap {
         module load $MODULE
     done;
 
-    ~{default="gsnap" gsnap_cmd } \
+    ~{default="gsnap" gsnap} \
       --read-group-id=~{read_group_id} \
       --read-group-name=~{read_group_name} \
       --read-group-library=~{read_group_library} \
       --read-group-platform=~{read_group_platform} \
-      -D ~{reference_dir} \
+      -D ~{circular_reference_dir} \
       --gunzip \
-      -d ~{default="chrMc" reference_name} \
+      -d ~{default="chrMc" circular_reference_name} \
       ~{userString} ~{fastq_1} ~{fastq_2} | \
-    ~{default="samtools" samtools} sort \
+      ~{default="samtools" samtools} view \
+      -b \
+      ~{Samtools_view_parameters} \
+      --reference ~{reference} \
+      ~{"-@ " + cpu} \
+      - | \
+      ~{default="samtools" samtools} sort \
+      ~{Samtools_sort_parameters} \
       -O BAM \
       ~{"-@ " + cpu} \
       - \
@@ -73,8 +83,8 @@ task GSnap {
 
   parameter_meta {
     gsnap: "gsnap directory that hosts the executable."
-    reference_name: "Name of the reference to use"
-    reference_dir: "Circular reference sequence directory."
+    circular_reference_name: "Name of the reference to use"
+    circular_reference_dir: "Circular reference sequence directory."
     sample_id: "Sample ID to use in SAM tag."
     fastq_1: "FASTQ Files left reads."
     fastq_2: "FASTQ Files right reads."
