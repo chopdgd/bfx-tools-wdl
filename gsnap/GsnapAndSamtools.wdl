@@ -7,7 +7,7 @@ version 1.0
 # -------------------------------------------------------------------------------------------------
 
 
-task GSnap {
+task GsnapAndSamtools {
   input {
     File ? gsnap
     File ? samtools
