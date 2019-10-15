@@ -32,7 +32,6 @@ workflow FastQGsnapToBAM {
     File reference_idx
     String circular_reference_dir
     String circular_reference_name
-
   }
 
   call CombineFastQ.CombineFastQ as CombineRead1 {
@@ -108,8 +107,8 @@ workflow FastQGsnapToBAM {
   }
 
   meta {
-    author: "Michael A. Gonzalez"
-    email: "GonzalezMA@email.chop.edu"
+    author: "Tolga Ayazseven"
+    email: "Ayazsevent@email.chop.edu"
     version: "0.1.0"
   }
 }
