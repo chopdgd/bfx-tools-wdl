@@ -8,9 +8,8 @@ version 1.0
 # -------------------------------------------------------------------------------------------------
 
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.1.0/utilities/CombineFastQ.wdl" as CombineFastQ
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.1.0/novoalign/NovoAlignAndSamtoolsSort.wdl" as NovoAlign
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/featureMitoIH14-circular-alignment/novoalign/NovoAlignAndSamtoolsSort.wdl" as NovoAlign
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/featureMitoIH14-circular-alignment/gsnap/GsnapAndSamtools.wdl" as Gsnap
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.1.0/picard/MarkDuplicates.wdl" as Picard
 
 workflow FastQGsnapToBAM {
   input {
@@ -31,6 +30,8 @@ workflow FastQGsnapToBAM {
     File reference_idx
     String circular_reference_dir
     String circular_reference_name
+    String ? novoalign_filename_prefix
+    String ? gsnap_filename_prefix
   }
 
   call CombineFastQ.CombineFastQ as CombineRead1 {
@@ -56,6 +57,7 @@ workflow FastQGsnapToBAM {
       reference_novoindex=reference_novoindex,
       reference=reference,
       reference_idx=reference_idx,
+      output_filename_prefix=novoalign_filename_prefix,
   }
 
   call Gsnap.GsnapAndSamtools as Gsnap {
@@ -69,29 +71,18 @@ workflow FastQGsnapToBAM {
       reference_idx=reference_idx,
       circular_reference_dir=circular_reference_dir,
       circular_reference_name=circular_reference_name,
-  }
-
-  call Picard.MarkDuplicates as MarkDuplicates {
-    input:
-      picard=picard,
-      reference=reference,
-      reference_idx=reference_idx,
-      sample_id=sample_id,
-      input_file=NovoAlign.bam_file,
+      output_filename_prefix=gsnap_filename_prefix,
   }
 
   output {
     # BAMs
-    File shifted_bam_file = NovoAlign.bam_file
-    File shifted_bam_idx_file = NovoAlign.bam_idx_file
+    File bam_file = NovoAlign.bam_file
+    File bam_idx_file = NovoAlign.bam_idx_file
     File circular_bam_file = Gsnap.bam_file
     File circular_bam_idx_file = Gsnap.bam_idx_file
-    File markdups_bam_file = MarkDuplicates.bam_file
-    File markdups_bam_idx_file = MarkDuplicates.bam_idx_file
 
     # QC
     File alignment_metrics_file = NovoAlign.metrics_file
-    File markdups_metrics_file = MarkDuplicates.metrics_file
   }
 
   parameter_meta {
@@ -101,7 +92,6 @@ workflow FastQGsnapToBAM {
     novoalign: "NovoAlign executable."
     novoalign_license: "NovoAlign License."
     samtools: "Samtools executable."
-    picard: "Picard jar file."
     circular_reference_dir: "Path to Gsnap reference files for circular alignment"
   }
 
