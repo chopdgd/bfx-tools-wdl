@@ -15,7 +15,6 @@ import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.1.0/picard/Ma
 workflow FastQGsnapToBAM {
   input {
     String sample_id
-    String test_code
     File fastq_1
     Array[File] additional_fastq1
     File fastq_2
