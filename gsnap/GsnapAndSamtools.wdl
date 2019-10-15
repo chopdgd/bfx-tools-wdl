@@ -6,7 +6,6 @@ version 1.0
 # Documentation: http://research-pub.gene.com/gmap/
 # -------------------------------------------------------------------------------------------------
 
-
 task GsnapAndSamtools {
   input {
     File ? gsnap
@@ -33,11 +32,9 @@ task GsnapAndSamtools {
     Int cpu = 16
     Boolean debug = false
 
+    String output_filename = sample_id + ".gsnap.sorted.bam"
+    String output_idx_filename = sample_id + ".gsnap.sorted.bam.bai"
   }
-
-
-  String output_filename = sample_id + ".sorted.bam"
-  String output_idx_filename = sample_id + ".sorted.bam.bai"
 
   command {
     set -Eeuxo pipefail;
