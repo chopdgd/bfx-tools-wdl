@@ -13,10 +13,10 @@ task Manta {
     String ? python
     String manta
 
-    File tumor_input
-    File tumor_input_idx
-    File ? normal_input
-    File ? normal_input_idx
+    File bam_file
+    File bam_idx_file
+    File ? normal_bam_file
+    File ? normal_bam_idx_file
 
     File ? bed_file_bgzip
     File ? bed_file_idx
@@ -39,9 +39,10 @@ task Manta {
       module load $MODULE
     done;
 
-    ~{default="python" python} ~{manta} \
-      ~{"--normalBam " + normal_input} \
-      --tumorBam ~{tumor_input} \
+    ~{default="python" python} \
+      ~{manta} \
+      ~{"--normalBam " + normal_bam_file} \
+      --tumorBam ~{bam_file} \
       --referenceFasta ~{reference} \
       ~{"--callRegions " + bed_file_bgzip} \
       ~{userString} \
