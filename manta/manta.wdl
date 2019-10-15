@@ -10,7 +10,7 @@ version 1.0
 
 task Manta {
   input {
-    File ? python
+    String ? python
     String manta
 
     File tumor_input
