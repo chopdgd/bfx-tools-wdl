@@ -55,7 +55,7 @@ task Manta {
   }
 
   output {
-    File somaticSV_vcf_file = "manta_run/results/variants/somaticSV.vcf.gz"
+    File ? somaticSV_vcf_file = "manta_run/results/variants/somaticSV.vcf.gz"
     File ? tumorSV_vcf_file = "manta_run/results/variants/tumorSV.vcf.gz"
   }
 
