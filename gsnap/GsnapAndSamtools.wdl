@@ -8,7 +8,7 @@ version 1.0
 
 task GsnapAndSamtools {
   input {
-    File ? gsnap
+    String ? gsnap
     File ? samtools
     File reference
     File reference_idx
