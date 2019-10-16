@@ -23,7 +23,7 @@ workflow FastQGsnapToBAM {
     File novoalign_license
     File ? samtools
     File ? picard
-    File ? gsnap
+    String ? gsnap
 
     File reference_novoindex
     File reference
