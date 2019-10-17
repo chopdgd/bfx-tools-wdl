@@ -14,10 +14,13 @@ task ControlFREEC {
     File sambamba
     File samtools
 
-    # NOTE: this is a String and not
-    #       a Boolean because it will
+    # NOTE: these are Strings and not
+    #       Booleans because they will
     #       by used in the bash script
     String is_tumor_normal = "false"
+    String is_exome = "false"
+    File ? bed_file
+
     String chr_len_files_directory
 
     File tumor_input
@@ -59,11 +62,16 @@ task ControlFREEC {
     chrFiles = ~{chr_len_files_directory}
     ploidy = ~{ploidy}
     maxThreads = ~{cpu}
-    coefficientOfVariation = ~{coefficient_of_variation}
     sambamba = ~{sambamba}
     samtools = ~{samtools}'
 
     echo "$GENERAL" >> config.txt
+
+    if [ ~{is_exome} == "true" ]; then
+      echo 'window = 0' >> config.txt
+    else
+      echo 'coefficientOfVariation = ~{coefficient_of_variation}' >> config.txt
+    fi
 
     SAMPLE='[sample]
     mateFile = ~{tumor_input}
@@ -78,6 +86,12 @@ task ControlFREEC {
       inputFormat = ~{input_format}
       mateOrientation = ~{mate_orientation}'
       echo "$CONTROL" >> config.txt
+    fi
+
+    if [ ~{is_exome} == "true" ]; then
+      TARGET='[target]
+      captureRegions = ~{bed_file}'
+      echo "$TARGET" >> config.txt
     fi
 
     ~{control_freec} -conf config.txt
