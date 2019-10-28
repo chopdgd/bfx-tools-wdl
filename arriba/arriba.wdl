@@ -20,10 +20,10 @@ task Arriba {
     Array[String] modules = []
     Float memory = 8
     Int cpu = 2
-  }
 
-  String fusion_output = "~{sample_id}" + '.arriba.fusions.tsv'
-  String discarded_fusion_output = "~{sample_id}" + '.arriba.discarded_fusions.tsv'
+    String fusion_output = "~{sample_id}" + '.arriba.fusions.tsv'
+    String discarded_fusion_output = "~{sample_id}" + '.arriba.discarded_fusions.tsv'
+  }
 
   command {
     set -Eeuxo pipefail;

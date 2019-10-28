@@ -29,14 +29,15 @@ task MuTect {
     Array[String] modules = []
     Float memory = 4
     Int cpu = 1
+
+    String vcf_filename = sample_id + "_MuTect.vcf"
+    String vcf_idx_filename = sample_id + "_MuTect.vcf.idx"
+    String stats_filename = sample_id + "_MuTect.call_stats.txt"
+    String coverage_filename = sample_id + "_MuTect.coverage.wig.txt"
   }
 
   Int jvm_memory = round(memory)
   Array[String] intervalOptions = prefix("--intervals ", intervals)
-  String vcf_filename = sample_id + "_MuTect.vcf"
-  String vcf_idx_filename = sample_id + "_MuTect.vcf.idx"
-  String stats_filename = sample_id + "_MuTect.call_stats.txt"
-  String coverage_filename = sample_id + "_MuTect.coverage.wig.txt"
 
   command {
     set -Eeuxo pipefail;

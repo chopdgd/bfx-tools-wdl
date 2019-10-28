@@ -19,9 +19,9 @@ task Intersect {
     Array[String] modules = []
     Float memory = 1
     Int cpu = 1
-  }
 
-  String output_filename = basename(bed_a, ".bed") + '.intersect.bed'
+    String output_filename = basename(bed_a, ".bed") + '.intersect.bed'
+  }
 
   command {
     set -Eeuxo pipefail;

@@ -28,11 +28,12 @@ task SnpSift {
     Array[String] modules = []
     Float memory = 4
     Int cpu = 1
+
+    String output_filename = filename_prefix + '.snpsift.vcf'
   }
 
   Int jvm_memory = round(memory)
   String database_prefix = if mode == "dbnsfp" then "-db" else ""
-  String output_filename = filename_prefix + '.snpsift.vcf'
 
   command {
     set -Eeuxo pipefail;

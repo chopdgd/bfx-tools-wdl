@@ -32,12 +32,13 @@ task HaplotypeCallerERC {
     Array[String] modules = []
     Float memory = 8
     Int cpu = 1
+
+    String gvcf_filename = sample_id + ".rawLikelihoods.g.vcf.gz"
+    String gvcf_idx_filename = sample_id + ".rawLikelihoods.g.vcf.gz.tbi"
   }
 
   Int jvm_memory = round(memory)
   Array[String] intervalOptions = prefix("--intervals ", intervals)
-  String gvcf_filename = sample_id + ".rawLikelihoods.g.vcf.gz"
-  String gvcf_idx_filename = sample_id + ".rawLikelihoods.g.vcf.gz.tbi"
 
   command {
     set -Eeuxo pipefail;

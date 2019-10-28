@@ -18,9 +18,9 @@ task PizzlyFlattenJSON {
     Array[String] modules = []
     Float memory = 1
     Int cpu = 1
-  }
 
-  String output_filename = "~{sample_id}" + '.genetable.txt'
+    String output_filename = "~{sample_id}" + '.genetable.txt'
+  }
 
   command {
     set -Eeuxo pipefail;

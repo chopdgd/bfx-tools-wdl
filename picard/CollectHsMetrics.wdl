@@ -26,11 +26,12 @@ task CollectHsMetrics {
     Array[String] modules = []
     Float memory = 4
     Int cpu = 1
+
+    String per_target_coverage_filename = sample_id + ".HsMetrics.target"
+    String output_filename = sample_id + ".HsMetrics"
   }
 
   Int jvm_memory = round(memory)
-  String per_target_coverage_filename = sample_id + ".HsMetrics.target"
-  String output_filename = sample_id + ".HsMetrics"
 
   command {
     set -Eeuxo pipefail;

@@ -34,11 +34,11 @@ task NovoAlignAndSamtoolsSort {
     Float memory = 30
     Int cpu = 16
     Boolean debug = false
-  }
 
-  String output_filename = sample_id + ".sorted.bam"
-  String output_idx_filename = sample_id + ".sorted.bam.bai"
-  String output_alignment_stats = sample_id + ".alignment.stats"
+    String output_filename = sample_id + ".sorted.bam"
+    String output_idx_filename = sample_id + ".sorted.bam.bai"
+    String output_alignment_stats = sample_id + ".alignment.stats"
+  }
 
   command {
     set -Eeuxo pipefail;

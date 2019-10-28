@@ -19,10 +19,11 @@ task HaploGrep {
     Float memory = 6
     Int cpu = 1
     Array[String] modules = []
+
+    String haplogrep_filename = sample_id + "_haplogrep.out"
   }
 
   Int jvm_memory = round(memory)
-  String haplogrep_filename = sample_id + "_haplogrep.out"
 
   command {
     set -Eeuxo pipefail;

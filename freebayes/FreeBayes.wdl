@@ -25,9 +25,9 @@ task FreeBayes {
     Array[String] modules = []
     Float memory = 8
     Int cpu = 1
-  }
 
-  String output_filename = sample_id + '.freebayes.vcf'
+    String output_filename = sample_id + '.freebayes.vcf'
+  }
 
   command {
     set -Eeuxo pipefail;

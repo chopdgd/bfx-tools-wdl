@@ -12,9 +12,9 @@ task AppendPindel {
     # Resource Allocation
     Float memory = 1
     Int cpu = 1
-  }
 
-  String output_filename = basename(vcf_file) + "_merged.vcf.td.vcf"
+    String output_filename = basename(vcf_file) + "_merged.vcf.td.vcf"
+  }
 
   command {
     set -Eeuxo pipefail;

@@ -27,11 +27,12 @@ task VariantFiltration {
     Array[String] modules = []
     Float memory = 4
     Int cpu = 1
+
+    String output_filename = basename(input_file) + ".filtered.vcf.gz"
+    String output_idx_filename = basename(input_file) + ".filtered.vcf.gz.tbi"
   }
 
   Int jvm_memory = round(memory)
-  String output_filename = basename(input_file) + ".filtered.vcf.gz"
-  String output_idx_filename = basename(input_file) + ".filtered.vcf.gz.tbi"
 
   command {
     set -Eeuxo pipefail;

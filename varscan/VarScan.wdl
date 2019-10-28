@@ -20,10 +20,11 @@ task MPileup2CNS {
     Array[String] modules = []
     Float memory = 4
     Int cpu = 1
+
+    String output_filename = sample_id + '.varscan.vcf'
   }
 
   Int jvm_memory = round(memory)
-  String output_filename = sample_id + '.varscan.vcf'
 
   command {
     set -Eeuxo pipefail;

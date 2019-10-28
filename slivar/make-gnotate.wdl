@@ -19,21 +19,21 @@ task makeGnotate {
     Array[String] modules = []
     Float memory = 4
     Int cpu = 1
+
+    String output_filename = prefix + '.zip'
   }
 
-  String output_filename = prefix + '.zip'
+  command {
+    set -Eeuxo pipefail;
 
-    command {
-      set -Eeuxo pipefail;
+    for MODULE in ~{sep=' ' modules}; do
+        module load $MODULE
+    done;
 
-      for MODULE in ~{sep=' ' modules}; do
-          module load $MODULE
-      done;
-
-      ~{default="slivar" slivar} make-gnotate \
-        --prefix ~{prefix} \
-        ~{userString} \
-        ~{vcf_file}
+    ~{default="slivar" slivar} make-gnotate \
+      --prefix ~{prefix} \
+      ~{userString} \
+      ~{vcf_file};
   }
 
   output {

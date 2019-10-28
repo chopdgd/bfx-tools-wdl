@@ -23,9 +23,10 @@ task BCFToolsMerge {
     Array[String] modules = []
     Float memory = 4
     Int cpu = 1
+
+    # Output file names
+    String output_filename = sample_id + ".merged.vcf.gz"
   }
-  # Output file names
-  String output_filename = sample_id + ".merged.vcf.gz"
 
   command {
     set -Eeuxo pipefail;

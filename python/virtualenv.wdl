@@ -13,9 +13,9 @@ task CreateVirtualenv {
     Array[String] modules = []
     Float memory = 4
     Int cpu = 1
-  }
 
-  String python_binary = name + "/bin/python"
+    String python_binary = name + "/bin/python"
+  }
 
   command {
     set -Eexo pipefail;

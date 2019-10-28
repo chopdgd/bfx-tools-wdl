@@ -20,9 +20,9 @@ task Merge {
     Array[String] modules = []
     Float memory = 1
     Int cpu = 1
-  }
 
-  String output_filename = basename(bed, ".bed") + '.merged.bed'
+    String output_filename = basename(bed, ".bed") + '.merged.bed'
+  }
 
   command {
     set -Eeuxo pipefail;
