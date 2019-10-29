@@ -28,7 +28,7 @@ task DepthOfCoverage {
 
     Array[String] modules = []
     Float memory = 12
-    Int cpu = 2
+    Int cpu = 1
   }
 
   Int jvm_memory = round(memory)

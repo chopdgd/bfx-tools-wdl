@@ -29,7 +29,7 @@ task GenotypeGVCFs {
 
     Array[String] modules = []
     Float memory = 8
-    Int cpu = 2
+    Int cpu = 1
   }
 
   Int jvm_memory = round(memory)
