@@ -27,8 +27,8 @@ task DepthOfCoverage {
     String userString = "-omitBaseOutput -omitLocusTable"
 
     Array[String] modules = []
-    Float memory = 4
-    Int cpu = 1
+    Float memory = 12
+    Int cpu = 2
   }
 
   Int jvm_memory = round(memory)
