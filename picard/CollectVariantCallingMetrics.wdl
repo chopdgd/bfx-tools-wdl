@@ -18,7 +18,7 @@ task CollectVariantCallingMetrics {
     String ? userString
 
     Array[String] modules = []
-    Float memory = 16
+    Float memory = 32
     Int cpu = 16
   }
 
