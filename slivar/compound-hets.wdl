@@ -15,7 +15,6 @@ task compoundHets {
     File ? ped_file
 
     String prefix
-    String field = 'CSQ'
     String ? userString
 
     Array[String] modules = []
@@ -34,7 +33,6 @@ task compoundHets {
 
       ~{default="slivar" slivar} compound-hets \
         ~{userString} \
-        -f ~{field} \
         --vcf ~{vcf_file} \
         ~{"--ped " + ped_file} > ~{output_filename};
   }
@@ -53,7 +51,6 @@ task compoundHets {
     vcf_file: "VCF file to annotate."
     vcf_idx_file: "VCF file index (.tbi)"
     ped_file: "PED file"
-    field: "Field to use to find genes"
     userString: "An optional parameter which allows the user to specify additions to the command line at run time."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
@@ -62,7 +59,7 @@ task compoundHets {
   meta {
     author: "Michael A. Gonzalez"
     email: "GonzalezMA@email.chop.edu"
-    slivar_version: "0.1.6"
+    slivar_version: "0.1.7"
     version: "0.1.0"
   }
 }
