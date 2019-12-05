@@ -7,6 +7,7 @@ task HaploGrep {
   input {
     # Tools
     File ? java
+    File ? dot
     File haplogrep
 
     # Inputs
@@ -26,6 +27,7 @@ task HaploGrep {
   Int jvm_memory = round(memory)
   String haplogrep_filename = sample_id + "_haplogrep.out"
   String haplogrep_lineage = sample_id + "_haplogrep.out.dot"
+  String lineage_pdf_name = sample_id + "_lineage.pdf"
 
   command {
     set -Eeuxo pipefail;
@@ -40,12 +42,15 @@ task HaploGrep {
       --format ~{format} \
       --in ~{vcf_file} \
       --out ~{haplogrep_filename} \
-      ~{userString}
+      ~{userString};
+
+    ~{default="dot" dot} ~{haplogrep_lineage} -Tpdf > ~{lineage_pdf_name};
   }
 
   output {
     File output_haplogrep = "~{haplogrep_filename}"
     File output_lineage = "~{haplogrep_lineage}"
+    File lineage_pdf_file = "~{lineage_pdf_name}"
   }
 
   runtime {
