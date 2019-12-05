@@ -24,6 +24,8 @@ task HaploGrep {
   }
 
   Int jvm_memory = round(memory)
+  String haplogrep_filename = sample_id + "_haplogrep.out"
+  String haplogrep_lineage = sample_id + "_haplogrep.out.dot"
 
   command {
     set -Eeuxo pipefail;
@@ -43,6 +45,7 @@ task HaploGrep {
 
   output {
     File output_haplogrep = "~{haplogrep_filename}"
+    File output_lineage = "~{haplogrep_lineage}"
   }
 
   runtime {
