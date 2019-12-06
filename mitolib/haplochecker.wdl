@@ -20,10 +20,11 @@ task ContaminationCheck {
     Array[String] modules = []
     Float memory = 8
     Int cpu = 1
+
+    String output_filename = sample_name + "/" + sample_name + ".sorted.contamination.txt"
   }
 
   Int jvm_memory = round(memory)
-  String output_filename = sample_name + ".contamination.txt"
 
   command {
     set -Eeuxo pipefail;
