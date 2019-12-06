@@ -40,6 +40,8 @@ task HaploGrep {
       -Xmx~{jvm_memory}g \
       -jar ~{default="haplogrep" haplogrep} \
       --format ~{format} \
+      --extend-report \
+      --lineage \
       --in ~{vcf_file} \
       --out ~{haplogrep_filename} \
       ~{userString};
