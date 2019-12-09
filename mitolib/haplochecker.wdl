@@ -15,7 +15,7 @@ task ContaminationCheck {
 
     File input_bam_file
     String sample_name
-    String userString = "--VAF 0.01 --QUAL 10 --MAPQ 20"
+    String userString = "--VAF 0.015 --QUAL 20 --MAPQ 20"
 
     Array[String] modules = []
     Float memory = 8
