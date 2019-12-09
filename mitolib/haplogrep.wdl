@@ -22,12 +22,11 @@ task HaploGrep {
     Array[String] modules = []
 
     String haplogrep_filename = sample_id + "_haplogrep.out"
+    String haplogrep_lineage = sample_id + "_haplogrep.out.dot"
+    String lineage_pdf_name = sample_id + "_lineage.pdf"
   }
 
   Int jvm_memory = round(memory)
-  String haplogrep_filename = sample_id + "_haplogrep.out"
-  String haplogrep_lineage = sample_id + "_haplogrep.out.dot"
-  String lineage_pdf_name = sample_id + "_lineage.pdf"
 
   command {
     set -Eeuxo pipefail;
