@@ -60,6 +60,7 @@ task DepthOfCoverage {
     File sample_statistics_file = "~{output_base_filename}" + ".sample_statistics"
     File sample_summary_file = "~{output_base_filename}" + ".sample_summary"
     File sample_interval_summary_file = "~{output_base_filename}" + ".sample_interval_summary"
+    File ? sample_output_file = "~{output_base_filename}"
   }
 
   runtime {
@@ -88,6 +89,6 @@ task DepthOfCoverage {
     author: "Michael A. Gonzalez"
     email: "GonzalezMA@email.chop.edu"
     gatk_version: "3.8"
-    version: "0.1.0"
+    version: "0.2.0"
   }
 }
