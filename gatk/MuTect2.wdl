@@ -62,6 +62,7 @@ task MuTect2 {
 
   output {
     File vcf_file = "~{output_vcf_name}"
+    File vcf_idx_file = "~{output_vcf_name}" + ".idx"
   }
 
   runtime {
