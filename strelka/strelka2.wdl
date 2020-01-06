@@ -23,6 +23,7 @@ task Strelka2 {
     File reference
     File reference_idx
 
+    String sample_id
     String ? userString
 
     Array[String] modules = []
@@ -51,10 +52,13 @@ task Strelka2 {
       --mode local \
       --jobs ~{cpu} \
       --memGb ~{pymem};
+
+      mv strelka2_run/results/variants/somatic.snvs.vcf.gz strelka2_run/results/variants/~{sample_id}.somatic.snvs.vcf
+
   }
 
   output {
-    File vcf_file = "strelka2_run/results/variants/somatic.snvs.vcf.gz"
+    File vcf_file = "strelka2_run/results/variants/" + "~{sample_id}" + ".strelka2.somatic.snvs.vcf.gz"
   }
 
   runtime {
