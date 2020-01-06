@@ -53,7 +53,7 @@ task Strelka2 {
       --jobs ~{cpu} \
       --memGb ~{pymem};
 
-      mv strelka2_run/results/variants/somatic.snvs.vcf.gz strelka2_run/results/variants/~{sample_id}.somatic.snvs.vcf
+      mv strelka2_run/results/variants/somatic.snvs.vcf.gz strelka2_run/results/variants/~{sample_id}.strelka2.somatic.snvs.vcf.gz
 
   }
 
