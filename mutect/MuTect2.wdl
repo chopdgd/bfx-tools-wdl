@@ -45,7 +45,7 @@ task MuTect2 {
       module load $MODULE
     done;
 
-    ~{default="java" java} -jar ~{gatk}
+    ~{default="java" java} -jar ~{gatk} \
       -T MuTect2 \
       -R ~{reference} \
       -I:tumor ~{tumor_bam} \
