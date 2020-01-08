@@ -37,6 +37,7 @@ task MuTect2 {
     Int cpu = 1
   }
 
+  Int jvm_memory = round(memory)
   String output_vcf_name = sample_id + '.MuTect2.vcf'
   String output_f1r2_name = sample_id + '.f1r2_counts.tar.gz'
   Array[String] intervalOptions = prefix("--intervals ", intervals)
@@ -50,6 +51,7 @@ task MuTect2 {
     done;
 
     ~{default="gatk" gatk} Mutect2 \
+      --java-options -Xmx~{jvm_memory}g \
       -R ~{reference} \
       -I ~{tumor_bam} \
       ~{sep=" " intervalOptions} \
