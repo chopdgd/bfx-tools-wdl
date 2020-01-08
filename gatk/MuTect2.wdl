@@ -38,6 +38,7 @@ task MuTect2 {
   }
 
   String output_vcf_name = sample_id + '.MuTect2.vcf'
+  String output_f1r2_name = sample_id + '.f1r2_counts.tar.gz'
   Array[String] intervalOptions = prefix("--intervals ", intervals)
   Array[String] germline_resourceOptions = prefix("--germline-resource ", germline_resources)
 
@@ -57,12 +58,14 @@ task MuTect2 {
       ~{"-normal " + normal_sample_id} \
       ~{userString} \
       ~{"--panel-of-normals " + panel_of_normals} \
+      --f1r2-tar-gz ~{output_f1r2_name} \
       -O ~{output_vcf_name};
   }
 
   output {
     File vcf_file = "~{output_vcf_name}"
     File vcf_idx_file = "~{output_vcf_name}" + ".idx"
+    File f1r2_counts_tarball = "~{output_f1r2_name}"
   }
 
   runtime {
