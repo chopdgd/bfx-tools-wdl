@@ -47,6 +47,7 @@ task MuTect2 {
 
     ~{default="java" java} -jar ~{gatk} \
       -T MuTect2 \
+      -nct ~{cpu} \
       -R ~{reference} \
       -I:tumor ~{tumor_bam} \
       ~{sep=" " intervalOptions} \
