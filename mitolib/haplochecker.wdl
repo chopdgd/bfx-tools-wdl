@@ -15,12 +15,13 @@ task ContaminationCheck {
 
     File input_bam_file
     String sample_name
-    String command
-    String userString = "--VAF 0.01 --QUAL 10 --MAPQ 20"
+    String userString = "--VAF 0.015 --QUAL 20 --MAPQ 20"
 
     Array[String] modules = []
-    Float memory = 4
+    Float memory = 8
     Int cpu = 1
+
+    String output_filename = sample_name + "/" + sample_name + ".sorted.contamination.txt"
   }
 
   Int jvm_memory = round(memory)
@@ -42,7 +43,7 @@ task ContaminationCheck {
   }
 
   output {
-    File output_file = "~{sample_name} + .contamination.txt"
+    File output_file = "~{output_filename}"
   }
 
   runtime {
@@ -54,7 +55,6 @@ task ContaminationCheck {
     java: "java executable."
     reference: "Reference sequence file."
     input_bam_file: "Input bam file to process."
-    command: "mitolib tool to use: haplochecker"
     userString: "An optional parameter which allows the user to specify additions to the command line at run time."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
