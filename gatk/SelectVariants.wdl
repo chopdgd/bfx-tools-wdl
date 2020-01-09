@@ -26,7 +26,7 @@ task SelectVariants {
     String ? userString
 
     Array[String] modules = []
-    Float memory = 4
+    Float memory = 6
     Int cpu = 1
   }
 

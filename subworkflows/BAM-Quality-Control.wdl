@@ -8,7 +8,7 @@ version 1.0
 # -------------------------------------------------------------------------------------------------
 
 
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.1.0/gatk/DepthOfCoverage.wdl" as DepthOfCoverage
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/master/gatk/DepthOfCoverage.wdl" as DepthOfCoverage
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.1.0/picard/CollectHsMetrics.wdl" as CollectHsMetrics
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.1.0/verifybamid/VerifyBamId.wdl" as VerifyBamId
 

@@ -8,8 +8,8 @@ version 1.0
 # -------------------------------------------------------------------------------------------------
 
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.1.0/vt/DecomposeAndNormalize.wdl" as VT
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.1.0/snpeff/SnpEff.wdl" as SnpEff
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.1.0/snpeff/SnpSift.wdl" as SnpSift
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/master/snpeff/SnpEff.wdl" as SnpEff
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/master/snpeff/SnpSift.wdl" as SnpSift
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.1.0/unix/commands.wdl" as Unix
 
 workflow Annotation {
