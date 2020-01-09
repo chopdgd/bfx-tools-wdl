@@ -8,7 +8,7 @@ version 1.0
 # -------------------------------------------------------------------------------------------------
 
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.3.0/utilities/CombineFastQ.wdl" as CombineFastQ
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.3.0/novoalign/NovoAlignAndSamtoolsSort.wdl" as NovoAlign
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/fix-novoalign-for-mito/novoalign/NovoAlignAndSamtoolsSort.wdl" as NovoAlign
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.3.0/picard/MarkDuplicates.wdl" as Picard
 
 workflow FastQToBAM {
