@@ -25,13 +25,14 @@ task MarkDuplicates {
     Array[String] modules = []
     Float memory = 8
     Int cpu = 1
+
+    String metrics_filename = sample_id + ".picardmkdup.metrics"
+    String output_filename = sample_id + ".markdups.bam"
+    String output_idx_filename = sample_id + ".markdups.bai"
+    String output_renamed_idx_filename = sample_id + ".markdups.bam.bai"
   }
 
   Int jvm_memory = round(memory)
-  String metrics_filename = sample_id + ".picardmkdup.metrics"
-  String output_filename = sample_id + ".markdups.bam"
-  String output_idx_filename = sample_id + ".markdups.bai"
-  String output_renamed_idx_filename = sample_id + ".markdups.bam.bai"
 
   command {
     set -Eeuxo pipefail;

@@ -24,26 +24,27 @@ task SnpEff {
     Array[String] modules = []
     Float memory = 8
     Int cpu = 1
+
+    String output_filename = filename_prefix + '.snpeff.vcf'
   }
 
   Int jvm_memory = round(memory)
-  String output_filename = filename_prefix + '.snpeff.vcf'
 
-    command {
-      set -Eeuxo pipefail;
+  command {
+    set -Eeuxo pipefail;
 
-      for MODULE in ~{sep=' ' modules}; do
-          module load $MODULE
-      done;
+    for MODULE in ~{sep=' ' modules}; do
+        module load $MODULE
+    done;
 
-      ~{default="java" java} \
-        -Xmx~{jvm_memory}g \
-        -jar ~{default="snpeff" snpeff} eff \
-        ~{userString} \
-        -c ~{config} \
-        -dataDir ~{dataDir} \
-        ~{reference_version} \
-        ~{input_file} > ~{output_filename};
+    ~{default="java" java} \
+      -Xmx~{jvm_memory}g \
+      -jar ~{default="snpeff" snpeff} eff \
+      ~{userString} \
+      -c ~{config} \
+      -dataDir ~{dataDir} \
+      ~{reference_version} \
+      ~{input_file} > ~{output_filename};
   }
 
   output {

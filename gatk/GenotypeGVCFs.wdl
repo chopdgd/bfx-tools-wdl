@@ -30,12 +30,13 @@ task GenotypeGVCFs {
     Array[String] modules = []
     Float memory = 8
     Int cpu = 1
+
+    String vcf_filename = cohort_id + ".rawVariants.vcf.gz"
+    String vcf_filename_idx = cohort_id + ".rawVariants.vcf.gz.tbi"
   }
 
   Int jvm_memory = round(memory)
   Array[String] intervalOptions = prefix("--intervals ", intervals)
-  String vcf_filename = cohort_id + ".rawVariants.vcf.gz"
-  String vcf_filename_idx = cohort_id + ".rawVariants.vcf.gz.tbi"
 
   command {
     set -Eeuxo pipefail;

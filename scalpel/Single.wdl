@@ -27,9 +27,9 @@ task Single {
     Array[String] modules = []
     Float memory = 4
     Int cpu = 1
-  }
 
-  String output_filename = sample_id + "/variants.indel.vcf"
+    String output_filename = sample_id + "/variants.indel.vcf"
+  }
 
   command {
     set -Eeuxo pipefail;

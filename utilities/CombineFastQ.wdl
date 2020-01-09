@@ -9,10 +9,11 @@ task CombineFastQ {
     Array[String] modules = []
     Float memory = 1
     Int cpu = 1
+
+    String output_filename = basename(fastq)
   }
 
   Int files = length(additional_fastq)
-  String output_filename = basename(fastq)
 
   command <<<
     set -Eeuxo pipefail;

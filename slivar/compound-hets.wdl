@@ -20,21 +20,22 @@ task compoundHets {
     Array[String] modules = []
     Float memory = 4
     Int cpu = 1
+
+    String output_filename = prefix + '.slivar.comphets.vcf'
   }
 
-  String output_filename = prefix + '.slivar.comphets.vcf'
+  command {
+    set -Eeuxo pipefail;
 
-    command {
-      set -Eeuxo pipefail;
+    for MODULE in ~{sep=' ' modules}; do
+        module load $MODULE
+    done;
 
-      for MODULE in ~{sep=' ' modules}; do
-          module load $MODULE
-      done;
-
-      ~{default="slivar" slivar} compound-hets \
-        ~{userString} \
-        --vcf ~{vcf_file} \
-        ~{"--ped " + ped_file} > ~{output_filename};
+    ~{default="slivar" slivar} compound-hets \
+      ~{userString} \
+      -f ~{field} \
+      --vcf ~{vcf_file} \
+      ~{"--ped " + ped_file} > ~{output_filename};
   }
 
   output {

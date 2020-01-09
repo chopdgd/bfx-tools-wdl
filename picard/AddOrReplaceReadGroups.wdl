@@ -27,10 +27,11 @@ task AddOrReplaceReadGroups {
     Array[String] modules = []
     Float memory = 4
     Int cpu = 1
+
+    String output_filename = "~{sample_id}" + "~{output_filename_extension}"
   }
 
   Int jvm_memory = round(memory)
-  String output_filename = "~{sample_id}" + "~{output_filename_extension}"
 
   command {
     set -Eeuxo pipefail;

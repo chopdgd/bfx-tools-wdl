@@ -28,6 +28,9 @@ task SelectVariants {
     Array[String] modules = []
     Float memory = 6
     Int cpu = 1
+
+    String output_filename = basename(input_file) + ".filtered.vcf.gz"
+    String output_idx_filename = basename(input_file) + ".filtered.vcf.gz.tbi"
   }
 
   Int jvm_memory = round(memory)
@@ -35,8 +38,6 @@ task SelectVariants {
   Array[String] selectTypeIncludeOptions = prefix("--selectTypeToInclude ", selectType)
   Array[String] selectTypeExcludeOptions = prefix("--selectTypeToExclude ", selectTypeToExclude)
   Array[String] selectExpressionsOptions = prefix("--selectexpressions ", selectExpressions)
-  String output_filename = basename(input_file) + ".filtered.vcf.gz"
-  String output_idx_filename = basename(input_file) + ".filtered.vcf.gz.tbi"
 
   command {
     set -Eeuxo pipefail;

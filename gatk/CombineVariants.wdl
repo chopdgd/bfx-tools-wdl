@@ -29,13 +29,14 @@ task CombineVariants {
     Array[String] modules = []
     Float memory = 8
     Int cpu = 1
+
+    String output_filename = filename_prefix + ".merged.vcf.gz"
+    String output_idx_filename = filename_prefix + ".merged.vcf.gz.tbi"
   }
 
   Int jvm_memory = round(memory)
   Array[String] input_files_with_tags = prefix("--variant", tagged_input_files)
   Array[String] input_files_no_tags = prefix("--variant ", input_files)
-  String output_filename = filename_prefix + ".merged.vcf.gz"
-  String output_idx_filename = filename_prefix + ".merged.vcf.gz.tbi"
 
   command {
     set -Eeuxo pipefail;

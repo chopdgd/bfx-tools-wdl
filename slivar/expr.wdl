@@ -25,27 +25,27 @@ task expr {
     Array[String] modules = []
     Float memory = 4
     Int cpu = 1
+
+    String output_filename = prefix + '.slivar.expr.vcf'
   }
 
-  String output_filename = prefix + '.slivar.expr.vcf'
+  command {
+    set -Eeuxo pipefail;
 
-    command {
-      set -Eeuxo pipefail;
+    for MODULE in ~{sep=' ' modules}; do
+        module load $MODULE
+    done;
 
-      for MODULE in ~{sep=' ' modules}; do
-          module load $MODULE
-      done;
-
-      ~{default="slivar" slivar} expr \
-        ~{true='--pass-only' false='' pass_only} \
-        --vcf ~{vcf_file} \
-        ~{"--region " + bed_file} \
-        ~{"--ped " + ped_file} \
-        ~{"--alias " + group_file} \
-        ~{"--js " + javascript_file} \
-        ~{"--gnotate " + gnotate_file} \
-        ~{userString} \
-        --out-vcf ~{output_filename};
+    ~{default="slivar" slivar} expr \
+      ~{true='--pass-only' false='' pass_only} \
+      --vcf ~{vcf_file} \
+      ~{"--region " + bed_file} \
+      ~{"--ped " + ped_file} \
+      ~{"--alias " + group_file} \
+      ~{"--js " + javascript_file} \
+      ~{"--gnotate " + gnotate_file} \
+      ~{userString} \
+      --out-vcf ~{output_filename};
   }
 
   output {

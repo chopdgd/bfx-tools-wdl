@@ -22,10 +22,10 @@ task BedToIntervalList {
     Array[String] modules = []
     Float memory = 4
     Int cpu = 1
+    String output_filename = basename(bed_file) + ".interval_list"
   }
 
   Int jvm_memory = round(memory)
-  String output_filename = basename(bed_file) + ".interval_list"
 
   command {
     set -Eeuxo pipefail;

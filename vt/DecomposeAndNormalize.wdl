@@ -20,9 +20,9 @@ task DecomposeNormalizeVCF {
     Array[String] modules = []
     Float memory = 4
     Int cpu = 1
-  }
 
-  String output_filename = basename(input_file) + ".decomposed.normalized.vcf"
+    String output_filename = basename(input_file) + ".decomposed.normalized.vcf"
+  }
 
   command {
     set -Eeuxo pipefail;

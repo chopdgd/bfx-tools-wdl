@@ -29,11 +29,12 @@ task DepthOfCoverage {
     Array[String] modules = []
     Float memory = 12
     Int cpu = 1
+
+    String output_base_filename = sample_id + ".depthOfCoverage"
   }
 
   Int jvm_memory = round(memory)
   Array[String] intervalOptions = prefix("--intervals ", intervals)
-  String output_base_filename = sample_id + ".depthOfCoverage"
 
   command {
     set -Eeuxo pipefail;

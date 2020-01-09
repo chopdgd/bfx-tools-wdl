@@ -20,9 +20,9 @@ task ExtractMappedReads {
     Array[String] modules = []
     Float memory = 4
     Int cpu = 1
-  }
 
-  String output_filename = basename(input_file) + ".mapped.bam"
+    String output_filename = basename(input_file) + ".mapped.bam"
+  }
 
   command {
     set -Eeuxo pipefail;

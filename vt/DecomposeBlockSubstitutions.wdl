@@ -17,9 +17,9 @@ task DecomposeBlockSubstitutions {
     Array[String] modules = []
     Float memory = 4
     Int cpu = 1
-  }
 
-  String output_filename = basename(input_file) + ".decomposed.blocksub.vcf"
+    String output_filename = basename(input_file) + ".decomposed.blocksub.vcf"
+  }
 
   command {
     set -Eeuxo pipefail;
