@@ -21,3 +21,13 @@
 - Added support for slivar
 - Increased default memory for FreeBayes
 - Updated default queue for basic unix commands to be all.q
+
+## [v1.3.0](https://github.com/chopdgd/bfx-tools-wdl/tree/v1.3.0) (2020-01-09)
+
+[Full Changelog](https://github.com/chopdgd/bfx-tools-wdl/compare/v1.2.0...v1.3.0)
+
+- Made all output file name input parameters
+- Improved memory allocation
+- Added tools:
+  * GSNAP
+  * MANTA

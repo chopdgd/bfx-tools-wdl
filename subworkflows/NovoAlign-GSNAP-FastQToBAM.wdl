@@ -7,9 +7,9 @@ version 1.0
 #  * Picard MarkDuplicates
 # -------------------------------------------------------------------------------------------------
 
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.1.0/utilities/CombineFastQ.wdl" as CombineFastQ
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/featureMitoIH14-circular-alignment/novoalign/NovoAlignAndSamtoolsSort.wdl" as NovoAlign
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/featureMitoIH14-circular-alignment/gsnap/GsnapAndSamtools.wdl" as Gsnap
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.3.0/utilities/CombineFastQ.wdl" as CombineFastQ
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.3.0/novoalign/NovoAlignAndSamtoolsSort.wdl" as NovoAlign
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.3.0/gsnap/GsnapAndSamtools.wdl" as Gsnap
 
 workflow FastQGsnapToBAM {
   input {
