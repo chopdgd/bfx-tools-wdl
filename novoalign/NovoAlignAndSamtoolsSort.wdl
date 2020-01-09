@@ -34,8 +34,7 @@ task NovoAlignAndSamtoolsSort {
     Float memory = 30
     Int cpu = 16
     Boolean debug = false
-    
-    String output_filename_prefix = sample_id
+
     String output_filename = sample_id + ".sorted.bam"
     String output_idx_filename = sample_id + ".sorted.bam.bai"
     String output_alignment_stats = sample_id + ".alignment.stats"
