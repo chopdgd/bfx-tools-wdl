@@ -33,7 +33,6 @@ task compoundHets {
 
     ~{default="slivar" slivar} compound-hets \
       ~{userString} \
-      -f ~{field} \
       --vcf ~{vcf_file} \
       ~{"--ped " + ped_file} > ~{output_filename};
   }
