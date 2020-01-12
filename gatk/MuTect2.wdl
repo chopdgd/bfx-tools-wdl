@@ -30,6 +30,7 @@ task MuTect2 {
     File reference_dict
 
     File ? panel_of_normals
+    File ? panel_of_normals_idx
     String ? userString
 
     Array[String] modules = []
