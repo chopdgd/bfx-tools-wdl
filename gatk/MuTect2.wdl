@@ -68,6 +68,7 @@ task MuTect2 {
   output {
     File vcf_file = "~{output_vcf_name}"
     File vcf_idx_file = "~{output_vcf_name}" + ".idx"
+    File mutect2_stats_file = "~{output_vcf_name}" + ".stats"
     File f1r2_counts_tarball = "~{output_f1r2_name}"
   }
 
