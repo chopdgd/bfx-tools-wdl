@@ -1,7 +1,7 @@
 version 1.0
 # -------------------------------------------------------------------------------------------------
 # Package Name: http://penncnv.openbioinformatics.org/en/latest/
-# Task Summary: SNP Array CNV Caller
+# Task Summary: SNP Array CNV Caller for Sex Chromosomes
 # Tool Name: PennCNV
 # Documentation: http://penncnv.openbioinformatics.org/en/latest/user-guide/download/
 # -------------------------------------------------------------------------------------------------
