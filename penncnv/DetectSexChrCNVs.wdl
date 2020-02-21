@@ -6,7 +6,7 @@ version 1.0
 # Documentation: http://penncnv.openbioinformatics.org/en/latest/user-guide/download/
 # -------------------------------------------------------------------------------------------------
 
-task PennCNVDetectCNVs {
+task DetectSexChrCNVs {
   input {
     String script  # NOTE: PennCNV needs to run in its own folder
     File input_file
