@@ -14,7 +14,7 @@ task DetectCNVs {
     File pfb_file
     String log_file
 
-    String ? sex_flag = ""
+    String ? sex_flag = ""  # NOTE: PennCNV needs -chrX flag to call on Sex Chr
 
     # Run time variables
     Float memory = 4
@@ -43,7 +43,6 @@ task DetectCNVs {
 
   output {
     File cnv_file = "~{output_filename}"
-    File log_file = "~{log_file}"
   }
 
   runtime {
