@@ -14,6 +14,8 @@ task DetectCNVs {
     File pfb_file
     String log_file
 
+    String ? sex_flag = ""
+
     # Run time variables
     Float memory = 4
     Int cpu = 1
@@ -32,6 +34,7 @@ task DetectCNVs {
     perl ~{script} \
       -test \
       ~{input_file} \
+      ~{sex_flag} \
       -hmm ~{hmm_file} \
       -pfb ~{pfb_file} \
       -log ~{log_file} \
