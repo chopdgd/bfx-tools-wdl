@@ -11,6 +11,7 @@ task ScanRegion {
     String script  # NOTE: PennCNV needs to run in its own folder
     File input_file
     File refgene_file
+    File reflink_file
 
     # Run time variables
     Float memory = 4
@@ -31,6 +32,8 @@ task ScanRegion {
       ~{input_file} \
       ~{refgene_file} \
       -refgene \
+      -reflink \
+      ~{reflink_file} \
       -name2;
   }
 
