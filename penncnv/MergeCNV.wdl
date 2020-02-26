@@ -6,16 +6,18 @@ version 1.0
 # Documentation: http://penncnv.openbioinformatics.org/en/latest/user-guide/download/
 # -------------------------------------------------------------------------------------------------
 
-task ScanRegion {
+task MergeCNV {
   input {
     String script  # NOTE: PennCNV needs to run in its own folder
     File input_file
-    File refgene_file
+    File signal_file
 
     # Run time variables
     Float memory = 4
     Int cpu = 1
     Array[String] modules = []
+
+    String output_filename = "merged_cnv_calls.tsv"
   }
 
   command {
@@ -26,14 +28,16 @@ task ScanRegion {
     done;
 
     perl ~{script} \
+      combineseg \
       ~{input_file} \
-      ~{refgene_file} \
-      -refgene \
-      -name2;
+      --signal_file \
+      ~{signal_file} \
+      --output \
+      ~{output_filename};
   }
 
   output {
-    File output_file = stdout()
+    File output_file = output_filename
   }
 
   runtime {
@@ -43,8 +47,9 @@ task ScanRegion {
 
   parameter_meta {
     script: "penncnv detect cnvs script"
-    input_file: "GenomeStudio SNP Array Data"
-    refgene_file: "penncnv hmm file"
+    input_file: "PennCNV raw CNV file"
+    signal_file: "Genome Studio SNP Array file"
+    output_filename: "Output filename"
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
   }
