@@ -30,7 +30,7 @@ task MergeCNV {
     perl ~{script} \
       combineseg \
       ~{input_file} \
-      --signal_file \
+      --signalfile \
       ~{signal_file} \
       --output \
       ~{output_filename};
