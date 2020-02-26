@@ -11,7 +11,6 @@ task ScanRegion {
     String script  # NOTE: PennCNV needs to run in its own folder
     File input_file
     File refgene_file
-    File reflink_file
 
     # Run time variables
     Float memory = 4
