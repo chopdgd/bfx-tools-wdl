@@ -32,8 +32,6 @@ task ScanRegion {
       ~{input_file} \
       ~{refgene_file} \
       -refgene \
-      -reflink \
-      ~{reflink_file} \
       -name2;
   }
 
