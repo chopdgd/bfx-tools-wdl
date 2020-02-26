@@ -43,6 +43,7 @@ task DetectCNVs {
 
   output {
     File cnv_file = "~{output_filename}"
+    File log_file = "~{log_file}"
   }
 
   runtime {
