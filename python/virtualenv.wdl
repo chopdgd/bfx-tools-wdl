@@ -36,7 +36,7 @@ task CreateVirtualenv {
 
     source ~{name}/bin/activate;
 
-    pip install -r ~{requirements};
+    ~{python_binary} -m pip install -r ~{requirements};
 
     echo $PWD/~{python_binary} > python.path;
   }
