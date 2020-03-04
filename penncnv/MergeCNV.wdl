@@ -46,7 +46,7 @@ task MergeCNV {
   }
 
   parameter_meta {
-    script: "penncnv detect cnvs script"
+    script: "Path to penncnv clean_cnv.pl script"
     input_file: "PennCNV raw CNV file"
     signal_file: "Genome Studio SNP Array file"
     output_filename: "Output filename"

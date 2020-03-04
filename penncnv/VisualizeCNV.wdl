@@ -1,27 +1,23 @@
 version 1.0
 # -------------------------------------------------------------------------------------------------
 # Package Name: http://penncnv.openbioinformatics.org/en/latest/
-# Task Summary: SNP Array CNV Caller
+# Task Summary: SNP Array CNV Annotation
 # Tool Name: PennCNV
 # Documentation: http://penncnv.openbioinformatics.org/en/latest/user-guide/download/
 # -------------------------------------------------------------------------------------------------
 
-task DetectCNVs {
+task VisualizeCNV {
   input {
     String script  # NOTE: PennCNV needs to run in its own folder
     File input_file
-    File hmm_file
-    File pfb_file
-    String log_file
-
-    String ? sex_flag = ""  # NOTE: PennCNV needs -chrX flag to call on Sex Chr
+    File idmap_file
 
     # Run time variables
     Float memory = 4
     Int cpu = 1
     Array[String] modules = []
 
-    String output_filename
+    String output_filename = "project_cnvs.xml"
   }
 
   command {
@@ -32,18 +28,16 @@ task DetectCNVs {
     done;
 
     perl ~{script} \
-      -test \
-      ~{input_file} \
-      ~{sex_flag} \
-      -hmm ~{hmm_file} \
-      -pfb ~{pfb_file} \
-      -log ~{log_file} \
-      -out ~{output_filename};
+      -format beadstudio \
+      -idmap \
+      ~{idmap_file} \
+      -output \
+      ~{output_filename} \
+      ~{input_file};
   }
 
   output {
-    File cnv_file = "~{output_filename}"
-    File log_file = "~{log_file}"
+    File output_file = output_filename
   }
 
   runtime {
@@ -52,11 +46,10 @@ task DetectCNVs {
   }
 
   parameter_meta {
-    script: "Path to penncnv detect_cnv.pl script"
-    input_file: "GenomeStudio SNP Array Data"
-    hmm_file: "penncnv hmm file"
-    pfb_file: "penncnv pfb file"
-    log_file: "penncnv log file"
+    script: "PAth to penncnv visualize_cnv.pl script"
+    input_file: "PennCNV raw CNV file"
+    idmap_file: "a file continaing file name (in PennCNV call) and sample id (in BeadStudio) mapping"
+    output_filename: "Output filename"
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
   }
