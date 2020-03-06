@@ -7,10 +7,10 @@ version 1.0
 #  * SnpSift
 # -------------------------------------------------------------------------------------------------
 
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.3.0/vt/DecomposeAndNormalize.wdl" as VT
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.3.0/snpeff/SnpEff.wdl" as SnpEff
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.3.0/snpeff/SnpSift.wdl" as SnpSift
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.3.0/unix/commands.wdl" as Unix
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.0/vt/DecomposeAndNormalize.wdl" as VT
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.0/snpeff/SnpEff.wdl" as SnpEff
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.0/snpeff/SnpSift.wdl" as SnpSift
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.0/unix/commands.wdl" as Unix
 
 workflow Annotation {
   input {

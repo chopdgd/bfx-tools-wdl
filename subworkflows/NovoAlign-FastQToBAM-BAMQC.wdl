@@ -7,10 +7,10 @@ version 1.0
 #  * Picard MarkDuplicates
 # -------------------------------------------------------------------------------------------------
 
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.3.0/utilities/CombineFastQ.wdl" as CombineFastQ
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.3.0/novoalign/NovoAlignAndSamtoolsSort.wdl" as NovoAlign
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.3.0/picard/MarkDuplicates.wdl" as Picard
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.3.0/subworkflows/BAM-Quality-Control.wdl" as BAMQualityControl
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.0/utilities/CombineFastQ.wdl" as CombineFastQ
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.0/novoalign/NovoAlignAndSamtoolsSort.wdl" as NovoAlign
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.0/picard/MarkDuplicates.wdl" as Picard
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.0/subworkflows/BAM-Quality-Control.wdl" as BAMQualityControl
 
 workflow FastQToBAM {
   input {

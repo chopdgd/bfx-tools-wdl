@@ -31,3 +31,11 @@
 - Added tools:
   * GSNAP
   * MANTA
+
+## [v1.4.0](https://github.com/chopdgd/bfx-tools-wdl/tree/v1.4.0) (2020-03-06)
+
+[Full Changelog](https://github.com/chopdgd/bfx-tools-wdl/compare/v1.3.0...v1.4.0)
+
+- Added support for PennCNV
+- Adjusted RNASeq default memory allocation
+- Added index files for manta
