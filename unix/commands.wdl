@@ -26,7 +26,7 @@ task awk {
 
   output {
     File ? output_file = "~{output_file_prefix}"
-    String ? result = read_boolean(stdout())
+    String ? result = read_lines(stdout())[0]
   }
 
   runtime {
