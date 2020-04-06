@@ -14,9 +14,9 @@ task awk {
     Int cpu = 1
   }
 
-  command <<<
+  command {
     awk ~{userString} ~{input_file} > ~{output_filename}
-  >>>
+  }
 
   output {
     File output_file = "~{output_filename}"
