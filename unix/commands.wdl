@@ -3,6 +3,38 @@ version 1.0
 # Commonly used basic unix commands
 # -------------------------------------------------------------------------------------------------
 
+task awk {
+  input {
+    File input_file
+    String ? userString
+    String ? output_file_prefix
+
+    String sge_queue = "all.q"
+    Float memory = 1
+    Int cpu = 1
+  }
+
+  Boolean write_to_file = defined(output_file_prefix)
+
+  command <<<
+    if [ ~{write_to_file} == true ]; then
+      awk ~{userString} ~{input_file} > ~{output_file_prefix}
+    else
+      awk ~{userString} ~{input_file}
+    fi
+  >>>
+
+  output {
+    File ? output_file = "~{output_file_prefix}"
+    String ? result = read_boolean(stdout())
+  }
+
+  runtime {
+    sge_queue: sge_queue
+    memory: memory + " GB"
+    cpu: cpu
+  }
+}
 
 task wget {
   input {
