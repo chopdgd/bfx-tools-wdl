@@ -7,26 +7,19 @@ task awk {
   input {
     File input_file
     String ? userString
-    String ? output_file_prefix
+    String output_filename
 
     String sge_queue = "all.q"
     Float memory = 1
     Int cpu = 1
   }
 
-  Boolean write_to_file = defined(output_file_prefix)
-
   command <<<
-    if [ ~{write_to_file} == true ]; then
-      awk ~{userString} ~{input_file} > ~{output_file_prefix}
-    else
-      awk ~{userString} ~{input_file}
-    fi
+    awk ~{userString} ~{input_file} > ~{output_filename}
   >>>
 
   output {
-    File ? output_file = "~{output_file_prefix}"
-    String ? result = read_lines(stdout())[0]
+    File output_file = "~{output_filename}"
   }
 
   runtime {
