@@ -9,7 +9,7 @@ version 1.0
 task Mosdepth {
   input {
     #Tools
-    File mosdepth
+    File ? mosdepth
 
     #Inputs
     File bam_file
