@@ -10,7 +10,7 @@ task AppendPindel {
     File pindel_vcf
 
     # Resource Allocation
-    Float memory = 1
+    Float memory = 12
     Int cpu = 1
 
     String output_filename = basename(vcf_file) + "_merged.vcf.td.vcf"
@@ -26,6 +26,11 @@ task AppendPindel {
 
   output {
     File output_file = "~{output_filename}"
+  }
+
+  runtime {
+    memory: memory + " GB"
+    cpu: cpu
   }
 
   parameter_meta {

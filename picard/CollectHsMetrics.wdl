@@ -24,7 +24,7 @@ task CollectHsMetrics {
     String ? userString
 
     Array[String] modules = []
-    Float memory = 4
+    Float memory = 16
     Int cpu = 1
 
     String per_target_coverage_filename = sample_id + ".HsMetrics.target"

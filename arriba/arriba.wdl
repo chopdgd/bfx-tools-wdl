@@ -18,7 +18,7 @@ task Arriba {
     String userString = "-T -P"
 
     Array[String] modules = []
-    Float memory = 8
+    Float memory = 12
     Int cpu = 2
 
     String fusion_output = "~{sample_id}" + '.arriba.fusions.tsv'

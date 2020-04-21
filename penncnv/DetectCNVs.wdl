@@ -17,7 +17,7 @@ task DetectCNVs {
     String ? sex_flag = ""  # NOTE: PennCNV needs -chrX flag to call on Sex Chr
 
     # Run time variables
-    Float memory = 4
+    Float memory = 12
     Int cpu = 1
     Array[String] modules = []
 

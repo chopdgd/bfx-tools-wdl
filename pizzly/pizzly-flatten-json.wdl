@@ -16,7 +16,7 @@ task PizzlyFlattenJSON {
     String ? userString
 
     Array[String] modules = []
-    Float memory = 1
+    Float memory = 12
     Int cpu = 1
 
     String output_filename = "~{sample_id}" + '.genetable.txt'

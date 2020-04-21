@@ -11,7 +11,7 @@ task CreateVirtualenv {
     Array[String] python_modules = ['python/2.7']
 
     Array[String] modules = []
-    Float memory = 4
+    Float memory = 16
     Int cpu = 1
 
     String python_binary = name + "/bin/python"

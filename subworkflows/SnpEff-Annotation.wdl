@@ -153,8 +153,8 @@ workflow Annotation {
       bgzip=bgzip,
       tabix=tabix,
       input_file=COSMIC.vcf_file,
-      output_filename=sample_id + ".raw.vcf.gz",
-      output_idx_filename=sample_id + ".raw.vcf.gz.tbi",
+      output_filename=sample_id + ".annotated.raw.vcf.gz",
+      output_idx_filename=sample_id + ".annotated.raw.vcf.gz.tbi",
   }
 
   output {

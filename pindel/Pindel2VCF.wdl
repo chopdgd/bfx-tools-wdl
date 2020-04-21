@@ -21,7 +21,7 @@ task Pindel2Vcf {
     String ? userString
 
     Array[String] modules = []
-    Float memory = 8
+    Float memory = 12
     Int cpu = 1
 
     String temp_filename = basename(input_file) + '_merged_pindel_files'

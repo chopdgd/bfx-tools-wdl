@@ -7,7 +7,7 @@ task CombineFastQ {
     Array[File] additional_fastq
 
     Array[String] modules = []
-    Float memory = 1
+    Float memory = 12
     Int cpu = 1
 
     String output_filename = basename(fastq)

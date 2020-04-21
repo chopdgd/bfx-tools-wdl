@@ -18,7 +18,7 @@ task compoundHets {
     String ? userString
 
     Array[String] modules = []
-    Float memory = 4
+    Float memory = 12
     Int cpu = 1
 
     String output_filename = prefix + '.slivar.comphets.vcf'
