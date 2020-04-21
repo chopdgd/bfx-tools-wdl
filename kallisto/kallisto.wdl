@@ -17,7 +17,7 @@ task Kallisto {
     String userString = "-b 10"
 
     Array[String] modules = []
-    Float memory = 8
+    Float memory = 12
     Int cpu = 4
   }
 

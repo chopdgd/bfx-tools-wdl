@@ -11,11 +11,11 @@ version 1.0
 #  * VerifyBamId
 # -------------------------------------------------------------------------------------------------
 
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.0/utilities/CombineFastQ.wdl" as CombineFastQ
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.0/novoalign/NovoAlignAndSamtoolsSort.wdl" as NovoAlign
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.0/picard/MarkDuplicates.wdl" as Picard
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.0/gatk/HaplotypeCallerERC.wdl" as GATK
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.0/subworkflows/BAM-Quality-Control.wdl" as BAMQualityControl
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.1/utilities/CombineFastQ.wdl" as CombineFastQ
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.1/novoalign/NovoAlignAndSamtoolsSort.wdl" as NovoAlign
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.1/picard/MarkDuplicates.wdl" as Picard
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.1/gatk/HaplotypeCallerERC.wdl" as GATK
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.1/subworkflows/BAM-Quality-Control.wdl" as BAMQualityControl
 
 workflow FastQToGVCFAndBAMQC {
   input {

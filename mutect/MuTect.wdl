@@ -27,7 +27,7 @@ task MuTect {
     String ? userString
 
     Array[String] modules = []
-    Float memory = 4
+    Float memory = 12
     Int cpu = 1
 
     String vcf_filename = sample_id + "_MuTect.vcf"

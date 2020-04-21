@@ -16,7 +16,7 @@ task Samtools {
     String ? userString
 
     Array[String] modules = []
-    Float memory = 4
+    Float memory = 12
     Int cpu = 1
   }
 

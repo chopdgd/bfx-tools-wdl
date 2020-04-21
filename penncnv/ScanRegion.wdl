@@ -13,7 +13,7 @@ task ScanRegion {
     File refgene_file
 
     # Run time variables
-    Float memory = 4
+    Float memory = 12
     Int cpu = 1
     Array[String] modules = []
   }

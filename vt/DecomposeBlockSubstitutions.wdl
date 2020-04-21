@@ -15,7 +15,7 @@ task DecomposeBlockSubstitutions {
     File ? input_idx_file
 
     Array[String] modules = []
-    Float memory = 4
+    Float memory = 12
     Int cpu = 1
 
     String output_filename = basename(input_file) + ".decomposed.blocksub.vcf"

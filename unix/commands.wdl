@@ -10,7 +10,7 @@ task wget {
     String ? userString
 
     String sge_queue = "all.q"
-    Float memory = 1
+    Float memory = 12
     Int cpu = 1
   }
 
@@ -37,7 +37,7 @@ task mkdir {
     String ? userString
 
     String sge_queue = "all.q"
-    Float memory = 1
+    Float memory = 12
     Int cpu = 1
   }
 
@@ -63,7 +63,7 @@ task mv {
     String ? userString
 
     String sge_queue = "all.q"
-    Float memory = 1
+    Float memory = 12
     Int cpu = 1
   }
 
@@ -89,7 +89,7 @@ task cp {
     String ? userString
 
     String sge_queue = "all.q"
-    Float memory = 1
+    Float memory = 12
     Int cpu = 1
   }
 
@@ -116,7 +116,7 @@ task Install {
     String ? userString
 
     String sge_queue = "all.q"
-    Float memory = 1
+    Float memory = 12
     Int cpu = 1
   }
 
@@ -142,7 +142,7 @@ task UnZip {
     String output_filename = basename(input_file, ".gz")
 
     String sge_queue = "all.q"
-    Float memory = 1
+    Float memory = 12
     Int cpu = 1
   }
 
@@ -171,7 +171,7 @@ task BgZip {
     Array[String] modules = []
 
     String sge_queue = "all.q"
-    Float memory = 1
+    Float memory = 12
     Int cpu = 1
   }
 
@@ -208,7 +208,7 @@ task Tabix {
     Array[String] modules = []
 
     String sge_queue = "all.q"
-    Float memory = 1
+    Float memory = 12
     Int cpu = 1
   }
 
@@ -249,7 +249,7 @@ task CompressAndIndex {
     Array[String] modules = []
 
     String sge_queue = "all.q"
-    Float memory = 1
+    Float memory = 12
     Int cpu = 1
   }
 
@@ -291,7 +291,7 @@ task cut {
     String ? userString
 
     String sge_queue = "all.q"
-    Float memory = 1
+    Float memory = 12
     Int cpu = 1
   }
 
@@ -318,7 +318,7 @@ task sort {
     String ? userString
 
     String sge_queue = "all.q"
-    Float memory = 1
+    Float memory = 12
     Int cpu = 1
   }
 
@@ -346,7 +346,7 @@ task cat {
 		String ? userString
 
     String sge_queue = "all.q"
-    Float memory = 1
+    Float memory = 12
     Int cpu = 1
 	}
 
@@ -372,7 +372,7 @@ task sed {
     String command
 
     String sge_queue = "all.q"
-    Float memory = 1
+    Float memory = 12
     Int cpu = 1
   }
 
@@ -398,7 +398,7 @@ task tar {
     String userString = "-zcvf"
 
     String sge_queue = "all.q"
-    Float memory = 1
+    Float memory = 12
     Int cpu = 1
   }
 
@@ -424,7 +424,7 @@ task grep {
 		String ? userString
 
     String sge_queue = "all.q"
-    Float memory = 1
+    Float memory = 12
     Int cpu = 1
 	}
 
@@ -450,7 +450,7 @@ task zgrep {
 		String ? userString
 
     String sge_queue = "all.q"
-    Float memory = 1
+    Float memory = 12
     Int cpu = 1
 	}
 

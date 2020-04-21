@@ -23,7 +23,7 @@ task FreeBayes {
     String userString = "-4 -q 15 -F 0.03"
 
     Array[String] modules = []
-    Float memory = 8
+    Float memory = 12
     Int cpu = 1
 
     String output_filename = sample_id + '.freebayes.vcf'

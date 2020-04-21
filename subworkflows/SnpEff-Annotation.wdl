@@ -7,10 +7,10 @@ version 1.0
 #  * SnpSift
 # -------------------------------------------------------------------------------------------------
 
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.0/vt/DecomposeAndNormalize.wdl" as VT
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.0/snpeff/SnpEff.wdl" as SnpEff
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.0/snpeff/SnpSift.wdl" as SnpSift
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.0/unix/commands.wdl" as Unix
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.1/vt/DecomposeAndNormalize.wdl" as VT
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.1/snpeff/SnpEff.wdl" as SnpEff
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.1/snpeff/SnpSift.wdl" as SnpSift
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.1/unix/commands.wdl" as Unix
 
 workflow Annotation {
   input {
@@ -153,8 +153,8 @@ workflow Annotation {
       bgzip=bgzip,
       tabix=tabix,
       input_file=COSMIC.vcf_file,
-      output_filename=sample_id + ".raw.vcf.gz",
-      output_idx_filename=sample_id + ".raw.vcf.gz.tbi",
+      output_filename=sample_id + ".annotated.raw.vcf.gz",
+      output_idx_filename=sample_id + ".annotated.raw.vcf.gz.tbi",
   }
 
   output {

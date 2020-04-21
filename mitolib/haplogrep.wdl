@@ -17,7 +17,7 @@ task HaploGrep {
     String ? userString
 
     # Run time variables
-    Float memory = 6
+    Float memory = 12
     Int cpu = 1
     Array[String] modules = []
 

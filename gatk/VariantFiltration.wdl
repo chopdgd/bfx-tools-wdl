@@ -25,7 +25,7 @@ task VariantFiltration {
     String ? userString
 
     Array[String] modules = []
-    Float memory = 6
+    Float memory = 12
     Int cpu = 1
 
     String output_filename = basename(input_file) + ".filtered.vcf.gz"

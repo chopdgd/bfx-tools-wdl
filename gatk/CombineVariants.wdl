@@ -27,7 +27,7 @@ task CombineVariants {
     String ? userString
 
     Array[String] modules = []
-    Float memory = 8
+    Float memory = 12
     Int cpu = 1
 
     String output_filename = filename_prefix + ".merged.vcf.gz"

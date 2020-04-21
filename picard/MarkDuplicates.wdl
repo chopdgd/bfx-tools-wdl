@@ -23,7 +23,7 @@ task MarkDuplicates {
     String ? userString
 
     Array[String] modules = []
-    Float memory = 8
+    Float memory = 16
     Int cpu = 1
 
     String metrics_filename = sample_id + ".picardmkdup.metrics"

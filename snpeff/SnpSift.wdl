@@ -26,7 +26,7 @@ task SnpSift {
     String ? userString
 
     Array[String] modules = []
-    Float memory = 12
+    Float memory = 16
     Int cpu = 1
 
     String output_filename = filename_prefix + '.snpsift.vcf'

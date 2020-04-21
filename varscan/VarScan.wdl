@@ -18,7 +18,7 @@ task MPileup2CNS {
     String userString = "--min-var-freq 0.03 --strand-filter 1"
 
     Array[String] modules = []
-    Float memory = 4
+    Float memory = 12
     Int cpu = 1
 
     String output_filename = sample_id + '.varscan.vcf'

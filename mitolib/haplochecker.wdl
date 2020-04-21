@@ -18,7 +18,7 @@ task ContaminationCheck {
     String userString = "--VAF 0.015 --QUAL 20 --MAPQ 20"
 
     Array[String] modules = []
-    Float memory = 8
+    Float memory = 12
     Int cpu = 1
 
     String output_filename = sample_name + "/" + sample_name + ".sorted.contamination.txt"

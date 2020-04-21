@@ -25,7 +25,7 @@ task Single {
     String userString = "--mapscore 15 --intarget --format vcf"
 
     Array[String] modules = []
-    Float memory = 4
+    Float memory = 12
     Int cpu = 1
 
     String output_filename = sample_id + "/variants.indel.vcf"

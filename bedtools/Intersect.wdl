@@ -17,7 +17,7 @@ task Intersect {
     String userString = "-wao"
 
     Array[String] modules = []
-    Float memory = 1
+    Float memory = 12
     Int cpu = 1
 
     String output_filename = basename(bed_a, ".bed") + '.intersect.bed'

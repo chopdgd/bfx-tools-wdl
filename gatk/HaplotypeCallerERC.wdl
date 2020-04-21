@@ -30,7 +30,7 @@ task HaplotypeCallerERC {
     String ? userString
 
     Array[String] modules = []
-    Float memory = 8
+    Float memory = 12
     Int cpu = 1
 
     String gvcf_filename = sample_id + ".rawLikelihoods.g.vcf.gz"

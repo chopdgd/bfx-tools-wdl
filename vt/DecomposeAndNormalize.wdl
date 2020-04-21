@@ -18,7 +18,7 @@ task DecomposeNormalizeVCF {
     File reference
 
     Array[String] modules = []
-    Float memory = 4
+    Float memory = 12
     Int cpu = 1
 
     String output_filename = basename(input_file) + ".decomposed.normalized.vcf"

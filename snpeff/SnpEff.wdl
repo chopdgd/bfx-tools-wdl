@@ -22,7 +22,7 @@ task SnpEff {
     String ? userString
 
     Array[String] modules = []
-    Float memory = 8
+    Float memory = 16
     Int cpu = 1
 
     String output_filename = filename_prefix + '.snpeff.vcf'

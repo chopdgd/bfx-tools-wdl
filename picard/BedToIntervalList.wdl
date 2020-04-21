@@ -20,7 +20,7 @@ task BedToIntervalList {
     String ? userString
 
     Array[String] modules = []
-    Float memory = 4
+    Float memory = 16
     Int cpu = 1
     String output_filename = basename(bed_file) + ".interval_list"
   }

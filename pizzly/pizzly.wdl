@@ -20,7 +20,7 @@ task Pizzly {
     Int insert_size = 400
 
     Array[String] modules = []
-    Float memory = 1
+    Float memory = 12
     Int cpu = 1
   }
 

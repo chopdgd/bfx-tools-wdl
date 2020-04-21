@@ -21,7 +21,7 @@ task BCFToolsMerge {
 
     # Run time variables
     Array[String] modules = []
-    Float memory = 4
+    Float memory = 12
     Int cpu = 1
 
     # Output file names

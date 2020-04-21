@@ -18,7 +18,7 @@ task RNASeQC {
     String userString = "--coverage"
 
     Array[String] modules = []
-    Float memory = 2
+    Float memory = 12
     Int cpu = 1
   }
 

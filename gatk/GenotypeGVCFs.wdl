@@ -28,7 +28,7 @@ task GenotypeGVCFs {
     String ? userString
 
     Array[String] modules = []
-    Float memory = 8
+    Float memory = 12
     Int cpu = 1
 
     String vcf_filename = cohort_id + ".rawVariants.vcf.gz"
