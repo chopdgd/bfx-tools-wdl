@@ -7,6 +7,7 @@ task awk {
   input {
     File input_file
     String ? userString
+    Array[String] ? input_files
     String output_filename
 
     String sge_queue = "all.q"
@@ -15,7 +16,7 @@ task awk {
   }
 
   command {
-    awk ~{userString} ~{input_file} > ~{output_filename}
+    awk ~{userString} ~{input_file} ~{sep=" " input_files} > ~{output_filename}
   }
 
   output {
