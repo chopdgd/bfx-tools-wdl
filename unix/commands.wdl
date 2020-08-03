@@ -3,6 +3,32 @@ version 1.0
 # Commonly used basic unix commands
 # -------------------------------------------------------------------------------------------------
 
+task awk {
+  input {
+    File input_file
+    String ? userString
+    Array[String] ? input_files
+    String output_filename
+
+    String sge_queue = "all.q"
+    Float memory = 1
+    Int cpu = 1
+  }
+
+  command {
+    awk ~{userString} ~{input_file} ~{sep=" " input_files} > ~{output_filename}
+  }
+
+  output {
+    File output_file = "~{output_filename}"
+  }
+
+  runtime {
+    sge_queue: sge_queue
+    memory: memory + " GB"
+    cpu: cpu
+  }
+}
 
 task wget {
   input {
