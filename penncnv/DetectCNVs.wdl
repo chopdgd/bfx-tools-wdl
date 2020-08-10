@@ -9,7 +9,7 @@ version 1.0
 task DetectCNVs {
   input {
     String script  # NOTE: PennCNV needs to run in its own folder
-    File input_file
+    String input_file
     File hmm_file
     File pfb_file
     String log_file
