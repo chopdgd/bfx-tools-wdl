@@ -44,7 +44,7 @@ task ScanRegion {
   parameter_meta {
     script: "Path to penncnv scan_region.pl script"
     input_file: "GenomeStudio SNP Array Data"
-    refgene_file: "penncnv hmm file"
+    refgene_file: "UCSC refGene.txt"
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
   }
