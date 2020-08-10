@@ -9,7 +9,7 @@ version 1.0
 task ScanRegion {
   input {
     String script  # NOTE: PennCNV needs to run in its own folder
-    File input_file
+    String input_file
     File refgene_file
 
     # Run time variables
