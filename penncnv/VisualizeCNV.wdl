@@ -9,7 +9,7 @@ version 1.0
 task VisualizeCNV {
   input {
     String script  # NOTE: PennCNV needs to run in its own folder
-    File input_file
+    String input_file
     File idmap_file
 
     # Run time variables
@@ -48,7 +48,7 @@ task VisualizeCNV {
   parameter_meta {
     script: "PAth to penncnv visualize_cnv.pl script"
     input_file: "PennCNV raw CNV file"
-    idmap_file: "a file continaing file name (in PennCNV call) and sample id (in BeadStudio) mapping"
+    idmap_file: "a file containing file name (in PennCNV call) and sample id (in BeadStudio) mapping"
     output_filename: "Output filename"
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
