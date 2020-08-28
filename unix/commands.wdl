@@ -10,7 +10,7 @@ task awk {
     Array[String] ? input_files
     String output_filename
 
-    String sge_queue = "dgd.q"
+    String sge_queue = "all.q"
     Float memory = 1
     Int cpu = 1
   }
@@ -35,7 +35,7 @@ task wget {
     String url
     String ? userString
 
-    String sge_queue = "dgd.q"
+    String sge_queue = "all.q"
     Float memory = 12
     Int cpu = 1
   }
@@ -62,7 +62,7 @@ task mkdir {
     String directory
     String ? userString
 
-    String sge_queue = "dgd.q"
+    String sge_queue = "all.q"
     Float memory = 12
     Int cpu = 1
   }
@@ -88,7 +88,7 @@ task mv {
     String target
     String ? userString
 
-    String sge_queue = "dgd.q"
+    String sge_queue = "all.q"
     Float memory = 12
     Int cpu = 1
   }
@@ -114,7 +114,7 @@ task cp {
     String target
     String ? userString
 
-    String sge_queue = "dgd.q"
+    String sge_queue = "all.q"
     Float memory = 12
     Int cpu = 1
   }
@@ -141,7 +141,7 @@ task Install {
     String target
     String ? userString
 
-    String sge_queue = "dgd.q"
+    String sge_queue = "all.q"
     Float memory = 12
     Int cpu = 1
   }
@@ -167,7 +167,7 @@ task UnZip {
     String ? userString
     String output_filename = basename(input_file, ".gz")
 
-    String sge_queue = "dgd.q"
+    String sge_queue = "all.q"
     Float memory = 12
     Int cpu = 1
   }
@@ -196,7 +196,7 @@ task BgZip {
 
     Array[String] modules = []
 
-    String sge_queue = "dgd.q"
+    String sge_queue = "all.q"
     Float memory = 12
     Int cpu = 1
   }
@@ -233,7 +233,7 @@ task Tabix {
 
     Array[String] modules = []
 
-    String sge_queue = "dgd.q"
+    String sge_queue = "all.q"
     Float memory = 12
     Int cpu = 1
   }
@@ -274,7 +274,7 @@ task CompressAndIndex {
 
     Array[String] modules = []
 
-    String sge_queue = "dgd.q"
+    String sge_queue = "all.q"
     Float memory = 12
     Int cpu = 1
   }
@@ -316,7 +316,7 @@ task cut {
     String ? delimiter
     String ? userString
 
-    String sge_queue = "dgd.q"
+    String sge_queue = "all.q"
     Float memory = 12
     Int cpu = 1
   }
@@ -343,7 +343,7 @@ task sort {
 
     String ? userString
 
-    String sge_queue = "dgd.q"
+    String sge_queue = "all.q"
     Float memory = 12
     Int cpu = 1
   }
@@ -371,7 +371,7 @@ task cat {
 		Array[String] ? input_files
 		String ? userString
 
-    String sge_queue = "dgd.q"
+    String sge_queue = "all.q"
     Float memory = 12
     Int cpu = 1
 	}
@@ -397,7 +397,7 @@ task sed {
     String output_filename
     String command
 
-    String sge_queue = "dgd.q"
+    String sge_queue = "all.q"
     Float memory = 12
     Int cpu = 1
   }
@@ -423,7 +423,7 @@ task tar {
     String output_filename
     String userString = "-zcvf"
 
-    String sge_queue = "dgd.q"
+    String sge_queue = "all.q"
     Float memory = 12
     Int cpu = 1
   }
@@ -449,7 +449,7 @@ task grep {
     String output_filename
 		String ? userString
 
-    String sge_queue = "dgd.q"
+    String sge_queue = "all.q"
     Float memory = 12
     Int cpu = 1
 	}
@@ -475,7 +475,7 @@ task zgrep {
     String output_filename
 		String ? userString
 
-    String sge_queue = "dgd.q"
+    String sge_queue = "all.q"
     Float memory = 12
     Int cpu = 1
 	}
