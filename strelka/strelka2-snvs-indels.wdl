@@ -56,7 +56,7 @@ task Strelka2Merged {
       --memGb ~{pymem};
 
     ~{default="gatk" gatk} MergeVcfs \
-      --SEQUENCE_DICTIONARTY ~{reference_dict} \
+      --SEQUENCE_DICTIONARY ~{reference_dict} \
       -I strelka2_run/results/variants/somatic.snvs.vcf.gz -I strelka2_run/results/variants/somatic.indels.vcf.gz \
       --OUTPUT strelka2_run/results/variants/~{sample_id}.strelka2.somatic.merged.vcf.gz
   }
