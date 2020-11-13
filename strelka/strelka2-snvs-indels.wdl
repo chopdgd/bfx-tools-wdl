@@ -60,18 +60,12 @@ task Strelka2Merged {
     ~{default="gatk" gatk} MergeVcfs \
       --SEQUENCE_DICTIONARY ~{reference_dict} \
       -I strelka2_run/results/variants/somatic.snvs.vcf.gz -I strelka2_run/results/variants/somatic.indels.vcf.gz \
-      --OUTPUT strelka2_run/results/variants/~{sample_id}.strelka2.somatic.merged.vcf.gz
+      --OUTPUT strelka2_run/results/variants/~{sample_id}.strelka2.somatic.merged.vcf
 
-    mv strelka2_run/results/variants/~{sample_id}.strelka2.somatic.merged.vcf.gz tmp.vcf.gz && \
-    gzip -cd tmp.vcf.gz | \
-    sed -r "s/^(#CHROM.*)TUMOR(\s.*$)/\1~{tumor_sample_id}\2/" > strelka2_run/results/variants/~{sample_id}.strelka2.somatic.merged.vcf.gz && \
-    rm -f tmp.vcf.gz
+    sed -r -i "s/^(#CHROM.*)TUMOR(.*$)/\1~{tumor_sample_id}\2/" strelka2_run/results/variants/~{sample_id}.strelka2.somatic.merged.vcf.gz && \
 
     if [ -z ~{normal_sample_id} ]; then
-      mv strelka2_run/results/variants/~{sample_id}.strelka2.somatic.merged.vcf.gz tmp.vcf.gz && \
-      gzip -cd tmp.vcf.gz | \
-      sed -r "s/^(#CHROM.*)NORMAL(\s.*$)/\1~{normal_sample_id}\2/" > strelka2_run/results/variants/~{sample_id}.strelka2.somatic.merged.vcf.gz && \
-      rm -f tmp.vcf.gz
+      sed -r -i "s/^(#CHROM.*)NORMAL(.*$)/\1~{normal_sample_id}\2/" strelka2_run/results/variants/~{sample_id}.strelka2.somatic.merged.vcf.gz && \
     fi
   }
 
