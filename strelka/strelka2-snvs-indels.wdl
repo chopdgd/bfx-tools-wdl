@@ -16,8 +16,10 @@ task Strelka2Merged {
 
     File tumor_input
     File tumor_input_idx
+    String tumor_sample_id
     File ? normal_input
     File ? normal_input_idx
+    String ? normal_sample_id
 
     File ? bed_file_bgzip
     File ? bed_file_idx
@@ -59,6 +61,12 @@ task Strelka2Merged {
       --SEQUENCE_DICTIONARY ~{reference_dict} \
       -I strelka2_run/results/variants/somatic.snvs.vcf.gz -I strelka2_run/results/variants/somatic.indels.vcf.gz \
       --OUTPUT strelka2_run/results/variants/~{sample_id}.strelka2.somatic.merged.vcf.gz
+
+    sed -r -i "s/.*(TUMOR).*/~{tumor_sample_id}/" strelka2_run/results/variants/~{sample_id}.strelka2.somatic.merged.vcf.gz
+
+    if [ -z ~{normal_sample_id} ]; then
+      sed -r -i "s/.*(NORMAL).*/~{normal_sample_id}/" strelka2_run/results/variants/~{sample_id}.strelka2.somatic.merged.vcf.gz
+    fi
   }
 
   output {
