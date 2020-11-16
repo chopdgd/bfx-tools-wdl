@@ -71,7 +71,7 @@ task Strelka2Merged {
   }
 
   output {
-    File vcf_file = "strelka2_run/results/variants/" + "~{sample_id}" + ".strelka2.somatic.merged.vcf.gz"
+    File vcf_file = "strelka2_run/results/variants/" + "~{sample_id}" + ".strelka2.somatic.merged.vcf"
   }
 
   runtime {
