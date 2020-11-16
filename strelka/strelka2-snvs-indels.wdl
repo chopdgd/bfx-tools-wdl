@@ -62,10 +62,10 @@ task Strelka2Merged {
       -I strelka2_run/results/variants/somatic.snvs.vcf.gz -I strelka2_run/results/variants/somatic.indels.vcf.gz \
       --OUTPUT strelka2_run/results/variants/~{sample_id}.strelka2.somatic.merged.vcf
 
-    sed -r -i "s/^(#CHROM.*)TUMOR(.*$)/\1~{tumor_sample_id}\2/" strelka2_run/results/variants/~{sample_id}.strelka2.somatic.merged.vcf.gz
+    sed -r -i "s/^(#CHROM.*)TUMOR(.*$)/\1~{tumor_sample_id}\2/" strelka2_run/results/variants/~{sample_id}.strelka2.somatic.merged.vcf
 
     if [ -z ~{normal_sample_id} ]; then
-      sed -r -i "s/^(#CHROM.*)NORMAL(.*$)/\1~{normal_sample_id}\2/" strelka2_run/results/variants/~{sample_id}.strelka2.somatic.merged.vcf.gz
+      sed -r -i "s/^(#CHROM.*)NORMAL(.*$)/\1~{normal_sample_id}\2/" strelka2_run/results/variants/~{sample_id}.strelka2.somatic.merged.vcf
     fi
   }
 
