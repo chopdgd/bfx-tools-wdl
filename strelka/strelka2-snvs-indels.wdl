@@ -65,7 +65,7 @@ task Strelka2Merged {
     sed -r -i "s/^(#CHROM.*)TUMOR(.*$)/\1~{tumor_sample_id}\2/" strelka2_run/results/variants/~{sample_id}.strelka2.somatic.merged.vcf
 
     NORMAL_SAMPLE_ID=~{normal_sample_id}
-    if [ -z $NORMAL_SAMPLE_ID ]; then
+    if [ ! -z $NORMAL_SAMPLE_ID ]; then
       sed -r -i "s/^(#CHROM.*)NORMAL(.*$)/\1~{normal_sample_id}\2/" strelka2_run/results/variants/~{sample_id}.strelka2.somatic.merged.vcf
     fi
   }
