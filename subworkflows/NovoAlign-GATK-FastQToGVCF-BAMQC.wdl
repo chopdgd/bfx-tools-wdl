@@ -13,7 +13,7 @@ version 1.0
 
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.1/utilities/CombineFastQ.wdl" as CombineFastQ
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/novoalign-156/utilities/novoalign-select-userstring.wdl" as SelectPlatform
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.1/novoalign/NovoAlignAndSamtoolsSort.wdl" as NovoAlign
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/novoalign-156/novoalign/NovoAlignAndSamtoolsSort.wdl" as NovoAlign
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.1/picard/MarkDuplicates.wdl" as Picard
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.1/gatk/HaplotypeCallerERC.wdl" as GATK
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.1/subworkflows/BAM-Quality-Control.wdl" as BAMQualityControl
