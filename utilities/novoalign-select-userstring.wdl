@@ -31,7 +31,7 @@ task SelectPlatform {
   >>>
 
   output {
-    File userString = read_lines(stdout())[0]
+    String userString = read_lines(stdout())[0]
   }
 
   meta {
