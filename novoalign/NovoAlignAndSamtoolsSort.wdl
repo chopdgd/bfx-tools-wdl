@@ -55,7 +55,7 @@ task NovoAlignAndSamtoolsSort {
       -d ~{reference_novoindex} \
       ~{true="-# 50000" false="" debug} \
       -f ~{fastq_1} ~{fastq_2} \
-      $USERSTRING \
+      ~{userString} \
       -c ~{cpu} \
       -o ~{output_format} \
       "@RG\\tID:~{sample_id}\\tPU:~{platform_unit}\\tLB:~{library}\\tPL:~{platform}\\tSM:~{sample_id}" | \
