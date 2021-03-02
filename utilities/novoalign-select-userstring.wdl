@@ -10,8 +10,8 @@ task SelectPlatform {
     Array[String] novaseq_platforms = ["DGDNovaSeq"]
 
     # UserStrings based on sequencing platform
-    String novaseq_userString = "--tune NOVASEQ -i PE 240,150 -r All 5 -R 60 -p 5,20 -k"
-    String hiseq_userString = "--tune HiSeq -i PE 240,150 -r All 5 -R 60 -p 5,20 -k"
+    String novaseq_userString = '"--tune NOVASEQ -i PE 240,150 -r All 5 -R 60 -p 5,20 -k"'
+    String hiseq_userString = '"--tune HiSeq -i PE 240,150 -r All 5 -R 60 -p 5,20 -k"'
 
     # Run time variables
     Float memory = 12
