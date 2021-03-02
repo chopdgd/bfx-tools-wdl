@@ -4,7 +4,7 @@ version 1.0
 # Task to handle Novoalign userString selection based on sequencing platfrom
 # -------------------------------------------------------------------------------------------------
 
-task SelectEDMPlatform {
+task SelectPlatform {
   input {
     String platform
     Array[String] novaseq_platforms = ["DGDNovaSeq"]
