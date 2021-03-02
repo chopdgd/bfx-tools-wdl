@@ -26,7 +26,7 @@ task NovoAlignAndSamtoolsSort {
     String platform = "PL"
     String platform_unit = "PU"
 
-    String userString = "-i PE 240,150 -r All 5 -R 60 -t 15,2 -H 20 99999 --hlimit 7 --trim3HP -p 5,20 -k"
+    String userString = "--tune NOVASEQ -i PE 240,150 -r All 5 -R 60 -p 5,20 -k"
     String ? Samtools_view_parameters
     String ? Samtools_sort_parameters
 
@@ -55,7 +55,7 @@ task NovoAlignAndSamtoolsSort {
       -d ~{reference_novoindex} \
       ~{true="-# 50000" false="" debug} \
       -f ~{fastq_1} ~{fastq_2} \
-      ~{userString} \
+      $USERSTRING \
       -c ~{cpu} \
       -o ~{output_format} \
       "@RG\\tID:~{sample_id}\\tPU:~{platform_unit}\\tLB:~{library}\\tPL:~{platform}\\tSM:~{sample_id}" | \
@@ -108,9 +108,9 @@ task NovoAlignAndSamtoolsSort {
   }
 
   meta {
-    author: "Michael A. Gonzalez"
-    email: "GonzalezMA@email.chop.edu"
-    novoalign_version: "3.06.01"
+    author: "Michael A. Gonzalez, Tolga Ayazseven"
+    email: "GonzalezMA@email.chop.edu, ayazsevent@chop.edu"
+    novoalign_version: "4.03.02"
     version: "0.1.0"
   }
 }
