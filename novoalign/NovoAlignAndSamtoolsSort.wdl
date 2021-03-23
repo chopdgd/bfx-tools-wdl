@@ -26,7 +26,7 @@ task NovoAlignAndSamtoolsSort {
     String platform = "PL"
     String platform_unit = "PU"
 
-    String userString = "-i PE 240,150 -r All 5 -R 60 -t 15,2 -H 20 99999 --hlimit 7 --trim3HP ACGT -p 5,20 -x 6 --softclip 45,30 -v 70 --pechimera off -k"
+    String userString = "-i PE 240,150 -r All 5 -R 60 -t 15,2 -H 20 99999 --hlimit 7 --trim3HP ACGT -p 5,20 -x 6 --softclip 0,0 -v 70 --pechimera off -k"
     String ? Samtools_view_parameters
     String ? Samtools_sort_parameters
 
