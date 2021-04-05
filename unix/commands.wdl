@@ -10,7 +10,7 @@ task awk {
     Array[String] ? input_files
     String output_filename
 
-    String sge_queue = "all.q"
+    String ? queue
     Float memory = 1
     Int cpu = 1
   }
@@ -24,7 +24,7 @@ task awk {
   }
 
   runtime {
-    sge_queue: sge_queue
+    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -35,7 +35,7 @@ task wget {
     String url
     String ? userString
 
-    String sge_queue = "all.q"
+    String ? queue
     Float memory = 12
     Int cpu = 1
   }
@@ -51,7 +51,7 @@ task wget {
   }
 
   runtime {
-    sge_queue: sge_queue
+    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -62,7 +62,7 @@ task mkdir {
     String directory
     String ? userString
 
-    String sge_queue = "all.q"
+    String ? queue
     Float memory = 12
     Int cpu = 1
   }
@@ -76,7 +76,7 @@ task mkdir {
   }
 
   runtime {
-    sge_queue: sge_queue
+    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -88,7 +88,7 @@ task mv {
     String target
     String ? userString
 
-    String sge_queue = "all.q"
+    String ? queue
     Float memory = 12
     Int cpu = 1
   }
@@ -102,7 +102,7 @@ task mv {
   }
 
   runtime {
-    sge_queue: sge_queue
+    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -114,7 +114,7 @@ task cp {
     String target
     String ? userString
 
-    String sge_queue = "all.q"
+    String ? queue
     Float memory = 12
     Int cpu = 1
   }
@@ -128,7 +128,7 @@ task cp {
   }
 
   runtime {
-    sge_queue: sge_queue
+    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -141,7 +141,7 @@ task Install {
     String target
     String ? userString
 
-    String sge_queue = "all.q"
+    String ? queue
     Float memory = 12
     Int cpu = 1
   }
@@ -155,7 +155,7 @@ task Install {
   }
 
   runtime {
-    sge_queue: sge_queue
+    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -167,7 +167,7 @@ task UnZip {
     String ? userString
     String output_filename = basename(input_file, ".gz")
 
-    String sge_queue = "all.q"
+    String ? queue
     Float memory = 12
     Int cpu = 1
   }
@@ -181,7 +181,7 @@ task UnZip {
   }
 
   runtime {
-    sge_queue: sge_queue
+    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -196,7 +196,7 @@ task BgZip {
 
     Array[String] modules = []
 
-    String sge_queue = "all.q"
+    String ? queue
     Float memory = 12
     Int cpu = 1
   }
@@ -218,7 +218,7 @@ task BgZip {
   }
 
   runtime {
-    sge_queue: sge_queue
+    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -233,7 +233,7 @@ task Tabix {
 
     Array[String] modules = []
 
-    String sge_queue = "all.q"
+    String ? queue
     Float memory = 12
     Int cpu = 1
   }
@@ -255,7 +255,7 @@ task Tabix {
   }
 
   runtime {
-    sge_queue: sge_queue
+    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -274,7 +274,7 @@ task CompressAndIndex {
 
     Array[String] modules = []
 
-    String sge_queue = "all.q"
+    String ? queue
     Float memory = 12
     Int cpu = 1
   }
@@ -301,7 +301,7 @@ task CompressAndIndex {
   }
 
   runtime {
-    sge_queue: sge_queue
+    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -316,7 +316,7 @@ task cut {
     String ? delimiter
     String ? userString
 
-    String sge_queue = "all.q"
+    String ? queue
     Float memory = 12
     Int cpu = 1
   }
@@ -330,7 +330,7 @@ task cut {
   }
 
   runtime {
-    sge_queue: sge_queue
+    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -343,7 +343,7 @@ task sort {
 
     String ? userString
 
-    String sge_queue = "all.q"
+    String ? queue
     Float memory = 12
     Int cpu = 1
   }
@@ -357,7 +357,7 @@ task sort {
   }
 
   runtime {
-    sge_queue: sge_queue
+    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -371,7 +371,7 @@ task cat {
 		Array[String] ? input_files
 		String ? userString
 
-    String sge_queue = "all.q"
+    String ? queue
     Float memory = 12
     Int cpu = 1
 	}
@@ -385,7 +385,7 @@ task cat {
 	}
 
   runtime {
-    sge_queue: sge_queue
+    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -397,7 +397,7 @@ task sed {
     String output_filename
     String command
 
-    String sge_queue = "all.q"
+    String ? queue
     Float memory = 12
     Int cpu = 1
   }
@@ -411,7 +411,7 @@ task sed {
   }
 
   runtime {
-    sge_queue: sge_queue
+    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -423,7 +423,7 @@ task tar {
     String output_filename
     String userString = "-zcvf"
 
-    String sge_queue = "all.q"
+    String ? queue
     Float memory = 12
     Int cpu = 1
   }
@@ -437,7 +437,7 @@ task tar {
   }
 
   runtime {
-    sge_queue: sge_queue
+    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -449,7 +449,7 @@ task grep {
     String output_filename
 		String ? userString
 
-    String sge_queue = "all.q"
+    String ? queue
     Float memory = 12
     Int cpu = 1
 	}
@@ -463,7 +463,7 @@ task grep {
 	}
 
   runtime {
-    sge_queue: sge_queue
+    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -475,7 +475,7 @@ task zgrep {
     String output_filename
 		String ? userString
 
-    String sge_queue = "all.q"
+    String ? queue
     Float memory = 12
     Int cpu = 1
 	}
@@ -489,7 +489,7 @@ task zgrep {
 	}
 
   runtime {
-    sge_queue: sge_queue
+    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
