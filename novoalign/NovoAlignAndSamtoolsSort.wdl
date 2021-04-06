@@ -26,7 +26,7 @@ task NovoAlignAndSamtoolsSort {
     String platform = "PL"
     String platform_unit = "PU"
 
-    String userString = "-i PE 240,150 -r All 5 -R 60 -t 15,2 -H 20 99999 --hlimit 7 --trim3HP -p 5,20 -k"
+    String userString = "-i PE 240,150 -r All 5 -R 60 -t 15,2 -H 20 99999 --hlimit 7 --trim3HP ACGT -p 5,20 -x 6 --softclip 0,0 -v 70 --pechimera off -k"
     String ? Samtools_view_parameters
     String ? Samtools_sort_parameters
 
@@ -108,9 +108,9 @@ task NovoAlignAndSamtoolsSort {
   }
 
   meta {
-    author: "Michael A. Gonzalez"
-    email: "GonzalezMA@email.chop.edu"
-    novoalign_version: "3.06.01"
+    author: "Michael A. Gonzalez, Tolga Ayazseven"
+    email: "GonzalezMA@email.chop.edu, ayazsevent@chop.edu"
+    novoalign_version: "4.03.02"
     version: "0.1.0"
   }
 }

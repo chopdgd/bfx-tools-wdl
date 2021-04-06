@@ -8,7 +8,8 @@ version 1.0
 # -------------------------------------------------------------------------------------------------
 
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.1/utilities/CombineFastQ.wdl" as CombineFastQ
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.1/novoalign/NovoAlignAndSamtoolsSort.wdl" as NovoAlign
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/develop/utilities/novoalign-select-userstring.wdl" as SelectPlatform
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/develop/novoalign/NovoAlignAndSamtoolsSort.wdl" as NovoAlign
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.1/picard/MarkDuplicates.wdl" as Picard
 
 workflow FastQToBAM {
@@ -18,6 +19,7 @@ workflow FastQToBAM {
     Array[File] additional_fastq1
     File fastq_2
     Array[File] additional_fastq2
+    String platform
 
     File ? novoalign
     File novoalign_license
@@ -41,6 +43,11 @@ workflow FastQToBAM {
       additional_fastq=additional_fastq2,
   }
 
+  call SelectPlatform.SelectPlatform {
+    input:
+      platform=platform,
+  }
+
   call NovoAlign.NovoAlignAndSamtoolsSort as Alignment {
     input:
       novoalign=novoalign,
@@ -50,6 +57,7 @@ workflow FastQToBAM {
       reference=reference,
       reference_idx=reference_idx,
       sample_id=sample_id,
+      userString=SelectPlatform.userString,
       fastq_1=CombineRead1.output_file,
       fastq_2=CombineRead2.output_file,
   }

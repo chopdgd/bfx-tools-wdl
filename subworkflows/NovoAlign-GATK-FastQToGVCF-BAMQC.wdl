@@ -12,7 +12,8 @@ version 1.0
 # -------------------------------------------------------------------------------------------------
 
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.1/utilities/CombineFastQ.wdl" as CombineFastQ
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.1/novoalign/NovoAlignAndSamtoolsSort.wdl" as NovoAlign
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/develop/utilities/novoalign-select-userstring.wdl" as SelectPlatform
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/develop/novoalign/NovoAlignAndSamtoolsSort.wdl" as NovoAlign
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.1/picard/MarkDuplicates.wdl" as Picard
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.1/gatk/HaplotypeCallerERC.wdl" as GATK
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.1/subworkflows/BAM-Quality-Control.wdl" as BAMQualityControl
@@ -24,6 +25,7 @@ workflow FastQToGVCFAndBAMQC {
     Array[File] additional_fastq1
     File fastq_2
     Array[File] additional_fastq2
+    String platform
 
     File ? java
     File ? novoalign
@@ -61,12 +63,18 @@ workflow FastQToGVCFAndBAMQC {
       additional_fastq=additional_fastq2,
   }
 
+  call SelectPlatform.SelectPlatform {
+    input:
+      platform=platform,
+  }
+
   call NovoAlign.NovoAlignAndSamtoolsSort as Alignment {
     input:
       novoalign=novoalign,
       novoalign_license=novoalign_license,
       samtools=samtools,
       reference_novoindex=reference_novoindex,
+      userString=SelectPlatform.userString,
       reference=reference,
       reference_idx=reference_idx,
       sample_id=sample_id,

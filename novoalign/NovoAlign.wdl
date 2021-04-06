@@ -22,7 +22,7 @@ task NovoAlign {
     String platform = "PL"
     String platform_unit = "PU"
 
-    String userString = "-i PE 240,150 -r All 5 -R 60 -t 15,2 -H 20 99999 --hlimit 7 --trim3HP -p 5,20 -k"
+    String userString = "-i PE 240,150 -r All 5 -R 60 -t 15,2 -H 20 99999 --hlimit 7 --trim3HP ACGT -p 5,20 -x 6 --softclip 0,0 -v 70 --pechimera off -k"
 
     Array[String] modules = []
     Float memory = 30
