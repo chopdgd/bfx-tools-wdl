@@ -8,7 +8,7 @@ task CreateVirtualenv {
     String version = 'python2.7'
     String name = 'pyenv'
     File requirements
-    Array[String] python_modules = ['python/2.7']
+    Array[String] python_modules = ['python27']
 
     Array[String] modules = []
     Float memory = 16
