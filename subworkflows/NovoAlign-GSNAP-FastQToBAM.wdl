@@ -8,7 +8,7 @@ version 1.0
 # -------------------------------------------------------------------------------------------------
 
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.1/utilities/CombineFastQ.wdl" as CombineFastQ
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/develop/novoalign/NovoAlignAndSamtoolsSort.wdl" as NovoAlign
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.6.0/novoalign/NovoAlignAndSamtoolsSort.wdl" as NovoAlign
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.1/gsnap/GsnapAndSamtools.wdl" as Gsnap
 
 workflow FastQGsnapToBAM {
