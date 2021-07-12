@@ -160,6 +160,32 @@ task rsync {
   }
 }
 
+task md5sum {
+  input {
+    File input_file
+    String md5sum_file
+    String ? userString
+
+    String queue = "defq,dgdq"
+    Float memory = 12
+    Int cpu = 1
+  }
+
+  command {
+    md5sum ~{userString} ~{input_file} > ~{md5sum_file}
+  }
+
+  output {
+    File output_file = "~{md5sum_file}"
+  }
+
+  runtime {
+    queue: queue
+    memory: memory + " GB"
+    cpu: cpu
+  }
+}
+
 task Install {
   input {
     File input_file
