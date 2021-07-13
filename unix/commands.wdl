@@ -172,7 +172,7 @@ task md5sum {
   }
 
   command {
-    md5sum ~{userString} ~{input_file} | awk '{ print $1 }' > ~{md5sum_file}
+    md5sum ~{userString} ~{input_file} | cut -d ' ' -f 1 > ~{md5sum_file}
   }
 
   output {
