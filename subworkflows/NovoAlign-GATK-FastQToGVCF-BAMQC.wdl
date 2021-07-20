@@ -11,8 +11,7 @@ version 1.0
 #  * VerifyBamId
 # -------------------------------------------------------------------------------------------------
 
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.1/utilities/CombineFastQ.wdl" as CombineFastQ
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/feature_petagene/utilities/UnzipPetaFastQ.wdl" as UnzipPetaFastQ
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/feature_petagene/utilities/CombineFastQ.wdl" as CombineFastQ
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.6.0/utilities/novoalign-select-userstring.wdl" as SelectPlatform
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.6.0/novoalign/NovoAlignAndSamtoolsSort.wdl" as NovoAlign
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.1/picard/MarkDuplicates.wdl" as Picard
@@ -52,40 +51,16 @@ workflow FastQToGVCFAndBAMQC {
     File ? omni_vcf_idx
   }
 
-  call UnzipPetaFastQ.UnzipPetaFastQ as DecompressRead1 {
-    input:
-      fastq=fastq_1
-  }
-
-  call UnzipPetaFastQ.UnzipPetaFastQ as DecompressRead2 {
-    input:
-      fastq=fastq_2
-  }
-
-  scatter (add_fastq1 in additional_fastq1) {
-    call UnzipPetaFastQ.UnzipPetaFastQ as DecompressAddRead1 {
-      input:
-        fastq=add_fastq1
-    }
-  }
-
-  scatter (add_fastq2 in additional_fastq2) {
-    call UnzipPetaFastQ.UnzipPetaFastQ as DecompressAddRead2 {
-      input:
-        fastq=add_fastq2
-    }
-  }
-
   call CombineFastQ.CombineFastQ as CombineRead1 {
     input:
-      fastq=DecompressRead1.output_file,
-      additional_fastq=DecompressAddRead1.output_file,
+      fastq=fastq_1,
+      additional_fastq=additional_fastq1,
   }
 
   call CombineFastQ.CombineFastQ as CombineRead2 {
     input:
-      fastq=DecompressRead2.output_file,
-      additional_fastq=DecompressAddRead2.output_file,
+      fastq=fastq_2,
+      additional_fastq=additional_fastq2,
   }
 
   call SelectPlatform.SelectPlatform {
