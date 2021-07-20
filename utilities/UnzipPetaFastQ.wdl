@@ -1,7 +1,7 @@
 version 1.0
 
 
-task DecompressPetaFastQ {
+task UnzipPetaFastQ {
   input {
     File fastq
     Array[String] modules = ["petagene"]
@@ -30,7 +30,7 @@ task DecompressPetaFastQ {
   >>>
 
   output {
-    File output_file = "~{output_filename}"
+    File UnzipPetaFastQ = "~{output_filename}"
   }
 
   runtime {
