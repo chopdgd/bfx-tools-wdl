@@ -24,7 +24,7 @@ task CombineFastQ {
 
     if [[ "~{files}" == "0" ]]
     then
-      cat ~{fastq} ~{output_filename}
+      cat ~{fastq} > ~{output_filename}
     else
       cat ~{fastq} ~{sep=" " additional_fastq} > ~{output_filename}
     fi
