@@ -30,7 +30,7 @@ task UnzipPetaFastQ {
   >>>
 
   output {
-    File UnzipPetaFastQ = "~{output_filename}"
+    File output_file = "~{output_filename}"
   }
 
   runtime {
