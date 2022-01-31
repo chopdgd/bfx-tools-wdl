@@ -35,7 +35,7 @@ task CreateVirtualenv {
     done;
 
     source ~{name}/bin/activate;
-
+    ~{python_binary} -m pip install setuptools==57.5.0
     ~{python_binary} -m pip install -r ~{requirements};
 
     echo $PWD/~{python_binary} > python.path;
