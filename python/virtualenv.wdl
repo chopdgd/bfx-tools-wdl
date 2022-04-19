@@ -5,10 +5,10 @@ version 1.0
 
 task CreateVirtualenv {
   input {
-    String version = 'python2.7'
+    String version = 'python3.9'
     String name = 'pyenv'
     File requirements
-    Array[String] python_modules = ['python27']
+    Array[String] python_modules = ['python39']
 
     Array[String] modules = []
     Float memory = 16
@@ -35,7 +35,7 @@ task CreateVirtualenv {
     done;
 
     source ~{name}/bin/activate;
-
+    ~{python_binary} -m pip install setuptools==57.5.0
     ~{python_binary} -m pip install -r ~{requirements};
 
     echo $PWD/~{python_binary} > python.path;
