@@ -36,6 +36,8 @@ task expr {
         module load $MODULE
     done;
 
+    export SLIVAR_FORMAT_STRINGS=1
+    
     ~{default="slivar" slivar} expr \
       ~{true='--pass-only' false='' pass_only} \
       --vcf ~{vcf_file} \
