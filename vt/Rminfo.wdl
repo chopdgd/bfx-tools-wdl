@@ -1,26 +1,26 @@
 version 1.0
 # -------------------------------------------------------------------------------------------------
 # Package Name: Vt
-# Task Summary: Normalize multiallelic variants in a VCF
+# Task Summary: Remove info from a VCF
 # Tool Name: Vt
 # Documentation:
-#  * https://genome.sph.umich.edu/wiki/Vt#Normalization
+#  * https://genome.sph.umich.edu/wiki/Vt#Rminfo
 # -------------------------------------------------------------------------------------------------
 
 
-task NormalizeVCF {
+task RminfoVCF {
   input {
     File ? vt
     File input_file
     File ? input_idx_file
 
-    File reference
+    String infotag
 
     Array[String] modules = []
     Float memory = 12
     Int cpu = 1
 
-    String output_filename = basename(input_file) + ".normalized.vcf"
+    String output_filename = basename(input_file) + ".rminfo.vcf"
   }
 
   command {
@@ -30,8 +30,8 @@ task NormalizeVCF {
       module load $MODULE
     done;
 
-    ~{default="vt" vt} normalize \
-      -r ~{reference} \
+    ~{default="vt" vt} rminfo \
+      -t ~{infotag} \
       -o ~{output_filename} ~{input_file};
   }
 
@@ -48,7 +48,7 @@ task NormalizeVCF {
     vt: "Vt executable."
     input_file: "VCF file."
     input_idx_file: "VCF file index (.tbi)."
-    reference: "Reference fasta sequence."
+    infotag: "info tag need to be removed."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
   }
