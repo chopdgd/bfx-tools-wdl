@@ -18,7 +18,7 @@ task expr {
     File ? javascript_file
     File ? gnotate_file
 
-    String slivar_fmt_str=0
+    String slivar_fmt_str=''
     String prefix
     Boolean pass_only = true
     String ? userString
