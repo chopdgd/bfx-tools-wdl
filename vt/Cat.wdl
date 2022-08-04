@@ -15,7 +15,7 @@ task CatVCF {
     Array[File] input_files
 
     Array[String] modules = []
-    Float memory = 12
+    Float memory = 24
     Int cpu = 1
 
     String output_filename
