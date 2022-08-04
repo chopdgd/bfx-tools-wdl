@@ -29,7 +29,10 @@ task CatVCF {
     done;
 
     ~{default="vt" vt} cat \
-      -o ~{output_filename} ~{sep=" " input_files};
+      ~{sep=" " input_files} | \
+    ~{default="vt" vt} sort - \
+      -o ~{output_filename};
+
   }
 
   output {
