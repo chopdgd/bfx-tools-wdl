@@ -9,7 +9,7 @@ version 1.0
 
 task MuTect2 {
   input {
-    File ? gatk
+    File ? gatk4
 
     File reference
     File reference_idx
@@ -41,7 +41,7 @@ task MuTect2 {
       module load $MODULE
     done;
 
-    ~{gatk} MuTect2 \
+    ~{gatk4} MuTect2 \
       -R ~{reference} \
       -I ~{bam_file} \
       -L ~{intervals} \
