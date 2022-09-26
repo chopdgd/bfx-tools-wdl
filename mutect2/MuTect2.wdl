@@ -12,8 +12,7 @@ task MuTect2 {
     File ? gatk4
 
     File reference
-    File reference_idx
-    File reference_dict
+    File ? reference_idx
 
     File intervals
     File ? dbsnp
@@ -21,7 +20,7 @@ task MuTect2 {
 
     String sample_id
     File bam_file
-    File bam_idx_file
+    File ? bam_idx_file
 
     String ? userString
 
@@ -63,7 +62,6 @@ task MuTect2 {
     gatk: "Path to gatk (v4 and up)."
     reference: "Reference sequence file."
     reference_idx: "Reference sequence index (.fai)."
-    reference_dict: "Reference sequence dict (.dict)."
     intervals: "One or more genomic intervals over which to operate."
     sample_id: "sample id."
     bam_file: "Sorted BAM file."
