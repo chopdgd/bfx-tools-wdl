@@ -53,7 +53,7 @@ task MergeVcfs {
     java: "Path to Java."
     picard: "Picard jar file."
     reference_dict: "Reference sequence dict (.dict)."
-    vcf_file: "vcf file to convert."
+    vcf_files: "vcf file to convert."
     userString: "An optional parameter which allows the user to specify additions to the command line at run time."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
