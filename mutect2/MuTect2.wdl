@@ -59,7 +59,7 @@ task MuTect2 {
   }
 
   parameter_meta {
-    gatk: "Path to gatk (v4 and up)."
+    gatk4: "Path to gatk (v4 and up)."
     reference: "Reference sequence file."
     reference_idx: "Reference sequence index (.fai)."
     intervals: "One or more genomic intervals over which to operate."
