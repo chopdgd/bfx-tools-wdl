@@ -7,7 +7,7 @@ version 1.0
 # -------------------------------------------------------------------------------------------------
 
 
-task MergeVcfs {
+task SortVcf {
   input {
     File ? java
     File ? picard
