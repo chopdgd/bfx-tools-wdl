@@ -33,10 +33,10 @@ task SortVcf {
 
     ~{default="java" java} \
       -Xmx~{jvm_memory}g \
-      -jar ~{default="picard" picard} SortVCF \
+      -jar ~{default="picard" picard} SortVcf \
       ~{userString} \
       SD=~{reference_dict} \
-      ~{sep=" " prefix("-I ", vcf_files)} \
+      ~{sep=" " prefix("I=", vcf_files)} \
       O=~{output_filename};
   }
 

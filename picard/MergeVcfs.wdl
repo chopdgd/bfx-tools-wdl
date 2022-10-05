@@ -36,7 +36,7 @@ task MergeVcfs {
       -jar ~{default="picard" picard} MergeVcfs \
       ~{userString} \
       D=~{reference_dict} \
-      ~{sep=" " prefix("-I ", vcf_files)} \
+      ~{sep=" " prefix("I=", vcf_files)} \
       O=~{output_filename};
   }
 
