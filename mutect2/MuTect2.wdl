@@ -31,7 +31,7 @@ task MuTect2 {
 
     String vcf_filename = sample_id + "_MuTect.vcf"
     String vcf_idx_filename = sample_id + "_MuTect.vcf.idx"
-    String stats_filename = sample_id + "_MuTect.stats"
+    String stats_filename = sample_id + "_MuTect.vcf.stats"
   }
 
   command {
