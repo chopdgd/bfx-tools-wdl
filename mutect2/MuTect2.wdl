@@ -40,7 +40,7 @@ task MuTect2 {
       module load $MODULE
     done;
 
-    ~{gatk4} MuTect2 \
+    ~{gatk4} Mutect2 \
       -R ~{reference} \
       -I ~{bam_file} \
       -L ~{intervals} \
