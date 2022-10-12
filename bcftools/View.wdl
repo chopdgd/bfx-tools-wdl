@@ -17,6 +17,7 @@ task BCFToolsView {
     File input_file
     File input_idx_file
     String sample_id
+    File ? region_bed
     String ? userString
     String filename_prefix = ""
 
@@ -38,6 +39,7 @@ task BCFToolsView {
 
     ~{default="bcftools" bcftools} view \
       ~{userString} \
+      ~{-R region_bed} \
       -o ~{output_filename} \
       ~{input_file};
   }
@@ -55,6 +57,7 @@ task BCFToolsView {
     sample_id: "sample id"
     bcftools: "bcftools executable."
     input_file: "VCF file"
+    region_bed: "regions to view"
   }
 
   meta {
