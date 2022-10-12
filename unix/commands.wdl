@@ -546,3 +546,29 @@ task zgrep {
     cpu: cpu
   }
 }
+
+task echo {
+	input {
+
+    String output_filename
+		String ? userString
+
+    String queue = "defq,dgdq"
+    Float memory = 12
+    Int cpu = 1
+	}
+
+	command {
+		echo -e ~{userString} > ~{output_filename}
+	}
+
+	output {
+		File output_file = "~{output_filename}"
+	}
+
+  runtime {
+    queue: queue
+    memory: memory + " GB"
+    cpu: cpu
+  }
+}
