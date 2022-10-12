@@ -551,7 +551,7 @@ task echo {
 	input {
 
     String output_filename
-		String ? userString
+    String ? userString
 
     String queue = "defq,dgdq"
     Float memory = 12
