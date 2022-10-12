@@ -39,7 +39,7 @@ task BCFToolsView {
 
     ~{default="bcftools" bcftools} view \
       ~{userString} \
-      ~{-R region_bed} \
+      ~{"-R " + region_bed} \
       -o ~{output_filename} \
       ~{input_file};
   }
