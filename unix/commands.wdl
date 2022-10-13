@@ -559,7 +559,7 @@ task echo {
 	}
 
 	command {
-		echo -e ~{userString} > ~{output_filename}
+		echo -e "~{userString}" > ~{output_filename}
 	}
 
 	output {
