@@ -16,6 +16,7 @@ task DecomposeNormalizeVCF {
     File ? input_idx_file
 
     File reference
+    File ? reference_idx
 
     Array[String] modules = []
     Float memory = 12
