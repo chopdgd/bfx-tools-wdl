@@ -76,7 +76,7 @@ task ParallelFreeBayes {
   }
 
   meta {
-    author: "fuw@chop.edu"
+    author: "Weixuan Fu"
     email: "fuw@chop.edu"
     freebayes_version: "1.0.1"
     version: "0.1.0"
