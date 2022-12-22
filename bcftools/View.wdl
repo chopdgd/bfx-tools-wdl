@@ -15,7 +15,7 @@ task BCFToolsView {
 
     # Inputs
     File input_file
-    File input_idx_file
+    File ? input_idx_file
     String sample_id
     File ? region_bed
     String ? userString
