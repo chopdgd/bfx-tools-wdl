@@ -52,6 +52,7 @@ task CombineVariants {
       ~{userString} \
       -R ~{reference} \
       -nt ~{cpu} \
+      -setKey GATKsetkey \
       ~{sep=" " input_files_with_tags} \
       ~{sep=" " input_files_no_tags} \
       ~{"-genotypeMergeOptions " + genotypeMergeOptions} \

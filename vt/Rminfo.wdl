@@ -1,28 +1,26 @@
 version 1.0
 # -------------------------------------------------------------------------------------------------
 # Package Name: Vt
-# Task Summary: Decompose multiallelic variants in a VCF
+# Task Summary: Remove info from a VCF
 # Tool Name: Vt
 # Documentation:
-#  * https://genome.sph.umich.edu/wiki/Vt#Decompose
-#  * https://genome.sph.umich.edu/wiki/Vt#Normalization
+#  * https://genome.sph.umich.edu/wiki/Vt#Rminfo
 # -------------------------------------------------------------------------------------------------
 
 
-task DecomposeNormalizeVCF {
+task RminfoVCF {
   input {
     File ? vt
     File input_file
     File ? input_idx_file
 
-    File reference
-    File ? reference_idx
+    String infotag
 
     Array[String] modules = []
     Float memory = 24
     Int cpu = 1
 
-    String output_filename = basename(input_file) + ".decomposed.normalized.vcf"
+    String output_filename = basename(input_file) + ".rminfo.vcf"
   }
 
   command {
@@ -32,11 +30,9 @@ task DecomposeNormalizeVCF {
       module load $MODULE
     done;
 
-    ~{default="vt" vt} decompose \
-      -s ~{input_file} | \
-    ~{default="vt" vt} normalize - \
-      -r ~{reference} \
-      -o ~{output_filename};
+    ~{default="vt" vt} rminfo \
+      -t ~{infotag} \
+      -o ~{output_filename} ~{input_file};
   }
 
   output {
@@ -52,14 +48,14 @@ task DecomposeNormalizeVCF {
     vt: "Vt executable."
     input_file: "VCF file."
     input_idx_file: "VCF file index (.tbi)."
-    reference: "Reference fasta sequence."
+    infotag: "info tag need to be removed."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
   }
 
   meta {
-    author: "Michael A. Gonzalez"
-    email: "GonzalezMA@email.chop.edu"
+    author: "Weixuan Fu"
+    email: "fuw@chop.edu"
     vt_version: "v0.5772-60f436c3"
     version: "0.1.0"
   }
