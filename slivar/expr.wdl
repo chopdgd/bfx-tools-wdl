@@ -18,6 +18,7 @@ task expr {
     File ? javascript_file
     File ? gnotate_file
 
+    String slivar_fmt_str=''
     String prefix
     Boolean pass_only = true
     String ? userString
@@ -35,6 +36,8 @@ task expr {
     for MODULE in ~{sep=' ' modules}; do
         module load $MODULE
     done;
+
+    export SLIVAR_FORMAT_STRINGS="~{slivar_fmt_str}"
 
     ~{default="slivar" slivar} expr \
       ~{true='--pass-only' false='' pass_only} \

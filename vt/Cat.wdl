@@ -1,28 +1,24 @@
 version 1.0
 # -------------------------------------------------------------------------------------------------
 # Package Name: Vt
-# Task Summary: Decompose multiallelic variants in a VCF
+# Task Summary: Combine two vcf with same headers
 # Tool Name: Vt
 # Documentation:
-#  * https://genome.sph.umich.edu/wiki/Vt#Decompose
-#  * https://genome.sph.umich.edu/wiki/Vt#Normalization
+#  * https://genome.sph.umich.edu/wiki/Vt#Concatenate
 # -------------------------------------------------------------------------------------------------
 
 
-task DecomposeNormalizeVCF {
+task CatVCF {
   input {
     File ? vt
-    File input_file
-    File ? input_idx_file
 
-    File reference
-    File ? reference_idx
+    Array[File] input_files
 
     Array[String] modules = []
     Float memory = 24
     Int cpu = 1
 
-    String output_filename = basename(input_file) + ".decomposed.normalized.vcf"
+    String output_filename
   }
 
   command {
@@ -32,11 +28,11 @@ task DecomposeNormalizeVCF {
       module load $MODULE
     done;
 
-    ~{default="vt" vt} decompose \
-      -s ~{input_file} | \
-    ~{default="vt" vt} normalize - \
-      -r ~{reference} \
+    ~{default="vt" vt} cat \
+      ~{sep=" " input_files} | \
+    ~{default="vt" vt} sort - \
       -o ~{output_filename};
+
   }
 
   output {
@@ -50,16 +46,15 @@ task DecomposeNormalizeVCF {
 
   parameter_meta {
     vt: "Vt executable."
-    input_file: "VCF file."
-    input_idx_file: "VCF file index (.tbi)."
-    reference: "Reference fasta sequence."
+    input_files: "VCF files need to combine"
+    output_filename: "output file name"
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
   }
 
   meta {
-    author: "Michael A. Gonzalez"
-    email: "GonzalezMA@email.chop.edu"
+    author: "Weixuan Fu"
+    email: "fuw@chop.edu"
     vt_version: "v0.5772-60f436c3"
     version: "0.1.0"
   }
