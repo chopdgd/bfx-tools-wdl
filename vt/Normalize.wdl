@@ -1,28 +1,26 @@
 version 1.0
 # -------------------------------------------------------------------------------------------------
 # Package Name: Vt
-# Task Summary: Decompose multiallelic variants in a VCF
+# Task Summary: Normalize multiallelic variants in a VCF
 # Tool Name: Vt
 # Documentation:
-#  * https://genome.sph.umich.edu/wiki/Vt#Decompose
 #  * https://genome.sph.umich.edu/wiki/Vt#Normalization
 # -------------------------------------------------------------------------------------------------
 
 
-task DecomposeNormalizeVCF {
+task NormalizeVCF {
   input {
     File ? vt
     File input_file
     File ? input_idx_file
 
     File reference
-    File ? reference_idx
 
     Array[String] modules = []
-    Float memory = 24
+    Float memory = 12
     Int cpu = 1
 
-    String output_filename = basename(input_file) + ".decomposed.normalized.vcf"
+    String output_filename = basename(input_file) + ".normalized.vcf"
   }
 
   command {
@@ -32,11 +30,9 @@ task DecomposeNormalizeVCF {
       module load $MODULE
     done;
 
-    ~{default="vt" vt} decompose \
-      -s ~{input_file} | \
-    ~{default="vt" vt} normalize - \
+    ~{default="vt" vt} normalize \
       -r ~{reference} \
-      -o ~{output_filename};
+      -o ~{output_filename} ~{input_file};
   }
 
   output {
@@ -58,8 +54,8 @@ task DecomposeNormalizeVCF {
   }
 
   meta {
-    author: "Michael A. Gonzalez"
-    email: "GonzalezMA@email.chop.edu"
+    author: "Weixuan Fu"
+    email: "fuw@chop.edu"
     vt_version: "v0.5772-60f436c3"
     version: "0.1.0"
   }

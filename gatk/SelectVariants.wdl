@@ -17,6 +17,7 @@ task SelectVariants {
     File reference_dict
 
     Array[File] intervals = []
+    Array[File] excludeintervals = []
     File input_file
     File ? input_idx_file
 
@@ -35,6 +36,7 @@ task SelectVariants {
 
   Int jvm_memory = round(memory)
   Array[String] intervalOptions = prefix("--intervals ", intervals)
+  Array[String] excludeintervalsOptions = prefix("--excludeIntervals ", excludeintervals)
   Array[String] selectTypeIncludeOptions = prefix("--selectTypeToInclude ", selectType)
   Array[String] selectTypeExcludeOptions = prefix("--selectTypeToExclude ", selectTypeToExclude)
   Array[String] selectExpressionsOptions = prefix("--selectexpressions ", selectExpressions)
@@ -55,6 +57,7 @@ task SelectVariants {
       -nt ~{cpu} \
       --variant ~{input_file} \
       ~{sep=" " intervalOptions} \
+      ~{sep=" " excludeintervalsOptions} \
       ~{sep=" " selectTypeIncludeOptions} \
       ~{sep=" " selectTypeExcludeOptions} \
       ~{sep=" " selectExpressionsOptions} \
