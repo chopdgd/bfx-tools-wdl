@@ -32,7 +32,7 @@ task Arriba {
         module load $MODULE
     done;
 
-    ~{arriba} \
+    arriba \
       -x ~{bam_file} \
       -a ~{reference} \
       -g ~{gtf} \
@@ -48,6 +48,8 @@ task Arriba {
   }
 
   runtime {
+    singularity: true
+    image: '/mnt/isilon/dgd_public/clin-air/v2.0.0/singularity_containers/arriba_1.1.0.sif'
     memory: memory + " GB"
     cpu: cpu
   }

@@ -28,7 +28,7 @@ task Kallisto {
         module load $MODULE
     done;
 
-    ~{kallisto} \
+    kallisto \
       quant \
       -i ~{kallisto_index} \
       -o ~{output_path} \
@@ -45,6 +45,9 @@ task Kallisto {
   }
 
   runtime {
+    singularity: true
+    # TODO: This image is for a newer version of kallisto. It should be 0.45.0. Need to downgrade before production.
+    image: '/mnt/isilon/dgd_public/clin-air/v2.0.0/singularity_containers/kallisto_0.46.1.sif'
     memory: memory + " GB"
     cpu: cpu
   }
