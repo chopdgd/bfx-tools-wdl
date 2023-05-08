@@ -67,6 +67,8 @@ task STARFusionSamToolsSortIndex {
   }
 
   runtime {
+    singularity: true
+    image: '/mnt/isilon/dgd_public/clin-air/v2.0.0/singularity_containers/star-fusion.v1.9.0.simg'
     memory: memory + " GB"
     cpu: cpu
   }
