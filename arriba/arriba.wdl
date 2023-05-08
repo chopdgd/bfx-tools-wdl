@@ -8,7 +8,6 @@ version 1.0
 
 task Arriba {
   input {
-    File arriba
     File bam_file
     File reference
     File gtf
@@ -55,7 +54,6 @@ task Arriba {
   }
 
   parameter_meta {
-    arriba: "Path to Arriba."
     bam_file: "The aligned genome bam from STAR (not the transcriptome or bam with read groups)."
     reference: "Genome fasta used in STAR."
     gtf: "GTF file used to generate the STAR index."

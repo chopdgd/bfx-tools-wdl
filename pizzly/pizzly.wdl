@@ -8,7 +8,6 @@ version 1.0
 
 task Pizzly {
   input {
-    File pizzly
     File transcript_fasta
     File gtf
     File fusion_file
@@ -31,7 +30,7 @@ task Pizzly {
         module load $MODULE
     done;
 
-    ~{pizzly} \
+    pizzly \
       --fasta ~{transcript_fasta} \
       --gtf ~{gtf} \
       ~{userString} \
@@ -49,12 +48,13 @@ task Pizzly {
   }
 
   runtime {
+    singularity: true
+    image: '/mnt/isilon/dgd_public/clin-air/v2.0.0/singularity_containers/rna-seq_v0.1.sif'
     memory: memory + " GB"
     cpu: cpu
   }
 
   parameter_meta {
-    pizzly: "Path to pizzly."
     transcript_fasta: "The reference fasta used to make the upstream kallisto index."
     gtf: "GTF annotation file."
     fusion_file: "Fusion file output from upstream kallisto task."

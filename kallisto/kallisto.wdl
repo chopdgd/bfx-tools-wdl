@@ -8,7 +8,6 @@ version 1.0
 
 task Kallisto {
   input {
-    File kallisto
     File kallisto_index
     File fastq_1
     File fastq_2
@@ -53,7 +52,6 @@ task Kallisto {
   }
 
   parameter_meta {
-    kallisto: "Path to kallisto."
     kallisto_index: "Index file built using the kallisto 'index' command."
     output_path: "The directory to write the output."
     modules: "Modules to load when task is called; modules must be compatible with the platform the task runs on."

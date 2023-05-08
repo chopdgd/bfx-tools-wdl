@@ -10,11 +10,6 @@ version 1.0
 
 task STARFusionSamToolsSortIndex {
   input {
-    String starfusion
-    String ? staralign_path
-    File ? samtools
-    File ? samtools_path
-
     File fastq_1
     File fastq_2
     String sample_id
@@ -34,23 +29,20 @@ task STARFusionSamToolsSortIndex {
         module load $MODULE
     done;
 
-    PATH=~{staralign_path}:$PATH
-    PATH=~{samtools_path}:$PATH
-
-    ~{starfusion} \
+    STAR-Fusion \
       --genome_lib_dir ~{reference_directory} \
       ~{userString} \
       --left_fq ~{fastq_1} \
       --right_fq ~{fastq_2} \
       --CPU ~{cpu};
 
-    ~{default="samtools" samtools} sort \
+    samtools sort \
       -@ ~{cpu} \
       -O bam \
       -o STAR-Fusion_outdir/Aligned.out.sorted.bam \
       STAR-Fusion_outdir/Aligned.out.bam;
 
-    ~{default="samtools" samtools} index \
+    samtools index \
       -@ ~{cpu} \
       STAR-Fusion_outdir/Aligned.out.sorted.bam \
       STAR-Fusion_outdir/Aligned.out.sorted.bam.bai;
@@ -74,10 +66,6 @@ task STARFusionSamToolsSortIndex {
   }
 
   parameter_meta {
-    starfusion: "Path to STAR-Fusion."
-    samtools: "Path to samtools binary."
-    staralign_path: "Path to STAR-Align directory, not binary."
-    samtools_path: "Path to samtools directory, not binary."
     reference_directory: "Fusion genome reference directory."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."

@@ -8,7 +8,6 @@ version 1.0
 
 task Samtools {
   input {
-    File ? samtools
     File ? reference
 
     File input_file
@@ -27,7 +26,7 @@ task Samtools {
         module load $MODULE
     done;
 
-    ~{default="samtools" samtools} ~{command} \
+    samtools ~{command} \
       ~{"--reference " + reference} \
       ~{"-@ " + cpu} \
       ~{userString} \
@@ -44,7 +43,6 @@ task Samtools {
   }
 
   parameter_meta {
-    samtools: "Samtools executable."
     reference: "Reference sequence file."
     input_file: "Input file to process."
     command: "Samtools tool to use (i.e. index, sort, etc)."

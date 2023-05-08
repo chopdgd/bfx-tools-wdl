@@ -8,7 +8,6 @@ version 1.0
 
 task RNASeQC {
   input {
-    File rnaseqc
     File gtf
     File bam_file
 
@@ -29,7 +28,7 @@ task RNASeQC {
         module load $MODULE
     done;
 
-    ~{rnaseqc} \
+    rnaseqc \
       --sample ~{sample_id} \
       ~{gtf} \
       ~{bam_file} \
@@ -46,12 +45,13 @@ task RNASeQC {
   }
 
   runtime {
+    singularity: true
+    image: '/mnt/isilon/dgd_public/clin-air/v2.0.0/singularity_containers/rna-seq_v0.1.sif'
     memory: memory + " GB"
     cpu: cpu
   }
 
   parameter_meta {
-    rnaseqc: "Path to RNA-SeQC static Linux binary."
     gtf: "The input GTF file containing features to check the bam against (must be collapsed)."
     bam_file: "The input BAM file (with readgroups) containing reads to process."
     sample_id: "Prefix for output files."

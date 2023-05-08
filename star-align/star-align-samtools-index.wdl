@@ -10,8 +10,6 @@ version 1.0
 
 task STARAlignSamToolsIndex {
   input {
-    File ? staralign
-    File ? samtools
     String sample_id
 
     File fastq_1
@@ -51,7 +49,7 @@ task STARAlignSamToolsIndex {
         module load $MODULE
     done;
 
-    ~{default="STAR" staralign} \
+    STAR \
       --runMode alignReads \
       --genomeDir ~{reference_directory} \
       --readFilesIn ~{fastq_1} ~{fastq_2} \
@@ -80,7 +78,7 @@ task STARAlignSamToolsIndex {
       ~{userString} \
       --twopassMode Basic;
 
-    ~{default="samtools" samtools} index \
+    samtools index \
       -@ ~{cpu} \
       Aligned.sortedByCoord.out.bam \
       Aligned.sortedByCoord.out.bam.bai;
@@ -96,13 +94,14 @@ task STARAlignSamToolsIndex {
     File transcriptome_bam_file = "~{sample_id}" + '.star-align.transcriptome.bam'
   }
 
-  runtime {
+    runtime {
+    singularity: true
+    image: '/mnt/isilon/dgd_public/clin-air/v2.0.0/singularity_containers/rna-seq_v0.1.sif'
     memory: memory + " GB"
     cpu: cpu
   }
 
   parameter_meta {
-    staralign: "Path to STAR binary."
     sample_id: "Prefix for output files."
     reference_directory: "Directory where the STAR reference index was created using STAR --genomeGenerate."
     readFilesCommand: "Shell command to read the fastqs in, e.g. zcat if fastqs are compressed."
