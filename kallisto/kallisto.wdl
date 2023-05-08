@@ -15,17 +15,12 @@ task Kallisto {
 
     String userString = "-b 10"
 
-    Array[String] modules = []
     Float memory = 12
     Int cpu = 4
   }
 
   command {
     set -Eeuxo pipefail;
-
-    for MODULE in ~{sep=' ' modules}; do
-        module load $MODULE
-    done;
 
     kallisto \
       quant \
@@ -54,7 +49,6 @@ task Kallisto {
   parameter_meta {
     kallisto_index: "Index file built using the kallisto 'index' command."
     output_path: "The directory to write the output."
-    modules: "Modules to load when task is called; modules must be compatible with the platform the task runs on."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
   }

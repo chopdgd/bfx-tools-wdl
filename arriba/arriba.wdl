@@ -16,7 +16,6 @@ task Arriba {
 
     String userString = "-T -P"
 
-    Array[String] modules = []
     Float memory = 12
     Int cpu = 2
 
@@ -26,10 +25,6 @@ task Arriba {
 
   command {
     set -Eeuxo pipefail;
-
-    for MODULE in ~{sep=' ' modules}; do
-        module load $MODULE
-    done;
 
     arriba \
       -x ~{bam_file} \

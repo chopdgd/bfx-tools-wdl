@@ -16,17 +16,12 @@ task RNASeQC {
 
     String userString = "--coverage"
 
-    Array[String] modules = []
     Float memory = 12
     Int cpu = 1
   }
 
   command {
     set -Eeuxo pipefail;
-
-    for MODULE in ~{sep=' ' modules}; do
-        module load $MODULE
-    done;
 
     rnaseqc \
       --sample ~{sample_id} \
@@ -57,7 +52,6 @@ task RNASeQC {
     sample_id: "Prefix for output files."
     output_directory: "Output directory."
     userString: "An optional parameter which allows the user to specify additions to the command line at run time."
-    modules: "Modules to load when task is called; modules must be compatible with the platform the task runs on."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
   }

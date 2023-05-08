@@ -22,10 +22,6 @@ task Samtools {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ~{sep=' ' modules}; do
-        module load $MODULE
-    done;
-
     samtools ~{command} \
       ~{"--reference " + reference} \
       ~{"-@ " + cpu} \

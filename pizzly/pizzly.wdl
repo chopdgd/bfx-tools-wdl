@@ -18,17 +18,12 @@ task Pizzly {
     Int align_score = 2
     Int insert_size = 400
 
-    Array[String] modules = []
     Float memory = 12
     Int cpu = 1
   }
 
   command {
     set -Eeuxo pipefail;
-
-    for MODULE in ~{sep=' ' modules}; do
-        module load $MODULE
-    done;
 
     pizzly \
       --fasta ~{transcript_fasta} \
@@ -61,7 +56,6 @@ task Pizzly {
     sample_id: "Prefix for output files."
     align_score: "The number of mismatches allowed when aligning reads to a reference transcript."
     insert_size: "The maximum insert size of the paired-end library."
-    modules: "Modules to load when task is called; modules must be compatible with the platform the task runs on."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
   }

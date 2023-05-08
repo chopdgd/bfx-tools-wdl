@@ -37,17 +37,12 @@ task STARAlignSamToolsIndex {
 
     String ? userString
 
-    Array[String] modules = []
     Float memory = 48
     Int cpu = 12
   }
 
   command {
     set -Eeuxo pipefail;
-
-    for MODULE in ~{sep=' ' modules}; do
-        module load $MODULE
-    done;
 
     STAR \
       --runMode alignReads \
