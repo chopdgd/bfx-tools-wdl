@@ -16,6 +16,7 @@ task Arriba {
 
     String userString = "-T -P"
 
+    String image
     Float memory = 12
     Int cpu = 2
 
@@ -43,7 +44,7 @@ task Arriba {
 
   runtime {
     singularity: true
-    image: '/mnt/isilon/dgd_public/clin-air/v2.0.0/singularity_containers/arriba_1.1.0.sif'
+    image: image
     memory: memory + " GB"
     cpu: cpu
   }

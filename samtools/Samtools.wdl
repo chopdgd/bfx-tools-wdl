@@ -14,7 +14,7 @@ task Samtools {
     String command
     String ? userString
 
-    Array[String] modules = []
+    String image
     Float memory = 12
     Int cpu = 1
   }
@@ -34,6 +34,8 @@ task Samtools {
   }
 
   runtime {
+    singularity: true
+    image: image
     memory: memory + " GB"
     cpu: cpu
   }

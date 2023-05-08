@@ -37,6 +37,7 @@ task STARAlignSamToolsIndex {
 
     String ? userString
 
+    String image
     Float memory = 48
     Int cpu = 12
   }
@@ -91,7 +92,7 @@ task STARAlignSamToolsIndex {
 
     runtime {
     singularity: true
-    image: '/mnt/isilon/dgd_public/clin-air/v2.0.0/singularity_containers/rna-seq_v0.1.sif'
+    image: image
     memory: memory + " GB"
     cpu: cpu
   }

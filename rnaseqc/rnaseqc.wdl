@@ -16,6 +16,7 @@ task RNASeQC {
 
     String userString = "--coverage"
 
+    String image
     Float memory = 12
     Int cpu = 1
   }
@@ -41,7 +42,7 @@ task RNASeQC {
 
   runtime {
     singularity: true
-    image: '/mnt/isilon/dgd_public/clin-air/v2.0.0/singularity_containers/rna-seq_v0.1.sif'
+    image: image
     memory: memory + " GB"
     cpu: cpu
   }

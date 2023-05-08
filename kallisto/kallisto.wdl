@@ -15,6 +15,7 @@ task Kallisto {
 
     String userString = "-b 10"
 
+    String image
     Float memory = 12
     Int cpu = 4
   }
@@ -40,8 +41,7 @@ task Kallisto {
 
   runtime {
     singularity: true
-    # TODO: This image is for a newer version of kallisto. It should be 0.45.0. Need to downgrade before production.
-    image: '/mnt/isilon/dgd_public/clin-air/v2.0.0/singularity_containers/kallisto_0.46.1.sif'
+    image: image
     memory: memory + " GB"
     cpu: cpu
   }

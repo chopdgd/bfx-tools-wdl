@@ -17,6 +17,7 @@ task STARFusionSamToolsSortIndex {
 
     String userString = "--examine_coding_effect"
 
+    String image
     Float memory = 48
     Int cpu = 12
   }
@@ -55,7 +56,7 @@ task STARFusionSamToolsSortIndex {
 
   runtime {
     singularity: true
-    image: '/mnt/isilon/dgd_public/clin-air/v2.0.0/singularity_containers/star-fusion.v1.9.0.simg'
+    image: image
     memory: memory + " GB"
     cpu: cpu
   }
