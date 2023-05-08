@@ -24,7 +24,6 @@ task awk {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -51,7 +50,6 @@ task wget {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -76,7 +74,6 @@ task mkdir {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -102,7 +99,6 @@ task mv {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -128,7 +124,6 @@ task cp {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -154,7 +149,6 @@ task rsync {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -180,7 +174,6 @@ task md5sum {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -207,7 +200,6 @@ task Install {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -233,7 +225,6 @@ task UnZip {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -270,7 +261,6 @@ task BgZip {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -307,7 +297,6 @@ task Tabix {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -353,7 +342,6 @@ task CompressAndIndex {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -382,7 +370,6 @@ task cut {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -409,7 +396,6 @@ task sort {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -437,7 +423,6 @@ task cat {
 	}
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -463,7 +448,6 @@ task sed {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -489,7 +473,6 @@ task tar {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -515,7 +498,6 @@ task grep {
 	}
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -541,7 +523,6 @@ task zgrep {
 	}
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -567,7 +548,6 @@ task echo {
 	}
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
