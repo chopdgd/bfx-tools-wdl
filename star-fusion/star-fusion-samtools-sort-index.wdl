@@ -25,7 +25,7 @@ task STARFusionSamToolsSortIndex {
   command {
     set -Eeuxo pipefail;
 
-    STAR-Fusion \
+    /usr/local/src/STAR-Fusion/STAR-Fusion \
       --genome_lib_dir ~{reference_directory} \
       ~{userString} \
       --left_fq ~{fastq_1} \
