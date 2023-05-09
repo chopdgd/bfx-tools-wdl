@@ -39,6 +39,8 @@ task RSEMExpr {
   }
 
   runtime {
+    singularity: true
+    image: image
     memory: memory + " GB"
     cpu: cpu
   }
