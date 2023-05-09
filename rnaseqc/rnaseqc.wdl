@@ -16,7 +16,7 @@ task RNASeQC {
 
     String userString = "--coverage"
 
-    String image
+    File image
     Float memory = 12
     Int cpu = 1
   }

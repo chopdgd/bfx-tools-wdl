@@ -16,7 +16,7 @@ task Arriba {
 
     String userString = "-T -P"
 
-    String image
+    File image
     Float memory = 12
     Int cpu = 2
 

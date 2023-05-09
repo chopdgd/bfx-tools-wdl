@@ -14,7 +14,7 @@ task Samtools {
     String command
     String ? userString
 
-    String image
+    File image
     Float memory = 12
     Int cpu = 1
   }

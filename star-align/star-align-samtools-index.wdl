@@ -37,7 +37,7 @@ task STARAlignSamToolsIndex {
 
     String ? userString
 
-    String image
+    File image
     Float memory = 48
     Int cpu = 12
   }

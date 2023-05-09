@@ -18,7 +18,7 @@ task Pizzly {
     Int align_score = 2
     Int insert_size = 400
 
-    String image
+    File image
     Float memory = 12
     Int cpu = 1
   }

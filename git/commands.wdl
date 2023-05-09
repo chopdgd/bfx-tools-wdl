@@ -12,17 +12,13 @@ task Clone {
     String branch = "develop"
     String ? userString
 
-    Array[String] modules = []
+    File image
     Float memory = 12
     Int cpu = 1
   }
 
   command {
     set -Eeuxo pipefail;
-
-    for MODULE in ~{sep=' ' modules}; do
-      module load $MODULE
-    done;
 
     ~{default="git" git} \
       clone ~{repo} \
@@ -38,6 +34,8 @@ task Clone {
   }
 
   runtime {
+    singularity: true
+    image: image
     memory: memory + " GB"
     cpu: cpu
   }

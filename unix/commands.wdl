@@ -62,6 +62,7 @@ task mkdir {
     String directory
     String ? userString
 
+    File image
     String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
@@ -75,7 +76,9 @@ task mkdir {
     String output_directory = "~{directory}"
   }
 
-  runtime {
+runtime {
+    singularity: true
+    image: image
     queue: queue
     memory: memory + " GB"
     cpu: cpu
@@ -140,6 +143,7 @@ task rsync {
     String target
     String ? userString
 
+    File image
     String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
@@ -154,6 +158,8 @@ task rsync {
   }
 
   runtime {
+    singularity: true
+    image: image
     queue: queue
     memory: memory + " GB"
     cpu: cpu
@@ -166,6 +172,7 @@ task md5sum {
     String md5sum_file
     String ? userString
 
+    File image
     String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
@@ -180,6 +187,8 @@ task md5sum {
   }
 
   runtime {
+    singularity: true
+    image: image
     queue: queue
     memory: memory + " GB"
     cpu: cpu
@@ -193,6 +202,7 @@ task Install {
     String target
     String ? userString
 
+    File image
     String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
@@ -207,6 +217,8 @@ task Install {
   }
 
   runtime {
+    singularity: true
+    image: image
     queue: queue
     memory: memory + " GB"
     cpu: cpu
@@ -475,6 +487,7 @@ task tar {
     String output_filename
     String userString = "-zcvf"
 
+    File image
     String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
@@ -489,6 +502,8 @@ task tar {
   }
 
   runtime {
+    singularity: true
+    image: image
     queue: queue
     memory: memory + " GB"
     cpu: cpu

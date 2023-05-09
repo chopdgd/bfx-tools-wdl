@@ -17,7 +17,7 @@ task STARFusionSamToolsSortIndex {
 
     String userString = "--examine_coding_effect"
 
-    String image
+    File image
     Float memory = 48
     Int cpu = 12
   }

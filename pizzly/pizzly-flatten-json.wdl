@@ -15,7 +15,7 @@ task PizzlyFlattenJSON {
 
     String ? userString
 
-    Array[String] modules = []
+    File image
     Float memory = 12
     Int cpu = 1
 
@@ -24,10 +24,6 @@ task PizzlyFlattenJSON {
 
   command {
     set -Eeuxo pipefail;
-
-    for MODULE in ~{sep=' ' modules}; do
-        module load $MODULE
-    done;
 
     ~{default="python" python} \
       ~{script} \
@@ -41,15 +37,16 @@ task PizzlyFlattenJSON {
   }
 
   runtime {
+    singularity: true
+    image: image
     memory: memory + " GB"
     cpu: cpu
   }
 
   parameter_meta {
-    python: "Python binary."
+    python: "Path to python binary within container"
     script: "Path to Pizzly dev's python script."
     pizzly_json: "Output from the pizzly.wdl task."
-    modules: "Modules to load when task is called; modules must be compatible with the platform the task runs on."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
   }
