@@ -10,7 +10,6 @@ task awk {
     Array[String] ? input_files
     String output_filename
 
-    String queue = "defq,dgdq"
     Float memory = 1
     Int cpu = 1
   }
@@ -34,7 +33,6 @@ task wget {
     String url
     String ? userString
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
   }
@@ -60,7 +58,6 @@ task mkdir {
     String directory
     String ? userString
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
   }
@@ -85,7 +82,6 @@ task mv {
     String target
     String ? userString
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
   }
@@ -110,7 +106,6 @@ task cp {
     String target
     String ? userString
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
   }
@@ -135,7 +130,6 @@ task rsync {
     String target
     String ? userString
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
   }
@@ -160,7 +154,6 @@ task md5sum {
     String md5sum_file
     String ? userString
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
   }
@@ -186,7 +179,6 @@ task Install {
     String target
     String ? userString
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
   }
@@ -211,7 +203,6 @@ task UnZip {
     String ? userString
     String output_filename = basename(input_file, ".gz")
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
   }
@@ -238,8 +229,6 @@ task BgZip {
     String output_filename = basename(input_file) + ".gz"
 
     Array[String] modules = []
-
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
   }
@@ -275,7 +264,6 @@ task Tabix {
 
     Array[String] modules = []
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
   }
@@ -315,7 +303,6 @@ task CompressAndIndex {
 
     Array[String] modules = []
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
   }
@@ -356,7 +343,6 @@ task cut {
     String ? delimiter
     String ? userString
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
   }
@@ -382,7 +368,6 @@ task sort {
 
     String ? userString
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
   }
@@ -409,7 +394,6 @@ task cat {
 		Array[String] ? input_files
 		String ? userString
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
 	}
@@ -434,7 +418,6 @@ task sed {
     String output_filename
     String command
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
   }
@@ -459,7 +442,6 @@ task tar {
     String output_filename
     String userString = "-zcvf"
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
   }
@@ -484,7 +466,6 @@ task grep {
     String output_filename
 		String ? userString
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
 	}
@@ -509,7 +490,6 @@ task zgrep {
     String output_filename
 		String ? userString
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
 	}
@@ -534,7 +514,6 @@ task echo {
     String output_filename
     String ? userString
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
 	}
