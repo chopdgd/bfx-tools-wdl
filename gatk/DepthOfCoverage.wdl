@@ -24,7 +24,7 @@ task DepthOfCoverage {
     Array[File] bam_idx_files
 
     Array[Int] summary_coverage_threshold = [15]
-    String userString = "-omitBaseOutput -omitLocusTable"
+    String userString = "-omit-depth-output-at-each-base -omit-locus-table"
 
     Array[String] modules = []
     Float memory = 12
@@ -43,17 +43,15 @@ task DepthOfCoverage {
       module load $MODULE
     done;
 
-    ~{default="java" java} \
-      -Xmx~{jvm_memory}g \
-      -jar ~{default="gatk" gatk} \
-      -T DepthOfCoverage \
+   ~{default="gatk" gatk} \
+      DepthOfCoverage \
       ~{userString} \
       -R ~{reference} \
       ~{"-geneList " + gene_list} \
-      ~{sep=" " prefix("-ct ", summary_coverage_threshold)} \
+      ~{sep=" " prefix("--summary-coverage-threshold ", summary_coverage_threshold)} \
       ~{sep=" " prefix("-I ", bam_files)} \
       ~{sep=" " intervalOptions} \
-      -o ~{output_base_filename};
+      -O ~{output_base_filename};
   }
 
   output {
