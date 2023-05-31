@@ -8,7 +8,8 @@ version 1.0
 
 task DetectCNVs {
   input {
-    String script  # NOTE: PennCNV needs to run in its own folder
+    String ? script = "/home/user/PennCNV/detect_cnv.pl"
+    String image
     String input_file
     File hmm_file
     File pfb_file
@@ -27,11 +28,7 @@ task DetectCNVs {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ~{sep=' ' modules}; do
-      module load $MODULE
-    done;
-
-    perl ~{script} \
+    ~{script} \
       -test \
       ~{input_file} \
       ~{sex_flag} \
@@ -49,10 +46,13 @@ task DetectCNVs {
   runtime {
     memory: memory + " GB"
     cpu: cpu
+    singularity: true
+    image: image
   }
 
   parameter_meta {
-    script: "Path to penncnv detect_cnv.pl script"
+    script: "Path to penncnv detect_cnv.pl script in Singularity image"
+    image: "Path to singularity image"
     input_file: "GenomeStudio SNP Array Data"
     hmm_file: "penncnv hmm file"
     pfb_file: "penncnv pfb file"
