@@ -11,9 +11,6 @@ version 1.0
 task STARFusionSamToolsSortIndex {
   input {
     String starfusion
-    String ? staralign_path
-    File ? samtools
-    File ? samtools_path
 
     File fastq_1
     File fastq_2
@@ -22,7 +19,6 @@ task STARFusionSamToolsSortIndex {
 
     String userString = "--examine_coding_effect"
 
-    Array[String] modules = []
     Float memory = 48
     Int cpu = 12
   }
@@ -30,27 +26,20 @@ task STARFusionSamToolsSortIndex {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ~{sep=' ' modules}; do
-        module load $MODULE
-    done;
-
-    PATH=~{staralign_path}:$PATH
-    PATH=~{samtools_path}:$PATH
-
-    ~{starfusion} \
+    /usr/local/src/STAR-Fusion/STAR-Fusion \
       --genome_lib_dir ~{reference_directory} \
       ~{userString} \
       --left_fq ~{fastq_1} \
       --right_fq ~{fastq_2} \
       --CPU ~{cpu};
 
-    ~{default="samtools" samtools} sort \
+    samtools sort \
       -@ ~{cpu} \
       -O bam \
       -o STAR-Fusion_outdir/Aligned.out.sorted.bam \
       STAR-Fusion_outdir/Aligned.out.bam;
 
-    ~{default="samtools" samtools} index \
+    samtools index \
       -@ ~{cpu} \
       STAR-Fusion_outdir/Aligned.out.sorted.bam \
       STAR-Fusion_outdir/Aligned.out.sorted.bam.bai;
@@ -69,13 +58,12 @@ task STARFusionSamToolsSortIndex {
   runtime {
     memory: memory + " GB"
     cpu: cpu
+    singularity: true
+    image: starfusion
   }
 
   parameter_meta {
-    starfusion: "Path to STAR-Fusion."
-    samtools: "Path to samtools binary."
-    staralign_path: "Path to STAR-Align directory, not binary."
-    samtools_path: "Path to samtools directory, not binary."
+    starfusion: "Path to STAR-Fusion image."
     reference_directory: "Fusion genome reference directory."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."

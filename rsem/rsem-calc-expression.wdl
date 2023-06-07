@@ -17,7 +17,6 @@ task RSEMExpr {
 
     String userString = "--paired-end --no-bam-output --no-qualities"
 
-    Array[String] modules = []
     Float memory = 24
     Int cpu = 12
   }
@@ -25,11 +24,7 @@ task RSEMExpr {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ~{sep=' ' modules}; do
-        module load $MODULE
-    done;
-
-    ~{rsem} \
+    rsem-calculate-expression \
       --num-threads ~{cpu} \
       ~{userString} \
       --forward-prob ~{forward_prob} \
@@ -44,17 +39,18 @@ task RSEMExpr {
   }
 
   runtime {
+    singularity: true
+    image: rsem
     memory: memory + " GB"
     cpu: cpu
   }
 
   parameter_meta {
-    rsem: "Path to rsem-calculate-expression."
+    rsem: "Path to rsem image."
     bam_file: "Aligned transcriptome BAM."
     reference_directory: "pre-built reference directory; built with rsem-prepare-reference."
     sample_id: "prefix for output files."
     forward_prob: "Probability of generating a read from the forward strand of a transcript."
-    modules: "Modules to load when task is called; modules must be compatible with the platform the task runs on."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
   }
