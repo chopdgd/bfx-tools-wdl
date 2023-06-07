@@ -20,7 +20,6 @@ task DetectCNVs {
     # Run time variables
     Float memory = 12
     Int cpu = 1
-    Array[String] modules = []
 
     String output_filename
   }
