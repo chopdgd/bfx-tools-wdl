@@ -17,6 +17,8 @@ task CreateVirtualenv {
     String python_binary = name + "/bin/python"
   }
 
+  String version_arg = if defined(version) then "--python=" + version else ""
+
   command {
     set -Eexo pipefail;
 
@@ -28,7 +30,7 @@ task CreateVirtualenv {
         module load $PYTHON_MODULE
     done;
 
-    virtualenv ~{if version then "--python" + version else ""} ~{name};
+    virtualenv ~{version_arg} ~{name};
 
     source ~{name}/bin/activate;
     ~{python_binary} -m pip install setuptools==57.5.0
