@@ -5,7 +5,7 @@ version 1.0
 
 task CreateVirtualenv {
   input {
-    String version = 'python3.9'
+    String ? version
     String name = 'pyenv'
     File requirements
     Array[String] python_modules = ['python39']
@@ -28,11 +28,7 @@ task CreateVirtualenv {
         module load $PYTHON_MODULE
     done;
 
-    virtualenv --python=~{version} ~{name};
-
-    for PYTHON_MODULE in ~{sep=' ' python_modules}; do
-        module unload $PYTHON_MODULE
-    done;
+    virtualenv ~{if version then "--python"version else ""} ~{name};
 
     source ~{name}/bin/activate;
     ~{python_binary} -m pip install setuptools==57.5.0
