@@ -28,7 +28,7 @@ task CreateVirtualenv {
         module load $PYTHON_MODULE
     done;
 
-    virtualenv ~{if version then "--python"version else ""} ~{name};
+    virtualenv ~{if version then "--python" + version else ""} ~{name};
 
     source ~{name}/bin/activate;
     ~{python_binary} -m pip install setuptools==57.5.0
