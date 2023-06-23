@@ -10,7 +10,6 @@ task awk {
     Array[String] ? input_files
     String output_filename
 
-    String queue = "defq,dgdq"
     Float memory = 1
     Int cpu = 1
   }
@@ -24,7 +23,6 @@ task awk {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -35,7 +33,6 @@ task wget {
     String url
     String ? userString
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
   }
@@ -51,7 +48,6 @@ task wget {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -62,7 +58,6 @@ task mkdir {
     String directory
     String ? userString
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
   }
@@ -76,7 +71,6 @@ task mkdir {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -88,7 +82,6 @@ task mv {
     String target
     String ? userString
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
   }
@@ -102,7 +95,6 @@ task mv {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -114,7 +106,6 @@ task cp {
     String target
     String ? userString
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
   }
@@ -128,7 +119,6 @@ task cp {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -140,7 +130,6 @@ task rsync {
     String target
     String ? userString
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
   }
@@ -154,7 +143,6 @@ task rsync {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -166,7 +154,6 @@ task md5sum {
     String md5sum_file
     String ? userString
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
   }
@@ -180,7 +167,6 @@ task md5sum {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -193,7 +179,6 @@ task Install {
     String target
     String ? userString
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
   }
@@ -207,7 +192,6 @@ task Install {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -219,7 +203,6 @@ task UnZip {
     String ? userString
     String output_filename = basename(input_file, ".gz")
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
   }
@@ -233,7 +216,6 @@ task UnZip {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -247,8 +229,6 @@ task BgZip {
     String output_filename = basename(input_file) + ".gz"
 
     Array[String] modules = []
-
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
   }
@@ -270,7 +250,6 @@ task BgZip {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -285,7 +264,6 @@ task Tabix {
 
     Array[String] modules = []
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
   }
@@ -307,7 +285,6 @@ task Tabix {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -326,7 +303,6 @@ task CompressAndIndex {
 
     Array[String] modules = []
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
   }
@@ -353,7 +329,6 @@ task CompressAndIndex {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -368,7 +343,6 @@ task cut {
     String ? delimiter
     String ? userString
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
   }
@@ -382,7 +356,6 @@ task cut {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -395,7 +368,6 @@ task sort {
 
     String ? userString
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
   }
@@ -409,7 +381,6 @@ task sort {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -423,7 +394,6 @@ task cat {
 		Array[String] ? input_files
 		String ? userString
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
 	}
@@ -437,7 +407,6 @@ task cat {
 	}
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -449,7 +418,6 @@ task sed {
     String output_filename
     String command
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
   }
@@ -463,7 +431,6 @@ task sed {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -475,7 +442,6 @@ task tar {
     String output_filename
     String userString = "-zcvf"
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
   }
@@ -489,7 +455,6 @@ task tar {
   }
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -501,7 +466,6 @@ task grep {
     String output_filename
 		String ? userString
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
 	}
@@ -515,7 +479,6 @@ task grep {
 	}
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -527,7 +490,6 @@ task zgrep {
     String output_filename
 		String ? userString
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
 	}
@@ -541,7 +503,6 @@ task zgrep {
 	}
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }
@@ -553,7 +514,6 @@ task echo {
     String output_filename
     String ? userString
 
-    String queue = "defq,dgdq"
     Float memory = 12
     Int cpu = 1
 	}
@@ -567,7 +527,6 @@ task echo {
 	}
 
   runtime {
-    queue: queue
     memory: memory + " GB"
     cpu: cpu
   }

@@ -45,18 +45,15 @@ task GenotypeGVCFs {
       module load $MODULE
     done;
 
-    ~{default="java" java} \
-      -Xmx~{jvm_memory}g \
-      -jar ~{default="gatk" gatk} \
-      -T GenotypeGVCFs \
+    ~{default="gatk" gatk} \
+      GenotypeGVCFs \
       ~{userString} \
-      -stand_call_conf ~{stand_call_conf} \
+      -stand-call-conf ~{stand_call_conf} \
       ~{"--dbsnp " + dbsnp} \
-      -nt ~{cpu} \
       -R ~{reference} \
       ~{sep=" " prefix("--variant ", gvcf_files)} \
       ~{sep=" " intervalOptions} \
-      -o ~{vcf_filename};
+      -O ~{vcf_filename};
   }
 
   output {

@@ -30,13 +30,9 @@ task Pindel2Vcf {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ~{sep=' ' modules}; do
-        module load $MODULE
-    done;
-
     cp ~{input_file} ~{temp_filename};
 
-    ~{default="pindel2vcf" pindel2vcf} \
+    /opt/pindel-0.2.5b8/pindel2vcf \
       ~{userString} \
       -r ~{reference} \
       -R ~{reference_version} \
@@ -51,6 +47,8 @@ task Pindel2Vcf {
   runtime {
     memory: memory + " GB"
     cpu: cpu
+    singularity: true
+    image: pindel2vcf
   }
 
   parameter_meta {

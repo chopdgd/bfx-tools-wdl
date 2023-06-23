@@ -8,24 +8,20 @@ version 1.0
 
 task ScanRegion {
   input {
-    String script  # NOTE: PennCNV needs to run in its own folder
+    String script = "/home/user/PennCNV/scan_region.pl"
+    String image
     String input_file
     File refgene_file
 
     # Run time variables
     Float memory = 12
     Int cpu = 1
-    Array[String] modules = []
   }
 
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ~{sep=' ' modules}; do
-      module load $MODULE
-    done;
-
-    perl ~{script} \
+    ~{script} \
       ~{input_file} \
       ~{refgene_file} \
       -refgene \
@@ -39,10 +35,13 @@ task ScanRegion {
   runtime {
     memory: memory + " GB"
     cpu: cpu
+    singularity: true
+    image: image
   }
 
   parameter_meta {
-    script: "Path to penncnv scan_region.pl script"
+    script: "Path to penncnv scan_region.pl script in Singularity image"
+    image: "Path to Singularity image"
     input_file: "GenomeStudio SNP Array Data"
     refgene_file: "UCSC refGene.txt"
     memory: "GB of RAM to use at runtime."

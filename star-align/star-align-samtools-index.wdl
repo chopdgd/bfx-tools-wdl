@@ -10,8 +10,7 @@ version 1.0
 
 task STARAlignSamToolsIndex {
   input {
-    File ? staralign
-    File ? samtools
+    File staralign
     String sample_id
 
     File fastq_1
@@ -39,7 +38,6 @@ task STARAlignSamToolsIndex {
 
     String ? userString
 
-    Array[String] modules = []
     Float memory = 48
     Int cpu = 12
   }
@@ -47,11 +45,7 @@ task STARAlignSamToolsIndex {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ~{sep=' ' modules}; do
-        module load $MODULE
-    done;
-
-    ~{default="STAR" staralign} \
+    STAR \
       --runMode alignReads \
       --genomeDir ~{reference_directory} \
       --readFilesIn ~{fastq_1} ~{fastq_2} \
@@ -80,7 +74,7 @@ task STARAlignSamToolsIndex {
       ~{userString} \
       --twopassMode Basic;
 
-    ~{default="samtools" samtools} index \
+    samtools index \
       -@ ~{cpu} \
       Aligned.sortedByCoord.out.bam \
       Aligned.sortedByCoord.out.bam.bai;
@@ -97,12 +91,14 @@ task STARAlignSamToolsIndex {
   }
 
   runtime {
+    singularity: true
+    image: staralign
     memory: memory + " GB"
     cpu: cpu
   }
 
   parameter_meta {
-    staralign: "Path to STAR binary."
+    staralign: "Path to STAR image."
     sample_id: "Prefix for output files."
     reference_directory: "Directory where the STAR reference index was created using STAR --genomeGenerate."
     readFilesCommand: "Shell command to read the fastqs in, e.g. zcat if fastqs are compressed."

@@ -47,17 +47,14 @@ task HaplotypeCallerERC {
       module load $MODULE
     done;
 
-    ~{default="java" java} \
-      -Xmx~{jvm_memory}g \
-      -jar ~{default="gatk" gatk} \
-      -T HaplotypeCaller -ERC GVCF \
+    ~{default="gatk" gatk} \
+      HaplotypeCaller -ERC GVCF \
       ~{userString} \
-      -nct ~{cpu} \
       ~{"--dbsnp " + dbsnp} \
       -R ~{reference} \
       -I ~{bam_file} \
       ~{sep=" " intervalOptions} \
-      -o ~{gvcf_filename};
+      -O ~{gvcf_filename};
   }
 
   output {
