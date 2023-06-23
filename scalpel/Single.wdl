@@ -34,11 +34,7 @@ task Single {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ~{sep=' ' modules}; do
-        module load $MODULE
-    done;
-
-    ~{default="scalpel" scalpel} --single \
+    /opt/scalpel-0.5.4/scalpel-discovery --single \
       --ref ~{reference} \
       --bam ~{bam_file} \
       --bed ~{intervals} \
@@ -54,6 +50,8 @@ task Single {
   runtime {
     memory: memory + " GB"
     cpu: cpu
+    singularity: true
+    image: scalpel
   }
 
   parameter_meta {

@@ -31,13 +31,9 @@ task Pindel {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ~{sep=' ' modules}; do
-        module load $MODULE
-    done;
-
     echo -e ~{bam_file}"\t"~{sliding_window}"\t"~{sample_id} > config;
 
-    ~{default="pindel" pindel} \
+    pindel \
       ~{userString} \
       ~{"-j " + intervals} \
       -f ~{reference} \
@@ -60,6 +56,8 @@ task Pindel {
   runtime {
     memory: memory + " GB"
     cpu: cpu
+    singularity: true
+    image: pindel
   }
 
   parameter_meta {

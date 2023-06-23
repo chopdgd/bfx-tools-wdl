@@ -8,14 +8,14 @@ version 1.0
 
 task VisualizeCNV {
   input {
-    String script  # NOTE: PennCNV needs to run in its own folder
+    String script = "/home/user/PennCNV/visualize_cnv.pl"
+    String image
     String input_file
     File idmap_file
 
     # Run time variables
     Float memory = 12
     Int cpu = 1
-    Array[String] modules = []
 
     String output_filename = "project_cnvs.xml"
   }
@@ -23,11 +23,7 @@ task VisualizeCNV {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ~{sep=' ' modules}; do
-      module load $MODULE
-    done;
-
-    perl ~{script} \
+    ~{script} \
       -format beadstudio \
       -idmap \
       ~{idmap_file} \
@@ -43,10 +39,13 @@ task VisualizeCNV {
   runtime {
     memory: memory + " GB"
     cpu: cpu
+    singularity: true
+    image: image
   }
 
   parameter_meta {
-    script: "PAth to penncnv visualize_cnv.pl script"
+    script: "Path to penncnv visualize_cnv.pl script in Singularity image"
+    image: "Path to Singularity image"
     input_file: "PennCNV raw CNV file"
     idmap_file: "a file containing file name (in PennCNV call) and sample id (in BeadStudio) mapping"
     output_filename: "Output filename"

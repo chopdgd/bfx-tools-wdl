@@ -8,14 +8,14 @@ version 1.0
 
 task MergeCNV {
   input {
-    String script  # NOTE: PennCNV needs to run in its own folder
+    String script = "/home/user/PennCNV/clean_cnv.pl"
+    String image
     String input_file
     File signal_file
 
     # Run time variables
     Float memory = 12
     Int cpu = 1
-    Array[String] modules = []
 
     String output_filename = "merged_cnv_calls.tsv"
   }
@@ -23,11 +23,7 @@ task MergeCNV {
   command {
     set -Eeuxo pipefail;
 
-    for MODULE in ~{sep=' ' modules}; do
-      module load $MODULE
-    done;
-
-    perl ~{script} \
+    ~{script} \
       combineseg \
       ~{input_file} \
       --signalfile \
@@ -43,10 +39,13 @@ task MergeCNV {
   runtime {
     memory: memory + " GB"
     cpu: cpu
+    singularity: true
+    image: image
   }
 
   parameter_meta {
-    script: "Path to penncnv clean_cnv.pl script"
+    script: "Path to penncnv clean_cnv.pl script in Singularity image"
+    image: "Path to Singularity image"
     input_file: "PennCNV raw CNV file"
     signal_file: "Genome Studio SNP Array file"
     output_filename: "Output filename"
