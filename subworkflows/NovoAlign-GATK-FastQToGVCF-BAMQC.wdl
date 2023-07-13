@@ -97,6 +97,7 @@ workflow FastQToGVCFAndBAMQC {
     input:
       java=java,
       gatk=gatk,
+      modules=["Java/1.8.0_311"],
       reference=reference,
       reference_idx=reference_idx,
       reference_dict=reference_dict,
