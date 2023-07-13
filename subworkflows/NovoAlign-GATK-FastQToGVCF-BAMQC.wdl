@@ -16,7 +16,7 @@ import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.6.0/utilities
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.6.0/novoalign/NovoAlignAndSamtoolsSort.wdl" as NovoAlign
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.1/picard/MarkDuplicates.wdl" as Picard
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.1/gatk/HaplotypeCallerERC.wdl" as GATK
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.1/subworkflows/BAM-Quality-Control.wdl" as BAMQualityControl
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.9.0/subworkflows/BAM-Quality-Control.wdl" as BAMQualityControl
 
 workflow FastQToGVCFAndBAMQC {
   input {
@@ -33,6 +33,7 @@ workflow FastQToGVCFAndBAMQC {
     File ? samtools
     File ? picard
     File ? gatk
+    File ? gatk4
     File ? verifybamid
 
     File reference_novoindex
@@ -110,7 +111,7 @@ workflow FastQToGVCFAndBAMQC {
   call BAMQualityControl.BAMQualityControl {
     input:
       java=java,
-      gatk=gatk,
+      gatk=gatk4,
       picard=picard,
       verifybamid=verifybamid,
       sample_id=sample_id,
