@@ -11,7 +11,7 @@ version 1.0
 #  * VerifyBamId
 # -------------------------------------------------------------------------------------------------
 
-import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.6.2/utilities/CombineFastQ.wdl" as CombineFastQ
+import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/rhel9-updates/utilities/CombineFastQ.wdl" as CombineFastQ
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.6.0/utilities/novoalign-select-userstring.wdl" as SelectPlatform
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.6.0/novoalign/NovoAlignAndSamtoolsSort.wdl" as NovoAlign
 import "https://raw.githubusercontent.com/chopdgd/bfx-tools-wdl/v1.4.1/picard/MarkDuplicates.wdl" as Picard

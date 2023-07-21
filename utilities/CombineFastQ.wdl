@@ -3,8 +3,8 @@ version 1.0
 
 task CombineFastQ {
   input {
-    File fastq
-    Array[File] additional_fastq
+    String fastq
+    Array[String] additional_fastq
 
     Array[String] modules = []
     Float memory = 12
