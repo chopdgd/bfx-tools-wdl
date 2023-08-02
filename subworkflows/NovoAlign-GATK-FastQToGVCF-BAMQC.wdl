@@ -178,5 +178,6 @@ workflow FastQToGVCFAndBAMQC {
     author: "Michael A. Gonzalez"
     email: "GonzalezMA@email.chop.edu"
     version: "0.1.0"
+    allowNestedInputs: true
   }
 }
