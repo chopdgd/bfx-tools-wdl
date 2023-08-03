@@ -161,4 +161,8 @@ workflow Annotation {
     File vcf_file = CompressAndIndex.output_file
     File vcf_idx_file = CompressAndIndex.output_idx_file
   }
+
+  meta {
+    allowNestedInputs: true
+  }
 }
