@@ -24,7 +24,6 @@ workflow BAMToGVCFAndBAMQC {
     File ? gatk
     File ? verifybamid
 
-    File reference_novoindex
     File reference
     File reference_idx
     File reference_dict
@@ -117,7 +116,6 @@ workflow BAMToGVCFAndBAMQC {
     gatk: "GATK jar file."
     verifybamid: "VerifyBamId executable."
     reference: "Reference sequence fasta file."
-    reference_novoindex: "Reference sequence file index with NovoIndex."
     reference_idx: "Reference sequence index (.fai)."
     reference_dict: "Reference sequence dict (.dict)."
     dbsnp: "dbSNP VCF file."
