@@ -111,7 +111,6 @@ workflow BAMToGVCFAndBAMQC {
   parameter_meta {
     sample_id: "Sample ID to use in SAM TAG."
     java: "Path to Java."
-    samtools: "Samtools executable."
     picard: "Picard jar file."
     gatk: "GATK jar file."
     verifybamid: "VerifyBamId executable."
