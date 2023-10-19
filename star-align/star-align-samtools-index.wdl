@@ -88,6 +88,7 @@ task STARAlignSamToolsIndex {
     File bam_file = "~{sample_id}" + '.star-align.sorted.bam'
     File bam_idx_file = "~{sample_id}" + '.star-align.sorted.bam.bai'
     File transcriptome_bam_file = "~{sample_id}" + '.star-align.transcriptome.bam'
+    File SJ_tab_file = "SJ.out.tab"
   }
 
   runtime {
