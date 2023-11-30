@@ -56,7 +56,6 @@ task STARFusionSamToolsSortIndex {
     File SJ_tab_file = 'STAR-Fusion_outdir/' + "SJ.out.tab"
     File chimJ_file = 'STAR-Fusion_outdir/' + "Chimeric.out.junction"
   }
-  }
 
   runtime {
     memory: memory + " GB"
