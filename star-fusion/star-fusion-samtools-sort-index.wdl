@@ -54,6 +54,8 @@ task STARFusionSamToolsSortIndex {
     File fusion_coding_effect = 'STAR-Fusion_outdir/star-fusion.fusion_predictions.abridged.coding_effect.tsv'
     File fusion_preliminary = 'STAR-Fusion_outdir/star-fusion.preliminary/star-fusion.fusion_candidates.preliminary'
     File SJ_tab_file = 'STAR-Fusion_outdir/' + "SJ.out.tab"
+    File chimJ_file = 'STAR-Fusion_outdir/' + "Chimeric.out.junction"
+  }
   }
 
   runtime {
