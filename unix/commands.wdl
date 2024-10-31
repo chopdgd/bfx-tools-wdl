@@ -260,7 +260,8 @@ task Tabix {
     File ? tabix
     File input_file
     String userString = "-p vcf"
-    String output_filename = input_file + ".tbi"
+    String intermediate_filename = basename(input_file)
+    String output_filename = basename(input_file) + ".tbi"
 
     Array[String] modules = []
 
@@ -275,9 +276,11 @@ task Tabix {
       module load $MODULE
     done;
 
+    cp ~{input_file} ~{intermediate_filename}
     ~{default="tabix" tabix} \
       ~{userString} \
-      ~{input_file};
+      ~{intermediate_filename};
+
   }
 
   output {
