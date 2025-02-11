@@ -12,6 +12,7 @@ task Samtools {
     File ? reference
 
     File input_file
+    String output_filename
     String command
     String ? userString
 
@@ -30,11 +31,12 @@ task Samtools {
     ~{default="samtools" samtools} ~{command} \
       ~{"--reference " + reference} \
       ~{userString} \
+      ~{"--output " + output_filename} \
       ~{input_file};
   }
 
   output {
-    File output_file = stdout()
+    File output_file = output_filename
   }
 
   runtime {
