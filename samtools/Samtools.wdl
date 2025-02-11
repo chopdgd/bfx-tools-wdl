@@ -29,7 +29,6 @@ task Samtools {
 
     ~{default="samtools" samtools} ~{command} \
       ~{"--reference " + reference} \
-      ~{"-@ " + cpu} \
       ~{userString} \
       ~{input_file};
   }
