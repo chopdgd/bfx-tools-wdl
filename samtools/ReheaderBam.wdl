@@ -15,9 +15,9 @@ task Reheader {
     String reheaderRegex = "s/^(@SQ.*)(\\tSN:)chr/\\$1\\$2/"
     String ? reheaderUserString
     String ? reindexUserString
-    Boolean isCram = false
-    String output_filename = "reheader_output." + if isCram then "cram" else "bam"
-    String output_idx_filename = output_filename + if isCram then ".crai" else ".bai"
+    # Boolean isCram = false
+    String output_filename = "reheader_output.bam" #select_first(["reheader_output." + if isCram then "cram" else "bam", "reheader_output.bam"])
+    String output_idx_filename = "reheader_output.bam.bai" #output_filename + if isCram then ".crai" else ".bai"
 
     Array[String] modules = []
     Float memory = 12
