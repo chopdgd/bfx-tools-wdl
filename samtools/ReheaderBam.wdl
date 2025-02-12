@@ -12,7 +12,6 @@ task Reheader {
     File ? reference
 
     File input_file
-    String output_filename
     String reheaderRegex = "s/^(@SQ.*)(\\tSN:)chr/\\$1\\$2/"
     String ? reheaderUserString
     String ? reindexUserString
