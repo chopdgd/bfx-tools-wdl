@@ -13,7 +13,7 @@ task Reheader {
 
     File input_file
     String output_filename
-    String reheaderRegex = "hello" #"s/^(@SQ.*)(\\tSN:)chr/\\$1\\$2/\"
+    String reheaderRegex = "s/^(@SQ.*)(\\tSN:)chr/\\$1\\$2/"
     String ? reheaderUserString
     String ? reindexUserString
     Boolean isCram = false
@@ -34,7 +34,7 @@ task Reheader {
 
     ~{default="samtools" samtools} reheader \
       ~{"--reference " + reference} \
-      ~{-c \'perl -pe \"reheaderRegex\"\'} \
+      ${"-c \'perl -pe \"" + reheaderRegex + "\"\'"} \
       ~{reheaderUserString} \
       ${input_file} > ${output_filename};
 
