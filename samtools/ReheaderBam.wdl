@@ -14,6 +14,7 @@ task Reheader {
     File input_file
     String output_filename
     String command
+    String reheaderRegex = "s/^(@SQ.*)(\\tSN:)chr/\\$1\\$2/\"
     String ? reheaderUserString
     String ? reindexUserString
     Boolean isCram = false
@@ -34,6 +35,7 @@ task Reheader {
 
     ~{default="samtools" samtools} reheader \
       ~{"--reference " + reference} \
+      ~{-c 'perl -pe \"reheaderRegex\"'} \
       ~{reheaderUserString} \
       ${input_file} > ${output_filename};
 
@@ -58,7 +60,6 @@ task Reheader {
     reference: "Reference sequence file."
     input_file: "Input file to process."
     command: "Samtools tool to use (i.e. index, sort, etc)."
-    userString: "An optional parameter which allows the user to specify additions to the command line at run time."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
   }
