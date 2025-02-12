@@ -13,7 +13,6 @@ task Reheader {
 
     File input_file
     String output_filename
-    String command
     String reheaderRegex = "s/^(@SQ.*)(\\tSN:)chr/\\$1\\$2/\"
     String ? reheaderUserString
     String ? reindexUserString
@@ -59,7 +58,6 @@ task Reheader {
     samtools: "Samtools executable."
     reference: "Reference sequence file."
     input_file: "Input file to process."
-    command: "Samtools tool to use (i.e. index, sort, etc)."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
   }
