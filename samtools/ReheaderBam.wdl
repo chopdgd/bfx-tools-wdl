@@ -34,7 +34,7 @@ task Reheader {
 
     ~{default="samtools" samtools} reheader \
       ~{"--reference " + reference} \
-      ~{-c 'perl -pe \"reheaderRegex\"'} \
+      ~{-c \'perl -pe \"reheaderRegex\"\'} \
       ~{reheaderUserString} \
       ${input_file} > ${output_filename};
 
