@@ -6,15 +6,18 @@ version 1.0
 # -------------------------------------------------------------------------------------------------
 
 
-task Samtools {
+task Reheader {
   input {
     File ? samtools
     File ? reference
 
     File input_file
-    String output_filename
-    String command
-    String ? userString
+    String reheaderRegex = "s/^(@SQ.*)(\\tSN:)chr/\\$1\\$2/"
+    String ? reheaderUserString
+    String ? reindexUserString
+    # Boolean isCram = false
+    String output_filename = "reheader_output.bam" #select_first(["reheader_output." + if isCram then "cram" else "bam", "reheader_output.bam"])
+    String output_idx_filename = "reheader_output.bam.bai" #output_filename + if isCram then ".crai" else ".bai"
 
     Array[String] modules = []
     Float memory = 12
@@ -28,15 +31,21 @@ task Samtools {
         module load $MODULE
     done;
 
-    ~{default="samtools" samtools} ~{command} \
+    ~{default="samtools" samtools} reheader \
       ~{"--reference " + reference} \
-      ~{userString} \
-      ~{"--output " + output_filename} \
-      ~{input_file};
+      ${"-c \'perl -pe \"" + reheaderRegex + "\"\'"} \
+      ~{reheaderUserString} \
+      ${input_file} > ${output_filename};
+
+    ~{default="samtools" samtools} index \
+      ~{"--reference " + reference} \
+      ~{reindexUserString} \
+      ${output_filename} > ${output_idx_filename};
   }
 
   output {
     File output_file = output_filename
+    File output_idx_file = output_idx_filename
   }
 
   runtime {
@@ -48,8 +57,6 @@ task Samtools {
     samtools: "Samtools executable."
     reference: "Reference sequence file."
     input_file: "Input file to process."
-    command: "Samtools tool to use (i.e. index, sort, etc)."
-    userString: "An optional parameter which allows the user to specify additions to the command line at run time."
     memory: "GB of RAM to use at runtime."
     cpu: "Number of CPUs to use at runtime."
   }
